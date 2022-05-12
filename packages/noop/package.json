@@ -1,0 +1,32 @@
+{
+  "name": "@ject/noop",
+  "version": "0.0.0",
+  "description": "A noop function: ()=>{}",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "pub": "npm publish",
+    "test": "node -r @babel/register test/test.index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoyeungw/ject.git"
+  },
+  "keywords": [
+    "ject",
+    "function",
+    "noop"
+  ],
+  "author": "Hoyeung Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoyeungw/ject"
+  },
+  "homepage": "https://github.com/hoyeungw/ject#readme"
+}
