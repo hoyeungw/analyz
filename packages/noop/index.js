@@ -1,1 +1,1 @@
-export { noop } from './src/noop'
+export const noop = x => x

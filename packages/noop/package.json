@@ -1,12 +1,12 @@
 {
-  "name": "@ject/noop",
+  "name": "@analyz/noop",
   "version": "0.0.0",
   "description": "A noop function: ()=>{}",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "files": [
-    "dist"
-  ],
+  "main": "./dist/index.cjs",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -16,17 +16,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hoyeungw/ject.git"
+    "url": "git+https://github.com/hoyeungw/analyz.git"
   },
   "keywords": [
-    "ject",
+    "analyz",
     "function",
     "noop"
   ],
   "author": "Hoyeung Wong",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hoyeungw/ject"
+    "url": "https://github.com/hoyeungw/analyz"
   },
-  "homepage": "https://github.com/hoyeungw/ject#readme"
+  "homepage": "https://github.com/hoyeungw/analyz#readme"
 }
