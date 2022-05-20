@@ -2,28 +2,28 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*/*"
   ],
   "scripts": {
     "upint": "yarn upgrade-interactive",
     "pub": "lerna publish --force-publish",
-    "build": "lerna exec --parallel --stream -- rollup -c ../../rollup.config.mjs",
-    "watch": "lerna exec --parallel -- rollup -c ../../rollup.config.mjs -w",
-    "build-spec": "lerna exec --scope=@analys/data-gram -- rollup -c ../../rollup.config.mjs"
+    "build": "lerna exec --parallel --stream -- rollup -c ../../../rollup.config.mjs",
+    "watch": "lerna exec --parallel -- rollup -c ../../../rollup.config.mjs -w",
+    "build-spec": "lerna exec --scope=@analys/data-gram -- rollup -c ../../../rollup.config.mjs"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.12",
+    "@babel/core": "^7.18.0",
     "@babel/plugin-proposal-pipeline-operator": "^7.17.12",
-    "@babel/preset-env": "^7.17.12",
+    "@babel/preset-env": "^7.18.0",
     "@babel/register": "^7.17.7",
-    "@babel/runtime": "^7.17.9",
+    "@babel/runtime": "^7.18.0",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@spare/logger": "^0.14.1",
     "@spare/xr": "^0.14.1",
     "lerna": "^4.0.0",
-    "rollup": "^2.73.0",
+    "rollup": "^2.74.1",
     "rollup-plugin-fileinfo": "^0.3.1"
   }
 }
