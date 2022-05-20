@@ -1,0 +1,38 @@
+{
+  "name": "@analyz/updatable",
+  "version": "0.0.0",
+  "description": "Updatable class as infrastructure for table and crostab",
+  "main": "dist/index.cjs",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "pub": "npm publish",
+    "test": "node -r @babel/register test/test.index.js"
+  },
+  "dependencies": {
+    "@vect/columns-mapper": "^0.7.3",
+    "@vect/matrix-mapper": "^0.7.3",
+    "@vect/vector-mapper": "^0.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoyeungw/analyz.git"
+  },
+  "keywords": [
+    "analyz",
+    "analytics",
+    "table",
+    "tabular"
+  ],
+  "author": "Hoyeung Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoyeungw/analyz"
+  },
+  "homepage": "https://github.com/hoyeungw/analyz#readme"
+}
