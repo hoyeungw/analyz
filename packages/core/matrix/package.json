@@ -2,7 +2,7 @@
   "name": "@analyz/matrix",
   "version": "0.0.0",
   "description": "A matrix",
-  "main": "./dist/index.cjs",
+  "main": "dist/index.cjs",
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.cjs"
@@ -15,9 +15,9 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@vect/columns-mapper": "^0.7.1",
-    "@vect/matrix-mapper": "^0.7.1",
-    "@vect/vector-mapper": "^0.7.1"
+    "@vect/columns-mapper": "^0.7.3",
+    "@vect/matrix-mapper": "^0.7.3",
+    "@vect/vector-mapper": "^0.7.3"
   },
   "repository": {
     "type": "git",

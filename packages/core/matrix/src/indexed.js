@@ -9,3 +9,11 @@ export {
 export {
   indexed as rows, indexedTo as rowsTo
 } from '@vect/vector-mapper'
+
+
+
+
+
+
+
+

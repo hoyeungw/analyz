@@ -6,7 +6,27 @@ var matrixMapper = require('@vect/matrix-mapper');
 var columnsMapper = require('@vect/columns-mapper');
 var vectorMapper = require('@vect/vector-mapper');
 
+class ColumnsProxy {
+  static build(rows) {
+    return new Proxy(rows, {
+      get(rows, yi) {
+        return rows.map(row => row[yi]);
+      },
+
+      set(rows, yi, column) {
+        for (let i = 0, h = rows.length; i < h; i++) {
+          rows[i][yi] = column[i];
+        }
+      }
+
+    });
+  }
+
+}
+
 class Matrix extends Array {
+  #cols = null;
+
   constructor(size) {
     super(size);
   }
@@ -51,6 +71,14 @@ class Matrix extends Array {
 
     return col;
   }
+  /**
+   * @returns {Array}
+   */
+
+
+  get columns() {
+    return this.#cols ?? (this.#cols = ColumnsProxy.build(this));
+  }
 
   *rowOf(x) {
     yield* this[x];
@@ -60,23 +88,23 @@ class Matrix extends Array {
     for (let i = 0, h = this.length; i < h; i++) yield this[i][y];
   }
 
-  *rows(by, to) {
+  *rowsBy(by, to) {
     yield* vectorMapper.indexed(this, by, to);
   }
 
-  *columns(by, to) {
+  *columnsBy(by, to) {
     yield* columnsMapper.columns(this, by, to);
   }
 
-  *points(by, to) {
+  *pointsBy(by, to) {
     yield* matrixMapper.points(this, by, to);
   }
 
-  *entries(xy, by, to) {
+  *entriesBy(xy, by, to) {
     yield* matrixMapper.entries(this, xy, to);
   }
 
-  *triplets(xyz, by, to) {
+  *tripletsBy(xyz, by, to) {
     yield* matrixMapper.triplets(this, xyz, by, to);
   }
 

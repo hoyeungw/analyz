@@ -1,8 +1,13 @@
+import { ProxyFab }                                                                                     from './ProxyFab'
 import { columns, columnsTo, entries, entriesTo, points, pointsTo, rows, rowsTo, triplets, tripletsTo } from './indexed'
 
 
 export class Matrix extends Array {
-  constructor(size) { super(size) }
+  /** @type {Array} */ #cols
+  constructor(size) {
+    super(size)
+  }
+
   static of(...rows) { return new Matrix(rows?.length).collect(rows) }
   static from(rows) { return new Matrix(rows?.length).collect(rows) }
 
@@ -14,6 +19,10 @@ export class Matrix extends Array {
     for (let row of iter) this[lo++] = row
     return this
   }
+  get rows() { return this }
+  /** @returns {Array} */
+  get columns() { return this.#cols ?? (this.#cols = ProxyFab.columnsProxy(this)) }
+
   row(x) { return this[x] }
   column(y) {
     let h = this.length, col = Array(h)
@@ -21,8 +30,8 @@ export class Matrix extends Array {
     return col
   }
 
-  * rowOf(x) { yield* this[x] }
-  * columnOf(y) { for (let i = 0, h = this.length; i < h; i++) yield this[i][y] }
+  * rowIter(x) { yield* this[x] }
+  * columnIter(y) { for (let i = 0, h = this.length; i < h; i++) yield this[i][y] }
 
   * rowsBy(by, to) { yield* rows(this, by, to) }
   * columnsBy(by, to) { yield* columns(this, by, to) }
