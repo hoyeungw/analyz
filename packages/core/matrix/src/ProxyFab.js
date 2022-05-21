@@ -4,6 +4,7 @@ export class ProxyFab {
       get(rows, yi) { return rows.map(row => row[yi]) },
       set(rows, yi, column) {
         for (let i = 0, h = rows.length; i < h; i++) { rows[i][yi] = column[i] }
+        return true
       }
     })
   }

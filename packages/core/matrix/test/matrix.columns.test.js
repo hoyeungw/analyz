@@ -1,5 +1,5 @@
-import { logger } from '@spare/logger'
-import { Matrix } from '../src/Matrix'
+import { deco, decoMatrix, logger } from '@spare/logger'
+import { Matrix }                   from '../src/Matrix'
 
 const rows = [
   [ 1, 2, 3 ],
@@ -9,4 +9,6 @@ const rows = [
 
 const matrix = Matrix.from(rows)
 
-matrix.col[2] |> logger
+matrix.columns[2] |> deco |> logger
+matrix.columns[1] = [ 0, 0, 0 ]
+matrix |> decoMatrix |> logger
