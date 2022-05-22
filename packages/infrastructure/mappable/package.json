@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@vect/columns-mapper": "^0.7.3",
+    "@vect/matrix-init": "^0.7.3",
     "@vect/matrix-mapper": "^0.7.3",
     "@vect/vector-mapper": "^0.7.3"
   },
