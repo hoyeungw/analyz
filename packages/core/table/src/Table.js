@@ -6,3 +6,5 @@ export class Table {
     this.rows = rows
   }
 }
+
+

@@ -15,9 +15,9 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@vect/columns-mapper": "^0.7.3",
-    "@vect/matrix-mapper": "^0.7.3",
-    "@vect/vector-mapper": "^0.7.3"
+    "@analyz/mappable": "^0.0.0",
+    "@analyz/selectable": "^0.0.0",
+    "@analyz/updatable": "^0.0.0"
   },
   "repository": {
     "type": "git",

@@ -6,8 +6,8 @@ var matrixMapper = require('@vect/matrix-mapper');
 var columnsMapper = require('@vect/columns-mapper');
 var vectorMapper = require('@vect/vector-mapper');
 
-class ColumnsProxy {
-  static build(rows) {
+class ProxyFab {
+  static columnsProxy(rows) {
     return new Proxy(rows, {
       get(rows, yi) {
         return rows.map(row => row[yi]);
@@ -17,6 +17,8 @@ class ColumnsProxy {
         for (let i = 0, h = rows.length; i < h; i++) {
           rows[i][yi] = column[i];
         }
+
+        return true;
       }
 
     });
@@ -25,7 +27,8 @@ class ColumnsProxy {
 }
 
 class Matrix extends Array {
-  #cols = null;
+  /** @type {Array} */
+  #cols;
 
   constructor(size) {
     super(size);
@@ -59,6 +62,16 @@ class Matrix extends Array {
     return this;
   }
 
+  get rows() {
+    return this;
+  }
+  /** @returns {Array} */
+
+
+  get columns() {
+    return this.#cols ?? (this.#cols = ProxyFab.columnsProxy(this));
+  }
+
   row(x) {
     return this[x];
   }
@@ -71,20 +84,12 @@ class Matrix extends Array {
 
     return col;
   }
-  /**
-   * @returns {Array}
-   */
 
-
-  get columns() {
-    return this.#cols ?? (this.#cols = ColumnsProxy.build(this));
-  }
-
-  *rowOf(x) {
+  *rowIter(x) {
     yield* this[x];
   }
 
-  *columnOf(y) {
+  *columnIter(y) {
     for (let i = 0, h = this.length; i < h; i++) yield this[i][y];
   }
 

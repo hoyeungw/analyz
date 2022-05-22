@@ -14,11 +14,6 @@
     "pub": "npm publish",
     "test": "node -r @babel/register test/test.index.js"
   },
-  "dependencies": {
-    "@vect/columns-mapper": "^0.7.3",
-    "@vect/sparse-mapper": "^0.7.3",
-    "@vect/vector-mapper": "^0.7.3"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hoyeungw/analyz.git"
