@@ -1,28 +1,8 @@
+import { transpose } from '@vect/matrix-algebra';
 import { select } from '@vect/vector-select';
 import { zipper } from '@vect/vector-zipper';
+import { Labels } from '@analyz/mappable';
 import { select as select$1 } from '@vect/columns-select';
-import { transpose } from '@vect/matrix-algebra';
-
-class Labels extends Array {
-  constructor(size) {
-    super(size);
-  }
-
-  indexAt(key) {
-    return Array.isArray(key) ? {
-      at: this.indexOf(key[0]),
-      as: key[1]
-    } : {
-      at: this.indexOf(key),
-      as: key
-    };
-  }
-
-  indexesAt(keys) {
-    return keys.map(Labels.prototype.indexAt.bind(this));
-  }
-
-}
 
 class XSelectable {
   side;
@@ -37,51 +17,48 @@ class XSelectable {
 
   select(keys) {
     const xs = Labels.prototype.indexesAt.call(this.side, keys);
-    return new XSelectable({
-      head: xs.map(({
-        as
-      }) => as),
-      rows: select(this.rows, xs.map(({
-        at
-      }) => at))
-    });
+    this.head = xs.map(({
+      as
+    }) => as), this.rows = select(this.rows, xs.map(({
+      at
+    }) => at));
+    return this; // return new XSelectable({head: xs.map(({as}) => as), rows: select(this.rows, xs.map(({at}) => at))})
   }
 
-  filter(options) {}
+  filter(x, by) {
+    const xi = this.side.indexOf(x);
+    const columns = transpose(this.rows).filter(col => by(col[xi]));
+    this.rows = transpose(columns);
+    return this; // return new XSelectable({side: this.side.slice(), rows: transpose(columns)})
+  }
 
-  distinct(labels) {}
-
-  sort(comp) {
-    const li = zipper(this.side, this.rows, (key, row) => ({
+  sortKeys(comp) {
+    const list = zipper(this.side, this.rows, (key, row) => ({
       key,
       row
     }));
-    li.sort((a, b) => comp(a.key, b.key));
-    return new XSelectable({
-      side: li.map(({
-        key
-      }) => key),
-      rows: li.map(({
-        row
-      }) => row)
-    });
+    list.sort((a, b) => comp(a.key, b.key));
+    this.side = list.map(({
+      key
+    }) => key), this.rows = list.map(({
+      row
+    }) => row);
+    return this; // return new XSelectable({side: list.map(({key}) => key), rows: list.map(({row}) => row)})
   }
 
-  sortOn(yi, comp) {
-    const li = zipper(this.side, this.rows, (key, row) => ({
+  sortKeysBy(yi, comp) {
+    const list = zipper(this.side, this.rows, (key, row) => ({
       y: row[yi],
       key,
       row
     }));
-    li.sort((a, b) => comp(a.y, b.y));
-    return new XSelectable({
-      side: li.map(({
-        key
-      }) => key),
-      rows: li.map(({
-        row
-      }) => row)
-    });
+    list.sort((a, b) => comp(a.y, b.y));
+    this.side = list.map(({
+      key
+    }) => key), this.rows = list.map(({
+      row
+    }) => row);
+    return this; // return new XSelectable({side: list.map(({key}) => key), rows: list.map(({row}) => row)})
   }
 
 }
@@ -99,51 +76,47 @@ class YSelectable {
 
   select(keys) {
     const ys = Labels.prototype.indexesAt.call(this.head, keys);
-    return new YSelectable({
-      head: ys.map(({
-        as
-      }) => as),
-      rows: select$1(this.rows, ys.map(({
-        at
-      }) => at))
-    });
+    this.head = ys.map(({
+      as
+    }) => as), this.rows = select$1(this.rows, ys.map(({
+      at
+    }) => at));
+    return this; // return new YSelectable({head: ys.map(({as}) => as), rows: select(this.rows, ys.map(({at}) => at))})
   }
 
-  filter(options) {}
+  filter(y, by) {
+    const yi = this.head.indexOf(y);
+    this.rows = this.rows.filter(row => by(row[yi]));
+    return this; // return new YSelectable({side: this.head.slice(), rows: this.rows.filter(row => by(row[yi]))})
+  }
 
-  distinct(labels) {}
-
-  sort(comp) {
-    const li = zipper(this.head, transpose(this.rows), (key, col) => ({
+  sortKeys(comp) {
+    const list = zipper(this.head, transpose(this.rows), (key, col) => ({
       key,
       col
     }));
-    li.sort((a, b) => comp(a.key, b.key));
-    return new YSelectable({
-      head: li.map(({
-        key
-      }) => key),
-      rows: transpose(li.map(({
-        col
-      }) => col))
-    });
+    list.sort((a, b) => comp(a.key, b.key));
+    this.head = list.map(({
+      key
+    }) => key), this.rows = transpose(list.map(({
+      col
+    }) => col));
+    return this; // return new YSelectable({head: list.map(({key}) => key), rows: transpose(list.map(({col}) => col))})
   }
 
-  sortOn(xi, comp) {
-    const li = zipper(this.head, transpose(this.rows), (key, col) => ({
+  sortKeysBy(xi, comp) {
+    const list = zipper(this.head, transpose(this.rows), (key, col) => ({
       x: col[xi],
       key,
       col
     }));
-    li.sort((a, b) => comp(a.x, b.x));
-    return new YSelectable({
-      head: li.map(({
-        key
-      }) => key),
-      rows: transpose(li.map(({
-        col
-      }) => col))
-    });
+    list.sort((a, b) => comp(a.x, b.x));
+    this.head = list.map(({
+      key
+    }) => key), this.rows = transpose(list.map(({
+      col
+    }) => col));
+    return this; // return new YSelectable({head: list.map(({key}) => key), rows: transpose(list.map(({col}) => col))})
   }
 
 }

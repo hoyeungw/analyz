@@ -15,6 +15,7 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
+    "@analyz/mappable": "^0.0.0",
     "@vect/columns-mapper": "^0.7.3",
     "@vect/columns-select": "^0.7.3",
     "@vect/matrix-algebra": "^0.7.3",
