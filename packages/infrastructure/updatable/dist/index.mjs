@@ -1,5 +1,8 @@
 class XUpdatable {
+  /** @type {Array} */
   side;
+  /** @type {Array} */
+
   rows;
 
   constructor({
@@ -9,24 +12,54 @@ class XUpdatable {
     this.side = side, this.rows = rows;
   }
 
-  set(key, row) {}
+  set(x, row) {
+    if (~(x = this.side.indexOf(x))) {
+      this.rows[x] = row;
+    }
 
-  prepend(row) {}
+    return this;
+  }
 
-  append(row) {}
+  delete(x) {
+    if (~(x = this.side.indexOf(x))) {
+      this.side.splice(x, 1), this.rows.splice(x, 1);
+    }
 
-  shift(row) {}
+    return this;
+  }
 
-  pop(row) {}
+  prepend(x, row) {
+    return this.side.unshift(x), this.rows.unshift(row), this;
+  }
 
-  delete(key) {}
+  append(x, row) {
+    return this.side.push(x), this.rows.push(row), this;
+  }
 
-  grow(from, to, as, at) {}
+  shift() {
+    return [this.side.unshift(), this.rows.unshift()];
+  }
+
+  pop() {
+    return [this.side.pop(), this.rows.pop()];
+  }
+
+  grow(from, to, as, at) {
+    if (~(from = this.side.indexOf(from)) && ~(at = this.side.indexOf(at))) {
+      this.side.splice(at + 1, 0, as);
+      this.rows.splice(at + 1, 0, this.rows[from].map(to));
+    }
+
+    return this;
+  }
 
 }
 
 class YUpdatable {
+  /** @type {Array} */
   head;
+  /** @type {Array} */
+
   rows;
 
   constructor({
@@ -36,19 +69,46 @@ class YUpdatable {
     this.head = head, this.rows = rows;
   }
 
-  set(key, column) {}
+  set(y, column) {
+    if (~(y = this.head.indexOf(y))) for (let i = 0, h = this.rows.length; i < h; i++) {
+      this.rows[i][y] = column[i];
+    }
+    return this;
+  }
 
-  prepend(column) {}
+  delete(y) {
+    if (~(y = this.head.indexOf(y))) {
+      this.head.splice(y, 1), this.rows.map(row => row.splice(y, 1));
+    }
 
-  append(column) {}
+    return this;
+  }
 
-  shift(column) {}
+  prepend(y, column) {
+    return this.head.unshift(y), this.rows.unshift(column), this;
+  }
 
-  pop(column) {}
+  append(y, column) {
+    return this.head.push(y), this.rows.push(column), this;
+  }
 
-  delete(key) {}
+  shift() {
+    return [this.head.unshift(), this.rows.unshift()];
+  }
 
-  grow(from, to, as, at) {}
+  pop() {
+    return [this.head.pop(), this.rows.pop()];
+  }
+
+  grow(from, to, as, at) {
+    if (~(from = this.head.indexOf(from)) && ~(at = this.head.indexOf(at))) {
+      at++;
+      this.head.splice(at, 0, as);
+      this.rows.forEach(row => row.splice(at, 0, to(row[from])));
+    }
+
+    return this;
+  }
 
 }
 

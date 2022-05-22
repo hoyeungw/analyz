@@ -1,5 +1,3 @@
-// noinspection CommaExpressionJS
-
 export class XUpdatable {
   /** @type {Array} */ side
   /** @type {Array} */ rows
