@@ -1,4 +1,4 @@
-import { Sparse }  from './Sparse'
+import { Sparse }  from '../Sparse'
 import { indexed } from './indexed'
 
 export function transpose(sparse) {

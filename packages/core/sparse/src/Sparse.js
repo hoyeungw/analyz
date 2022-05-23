@@ -1,4 +1,4 @@
-import { indexed, indexedTo } from './indexed'
+import { indexed, indexedTo } from './infrastructure/indexed'
 
 // only private field is allowed to be assigned to Sparse instance
 // public field is not allowed to be assigned to Sparse instance
@@ -17,6 +17,12 @@ export class Sparse {
     const row = this[x] ?? (this[x] = {})
     return row[y] ?? (row[y] = this.zero)
   }
+  row(x) { return this[x] ?? (this[x] = {}) }
+  rowOn(x, y) {
+    const row = this[x] ?? (this[x] = {})
+    if (!(y in row)) row[y] = this.zero
+    return row
+  }
   update(x, y, v) { (this[x] ?? (this[x] = {}))[y] = v }
   * indexed(by, to) { yield* indexed(this, by, to) }
   * indexedTo(to) { yield* indexedTo(this, to) }
@@ -26,5 +32,5 @@ export class Sparse {
     for (let x in this) for (let y in this[x]) if (!~vec.indexOf(y)) vec.push(y)
     return vec
   }
-  row(x) { return this[x] ?? (this[x] = {}) }
+
 }

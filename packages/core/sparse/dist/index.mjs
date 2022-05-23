@@ -1,3 +1,5 @@
+import { nullish } from '@typen/nullish';
+
 function* indexedOf(sparse) {
   let row;
 
@@ -71,6 +73,16 @@ class Sparse {
     return row[y] ?? (row[y] = this.zero);
   }
 
+  row(x) {
+    return this[x] ?? (this[x] = {});
+  }
+
+  rowOn(x, y) {
+    const row = this[x] ?? (this[x] = {});
+    if (!(y in row)) row[y] = this.zero;
+    return row;
+  }
+
   update(x, y, v) {
     (this[x] ?? (this[x] = {}))[y] = v;
   }
@@ -95,10 +107,6 @@ class Sparse {
     return vec;
   }
 
-  row(x) {
-    return this[x] ?? (this[x] = {});
-  }
-
 }
 
 function transpose(sparse) {
@@ -109,4 +117,125 @@ function transpose(sparse) {
   return s;
 }
 
-export { Sparse, indexed, indexedBy, indexedOf, indexedTo, transpose };
+class List extends Array {
+  constructor() {
+    super();
+  }
+
+  static build() {
+    return new List();
+  }
+
+  get count() {
+    return this.length;
+  }
+
+  get sum() {
+    return this.reduce((a, b) => a + b, 0);
+  }
+
+  get average() {
+    return this.length ? this.sum / this.length : 0;
+  }
+
+  get max() {
+    return Math.max.apply(null, this);
+  }
+
+  get min() {
+    return Math.min.apply(null, this);
+  }
+
+}
+class CrosList extends Sparse {
+  constructor(el = List.build) {
+    super(el);
+  }
+
+  static build(el) {
+    return new CrosList(el);
+  }
+
+  update(x, y, v) {
+    this.cellOrInit(x, y).push(v);
+  } // toObject(fn) { return {side: this.side, head: this.head, rows: mapper(this.rows, fn ?? (li => li.average))} }
+
+
+}
+class CrosMax extends Sparse {
+  constructor(el = Number.NEGATIVE_INFINITY) {
+    super(el);
+  }
+
+  static build(el) {
+    return new CrosMax(el);
+  }
+
+  update(x, y, v) {
+    const row = this.rowOn(x, y);
+    if (v > row[y]) row[y] = v;
+  }
+
+}
+class CrosMin extends Sparse {
+  constructor(el = Number.POSITIVE_INFINITY) {
+    super(el);
+  }
+
+  static build(el) {
+    return new CrosMin(el);
+  }
+
+  update(x, y, v) {
+    const row = this.rowOn(x, y);
+    if (v < row[y]) row[y] = v;
+  }
+
+}
+class CrosSum extends Sparse {
+  constructor(el = 0) {
+    super(el);
+  }
+
+  static build(el) {
+    return new CrosSum(el);
+  }
+
+  update(x, y, v) {
+    this.rowOn(x, y)[y] += v;
+  }
+
+}
+class CrosFirst extends Sparse {
+  constructor() {
+    super(null);
+  }
+
+  static build() {
+    return new CrosSum();
+  }
+
+  update(x, y, v) {
+    const row = this.row(x);
+    if (nullish(row[y])) row[y] = v;
+  }
+
+}
+class CrosLast extends Sparse {
+  constructor() {
+    super(null);
+  }
+
+  static build() {
+    return new CrosSum();
+  }
+
+  update(x, y, v) {
+    if (nullish(v)) return;
+    const row = this.row(x);
+    row[y] = v;
+  }
+
+}
+
+export { CrosFirst, CrosLast, CrosList, CrosMax, CrosMin, CrosSum, Sparse, indexed, indexedBy, indexedOf, indexedTo, transpose };
