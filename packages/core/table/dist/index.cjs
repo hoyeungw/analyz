@@ -2,16 +2,14 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-class Table {
-  head;
-  rows;
+var crostab = require('@analyz/crostab');
 
-  constructor({
-    head,
-    rows
-  }) {
-    this.head = head;
-    this.rows = rows;
+class Table extends crostab.Headward {
+  title;
+
+  constructor(table) {
+    super(table);
+    this.title = table === null || table === void 0 ? void 0 : table.title;
   }
 
 }

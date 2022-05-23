@@ -15,6 +15,7 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
+    "@analyz/crostab": "^0.0.0",
     "@analyz/mappable": "^0.0.0",
     "@analyz/selectable": "^0.0.0",
     "@analyz/updatable": "^0.0.0"
