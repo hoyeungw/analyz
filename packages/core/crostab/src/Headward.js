@@ -6,9 +6,9 @@ export class Headward {
   head
   rows
   constructor({head, rows}) { this.head = head, this.rows = rows }
-  mapKeys(fn) { return YMappable.prototype.mapKeys.call(this, fn) }
+  // mapKeys(fn) { return YMappable.prototype.mapKeys.call(this, fn) }
+  // map(keys, fn) { return YMappable.prototype.map.call(this, keys, fn) }
   mutateKeys(fn) { return YMappable.prototype.mutateKeys.call(this, fn) }
-  map(keys, fn) { return YMappable.prototype.map.call(this, keys, fn) }
   mutate(keys, fn) { return YMappable.prototype.mutate.call(this, keys, fn) }
 
   select(keys) { return YSelectable.prototype.select.call(this, keys) }

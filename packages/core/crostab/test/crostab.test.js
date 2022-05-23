@@ -15,11 +15,16 @@ const crostab = new Crostab({
 })
 
 crostab.sideward
-  .mutateKeys(x => '@' + x + '1')
   .mutate([ 'B', 'C' ], v => v + 1)
   .mutate([ 'B', 'C' ], v => v * 10)
+  .mutateKeys(x => '@' + x + '1')
+
 crostab.headward
-  .mutateKeys(y => '@' + y + '2')
   .mutate([ 'b', 'c' ], v => v * 10)
+  .mutateKeys(y => '@' + y + '2')
+
+crostab.sideward.at['@A1'] = [ 0, 0, 0, 0 ]
 
 crostab |> decoCrostab |> logger
+
+crostab.sideward.at['@A1'] |> logger

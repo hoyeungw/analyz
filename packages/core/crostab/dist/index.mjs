@@ -1,173 +1,104 @@
-import { YMappable, XMappable } from '@analyz/mappable';
-import { YSelectable, XSelectable } from '@analyz/selectable';
-import { YUpdatable, XUpdatable } from '@analyz/updatable';
+import { XIndexable, YIndexable } from '@analyz/indexable';
+import { XMappable, YMappable } from '@analyz/mappable';
+import { XSelectable, YSelectable } from '@analyz/selectable';
+import { XUpdatable, YUpdatable } from '@analyz/updatable';
+import { mixin } from '@ject/mixin';
 
-class Headward {
-  head;
-  rows;
+/**
+ * @typedef {Object} Sideward.at
+ */
 
-  constructor({
-    head,
-    rows
-  }) {
-    this.head = head, this.rows = rows;
-  }
+/**
+ * @class
+ * @typedef Sideward
+ * @type {Class}
+ * @property {function():Sideward} Sideward.mutate
+ * @property {function():Sideward} Sideward.mutateKeys
+ * @property {function():Sideward} Sideward.mutateValues
+ * @property {function():Generator} Sideward.indexed
+ * @property {function():Generator} Sideward.entryIndexed
+ * @property {function():Generator} Sideward.tripletIndexed
+ * @property {function():Generator} Sideward.indexedTo
+ * @property {function():Generator} Sideward.entryIndexedTo
+ * @property {function():Generator} Sideward.tripletIndexedTo
+ * @property {function():Sideward} Sideward.select
+ * @property {function():Sideward} Sideward.filter
+ * @property {function():Sideward} Sideward.sortKeys
+ * @property {function():Sideward} Sideward.sortKeysBy
+ * @property {function():Sideward} Sideward.set
+ * @property {function():Sideward} Sideward.delete
+ * @property {function():Sideward} Sideward.prepend
+ * @property {function():Sideward} Sideward.append
+ * @property {function():Sideward} Sideward.shift
+ * @property {function():Sideward} Sideward.pop
+ * @property {function():Sideward} Sideward.grow
+ */
 
-  mapKeys(fn) {
-    return YMappable.prototype.mapKeys.call(this, fn);
-  }
+const Sideward = mixin(XIndexable, XMappable, XUpdatable, XSelectable);
+/**
+ * @typedef {Object} Headward.at
+ */
 
-  mutateKeys(fn) {
-    return YMappable.prototype.mutateKeys.call(this, fn);
-  }
+/**
+ * @class
+ * @typedef Headward
+ * @typedef {Object} Headward.at
+ * @type {Class}
+ * @property {Object} Headward.at
+ * @property {function():Headward} Headward.mutate
+ * @property {function():Headward} Headward.mutateKeys
+ * @property {function():Headward} Headward.mutateValues
+ * @property {function():Generator} Headward.indexed
+ * @property {function():Generator} Headward.entryIndexed
+ * @property {function():Generator} Headward.tripletIndexed
+ * @property {function():Generator} Headward.indexedTo
+ * @property {function():Generator} Headward.entryIndexedTo
+ * @property {function():Generator} Headward.tripletIndexedTo
+ * @property {function():Headward} Headward.select
+ * @property {function():Headward} Headward.filter
+ * @property {function():Headward} Headward.sortKeys
+ * @property {function():Headward} Headward.sortKeysBy
+ * @property {function():Headward} Headward.set
+ * @property {function():Headward} Headward.delete
+ * @property {function():Headward} Headward.prepend
+ * @property {function():Headward} Headward.append
+ * @property {function():Headward} Headward.shift
+ * @property {function():Headward} Headward.pop
+ * @property {function():Headward} Headward.grow
+ */
 
-  map(keys, fn) {
-    return YMappable.prototype.map.call(this, keys, fn);
-  }
-
-  mutate(keys, fn) {
-    return YMappable.prototype.mutate.call(this, keys, fn);
-  }
-
-  select(keys) {
-    return YSelectable.prototype.select.call(this, keys);
-  }
-
-  filter(x, by) {
-    return YSelectable.prototype.filter.call(this, x, by);
-  }
-
-  sortKeys(comp) {
-    return YSelectable.prototype.sortKeys.call(this, comp);
-  }
-
-  sortKeysBy(yi, comp) {
-    return YSelectable.prototype.sortKeysBy.call(this, yi, comp);
-  }
-
-  set(x, row) {
-    return YUpdatable.prototype.set.call(this, x, row);
-  }
-
-  delete(x) {
-    return YUpdatable.prototype.delete.call(this, x);
-  }
-
-  prepend(x, row) {
-    return YUpdatable.prototype.prepend.call(this, x, row);
-  }
-
-  append(x, row) {
-    return YUpdatable.prototype.append.call(this, x, row);
-  }
-
-  shift() {
-    return YUpdatable.prototype.shift.call(this);
-  }
-
-  pop() {
-    return YUpdatable.prototype.pop.call(this);
-  }
-
-  grow(from, to, as, at) {
-    return YUpdatable.prototype.grow.call(this, from, to, as, at);
-  }
-
-}
-
-class Sideward {
-  side;
-  rows;
-
-  constructor({
-    side,
-    rows
-  }) {
-    this.side = side, this.rows = rows;
-  }
-
-  mapKeys(fn) {
-    return XMappable.prototype.mapKeys.call(this, fn);
-  }
-
-  mutateKeys(fn) {
-    return XMappable.prototype.mutateKeys.call(this, fn);
-  }
-
-  map(keys, fn) {
-    return XMappable.prototype.map.call(this, keys, fn);
-  }
-
-  mutate(keys, fn) {
-    return XMappable.prototype.mutate.call(this, keys, fn);
-  }
-
-  select(keys) {
-    return XSelectable.prototype.select.call(this, keys);
-  }
-
-  filter(x, by) {
-    return XSelectable.prototype.filter.call(this, x, by);
-  }
-
-  sortKeys(comp) {
-    return XSelectable.prototype.sortKeys.call(this, comp);
-  }
-
-  sortKeysBy(yi, comp) {
-    return XSelectable.prototype.sortKeysBy.call(this, yi, comp);
-  }
-
-  set(x, row) {
-    return XUpdatable.prototype.set.call(this, x, row);
-  }
-
-  delete(x) {
-    return XUpdatable.prototype.delete.call(this, x);
-  }
-
-  prepend(x, row) {
-    return XUpdatable.prototype.prepend.call(this, x, row);
-  }
-
-  append(x, row) {
-    return XUpdatable.prototype.append.call(this, x, row);
-  }
-
-  shift() {
-    return XUpdatable.prototype.shift.call(this);
-  }
-
-  pop() {
-    return XUpdatable.prototype.pop.call(this);
-  }
-
-  grow(from, to, as, at) {
-    return XUpdatable.prototype.grow.call(this, from, to, as, at);
-  }
-
-}
-
+const Headward = mixin(YIndexable, YMappable, YUpdatable, YSelectable);
 class Crostab {
   side;
   head;
   rows;
+  title;
+  /** @type {Sideward} */
+
   #xward;
+  /** @type {Headward} */
+
   #yward;
 
   constructor({
     side,
     head,
-    rows
+    rows,
+    title
   }) {
     this.side = side;
     this.head = head;
     this.rows = rows;
+    this.title = title;
   }
+  /** @returns {Sideward} */
+
 
   get sideward() {
     return this.#xward ?? (this.#xward = new Sideward(this));
   }
+  /** @returns {Headward} */
+
 
   get headward() {
     return this.#yward ?? (this.#yward = new Headward(this));
@@ -175,4 +106,4 @@ class Crostab {
 
 }
 
-export { Crostab };
+export { Crostab, Headward, Sideward };

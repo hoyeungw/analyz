@@ -15,9 +15,11 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
+    "@analyz/indexable": "^0.0.0",
     "@analyz/mappable": "^0.0.0",
     "@analyz/selectable": "^0.0.0",
-    "@analyz/updatable": "^0.0.0"
+    "@analyz/updatable": "^0.0.0",
+    "@ject/mixin": "^0.0.17"
   },
   "repository": {
     "type": "git",

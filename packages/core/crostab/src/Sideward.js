@@ -6,9 +6,9 @@ export class Sideward {
   side
   rows
   constructor({side, rows}) { this.side = side, this.rows = rows }
-  mapKeys(fn) { return XMappable.prototype.mapKeys.call(this, fn) }
+  // mapKeys(fn) { return XMappable.prototype.mapKeys.call(this, fn) }
+  // map(keys, fn) { return XMappable.prototype.map.call(this, keys, fn) }
   mutateKeys(fn) { return XMappable.prototype.mutateKeys.call(this, fn) }
-  map(keys, fn) { return XMappable.prototype.map.call(this, keys, fn) }
   mutate(keys, fn) { return XMappable.prototype.mutate.call(this, keys, fn) }
 
   select(keys) { return XSelectable.prototype.select.call(this, keys) }
@@ -24,3 +24,5 @@ export class Sideward {
   pop() { return XUpdatable.prototype.pop.call(this) }
   grow(from, to, as, at) { return XUpdatable.prototype.grow.call(this, from, to, as, at) }
 }
+
+
