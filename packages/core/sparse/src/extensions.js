@@ -11,6 +11,15 @@ export class List extends Array {
   get min() { return Math.min.apply(null, this) }
 }
 
+export class Counter {
+  sum = 0
+  count = 0
+  constructor() {}
+  static build() {return new Counter()}
+  record(value) { this.sum += value, this.count++ }
+  get average() { return this.sum / this.count }
+}
+
 export class CrosList extends Sparse {
   constructor(el = List.build) { super(el) }
   static build(el) { return new CrosList(el) }
@@ -37,6 +46,13 @@ export class CrosMin extends Sparse {
     const row = this.rowOn(x, y)
     if (v < row[y]) row[y] = v
   }
+}
+
+export class CrosAverage extends Sparse {
+  constructor(el = Counter.build) { super(el) }
+  static build(el) { return new CrosAverage(el) }
+  static gather(iter) { return CrosAverage.build().collect(iter) }
+  update(x, y, v) { this.rowOn(x, y)[y].record(v) }
 }
 
 export class CrosSum extends Sparse {
