@@ -101,6 +101,7 @@ export class Crostab {
   coord(r, c) { return {x: this.roin(r), y: this.coin(c)} }
   mutate(fn) { return mutateMatrix(this.rows, fn, this.height, this.width), this }
   mutateKeys(fn) { return mutateVector(this.side, fn), mutateVector(this.head, fn), this }
+  update(x, y, v) { return this.rows[this.roin(x)][this.coin(y)] = v }
   transpose(title) {
     let {side: head, head: side, rows: columns} = this
     this.side = side, this.head = head, this.rows = transpose(columns), this.title = title ?? this.title
