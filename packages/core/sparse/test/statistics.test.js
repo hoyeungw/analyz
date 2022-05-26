@@ -1,5 +1,5 @@
-import { decoCrostab }         from '@spare/logger'
-import { CrosCount, CrosList } from './Statistical'
+import { decoCrostab }                      from '@spare/logger'
+import { CrosAverage, CrosCount, CrosList } from '../src/extensions'
 
 const samples = [
   [ 'Beer', 'QD', 200 ],
@@ -19,3 +19,4 @@ const samples = [
 
 CrosList.gather(samples).toCrostab(x => x?.average ?? 0, '') |> decoCrostab |> console.log
 CrosCount.gather(samples).toCrostab(null, '') |> decoCrostab |> console.log
+CrosAverage.gather(samples).toCrostab(x => x?.average ?? 0, '') |> decoCrostab |> console.log

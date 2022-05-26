@@ -1,7 +1,7 @@
 import { sparseToCrostab } from '@analyz/convert'
 import { decoCrostab }     from '@spare/logger'
 import { says }            from '@spare/xr'
-import { Sparse }          from './Sparse'
+import { Sparse }          from '../src/Sparse'
 
 export const nested = {
   H: { i: 12, o: 12 },

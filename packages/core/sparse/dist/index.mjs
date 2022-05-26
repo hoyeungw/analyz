@@ -211,6 +211,25 @@ class List extends Array {
   }
 
 }
+class Counter {
+  sum = 0;
+  count = 0;
+
+  constructor() {}
+
+  static build() {
+    return new Counter();
+  }
+
+  record(value) {
+    this.sum += value, this.count++;
+  }
+
+  get average() {
+    return this.sum / this.count;
+  }
+
+}
 class CrosList extends Sparse {
   constructor(el = List.build) {
     super(el);
@@ -265,6 +284,24 @@ class CrosMin extends Sparse {
   update(x, y, v) {
     const row = this.rowOn(x, y);
     if (v < row[y]) row[y] = v;
+  }
+
+}
+class CrosAverage extends Sparse {
+  constructor(el = Counter.build) {
+    super(el);
+  }
+
+  static build(el) {
+    return new CrosAverage(el);
+  }
+
+  static gather(iter) {
+    return CrosAverage.build().collect(iter);
+  }
+
+  update(x, y, v) {
+    this.rowOn(x, y)[y].record(v);
   }
 
 }
@@ -326,4 +363,4 @@ class CrosLast extends Sparse {
 
 }
 
-export { CrosFirst, CrosLast, CrosList, CrosMax, CrosMin, CrosSum, Sparse, indexed, indexedBy, indexedOf, indexedTo, transpose };
+export { CrosAverage, CrosFirst, CrosLast, CrosList, CrosMax, CrosMin, CrosSum, Sparse, indexed, indexedBy, indexedOf, indexedTo, transpose };
