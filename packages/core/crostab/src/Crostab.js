@@ -3,6 +3,10 @@ import { XMappable, YMappable }     from '@analyz/mappable'
 import { XSelectable, YSelectable } from '@analyz/selectable'
 import { XUpdatable, YUpdatable }   from '@analyz/updatable'
 import { mixin }                    from '@ject/mixin'
+import { transpose }                from '@vect/matrix-algebra'
+import { shallow }                  from '@vect/matrix-init'
+import { mutate as mutateVector }   from '@vect/vector-mapper'
+import { mutate as mutateMatrix }   from '@vect/matrix-mapper'
 
 /**
  * @typedef {Object} Sideward.at
@@ -70,10 +74,10 @@ export const Sideward = mixin(XIndexable, XMappable, XUpdatable, XSelectable)
 export const Headward = mixin(YIndexable, YMappable, YUpdatable, YSelectable)
 
 export class Crostab {
-  side
-  head
-  rows
-  title
+  /** @type {string[]} */ side
+  /** @type {string[]} */ head
+  /** @type {any[][]} */ rows
+  /** @type {string} */ title
   /** @type {Sideward} */ #xward
   /** @type {Headward} */ #yward
 
@@ -85,4 +89,25 @@ export class Crostab {
   }
   /** @returns {Sideward} */ get sideward() { return this.#xward ?? (this.#xward = new Sideward(this)) }
   /** @returns {Headward} */ get headward() { return this.#yward ?? (this.#yward = new Headward(this)) }
+  get size() { return [ this.height, this.width ] }
+  get height() { return this.side.length }
+  get width() { return this.head.length }
+  roin(r) { return this.side.indexOf(r) }
+  coin(c) { return this.head.indexOf(c) }
+  cell(r, c) {
+    const row = this.rows[this.roin(r)]
+    return row[this.coin[c]]
+  }
+  coord(r, c) { return {x: this.roin(r), y: this.coin(c)} }
+  mutate(fn) { return mutateMatrix(this.rows, fn, this.height, this.width), this }
+  mutateKeys(fn) { return mutateVector(this.side, fn), mutateVector(this.head, fn), this }
+  transpose(title) {
+    let {side: head, head: side, rows: columns} = this
+    this.side = side, this.head = head, this.rows = transpose(columns), this.title = title ?? this.title
+    return this
+  }
+  slice() {
+    let {side, head, rows, title} = this
+    return new Crostab({side: side.slice(), head: head.slice(), rows: shallow(rows), title})
+  }
 }
