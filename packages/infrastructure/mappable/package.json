@@ -1,6 +1,6 @@
 {
   "name": "@analyz/mappable",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Mappable class as infrastructure for table and crostab",
   "main": "dist/index.cjs",
   "exports": {
@@ -16,10 +16,10 @@
   },
   "dependencies": {
     "@vect/columns-mapper": "^0.7.9",
+    "@vect/matrix-algebra": "^0.7.9",
     "@vect/matrix-init": "^0.7.9",
     "@vect/matrix-mapper": "^0.7.9",
-    "@vect/vector-mapper": "^0.7.9",
-    "@vect/matrix-algebra": "^0.7.9"
+    "@vect/vector-mapper": "^0.7.9"
   },
   "repository": {
     "type": "git",
