@@ -1,0 +1,56 @@
+{
+  "name": "@analyz/table-algebra",
+  "version": "0.0.0",
+  "description": "A cross-table analytics tool",
+  "main": "./dist/index.cjs",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "pub": "npm publish",
+    "test": "node -r @babel/register test/test.index.js"
+  },
+  "dependencies": {
+    "@analys/enum-join-modes": "^0.6.10",
+    "@analyz/table": "^0.0.0",
+    "@analyz/mappable": "^0.0.0",
+    "@aryth/comparer": "^0.5.10",
+    "@vect/columns-select": "^0.7.9",
+    "@vect/matrix-index": "^0.7.9",
+    "@vect/vector-algebra": "^0.7.9",
+    "@vect/vector-index": "^0.7.9",
+    "@vect/vector-init": "^0.7.9",
+    "@vect/vector-mapper": "^0.7.9",
+    "@vect/vector-select": "^0.7.9",
+    "@vect/vector-update": "^0.7.9",
+    "@vect/vector-zipper": "^0.7.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoyeungw/analyz.git"
+  },
+  "keywords": [
+    "table",
+    "crostab",
+    "cross-table",
+    "pivot",
+    "pivotal",
+    "analyse",
+    "analytics",
+    "business intelligence"
+  ],
+  "author": "Hoyeung Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoyeungw/analyz"
+  },
+  "homepage": "https://github.com/hoyeungw/analyz#readme",
+  "gitHead": "beb3a82b304e4427a31c7f1c6d4a32de22d39301"
+}
