@@ -18,6 +18,7 @@ export function* indexedBy(sparse, by) {
 }
 
 export function* indexedTo(sparse, to) {
+  if (!to) { return yield* indexedOf(sparse) }
   let row
   for (let x in sparse) {
     for (let y in (row = sparse[x])) {

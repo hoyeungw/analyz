@@ -2,7 +2,24 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var crostab = require('@analyz/crostab');
 var nullish = require('@typen/nullish');
+
+function iso(h, w, v) {
+  const mx = Array(h);
+
+  for (let i = 0, j, row; i < h; i++) for (j = 0, mx[i] = row = Array(w); j < w; j++) row[j] = v;
+
+  return mx;
+}
+
+function init(h, w, fn) {
+  const mx = Array(h);
+
+  for (let i = 0, j, row; i < h; i++) for (j = 0, mx[i] = row = Array(w); j < w; j++) row[j] = fn(i, j);
+
+  return mx;
+}
 
 function* indexedOf(sparse) {
   let row;
@@ -24,6 +41,10 @@ function* indexedBy(sparse, by) {
   }
 }
 function* indexedTo(sparse, to) {
+  if (!to) {
+    return yield* indexedOf(sparse);
+  }
+
   let row;
 
   for (let x in sparse) {
@@ -51,10 +72,30 @@ function* indexed(sparse, by, to) {
 
 class Sparse {
   #init = null;
-  #val = null;
+  #base = null;
 
   constructor(el) {
-    el instanceof Function ? this.#init = el : this.#val = el;
+    el instanceof Function ? this.#init = el : this.#base = el;
+  }
+
+  [Symbol.iterator]() {
+    return this.indexed();
+  }
+
+  static from(nested) {
+    const sparse = new Sparse();
+
+    for (let [x, y, v] of indexed(nested)) sparse.update(x, y, v);
+
+    return sparse;
+  }
+
+  static gather(iter) {
+    const sparse = new Sparse();
+
+    for (let [x, y, v] of iter) sparse.update(x, y, v);
+
+    return sparse;
   }
 
   clear() {
@@ -64,7 +105,7 @@ class Sparse {
   get zero() {
     var _this$init;
 
-    return ((_this$init = this.#init) === null || _this$init === void 0 ? void 0 : _this$init.call(this)) ?? this.#val;
+    return ((_this$init = this.#init) === null || _this$init === void 0 ? void 0 : _this$init.call(this)) ?? this.#base;
   }
 
   cell(x, y) {
@@ -91,6 +132,12 @@ class Sparse {
     (this[x] ?? (this[x] = {}))[y] = v;
   }
 
+  collect(iter) {
+    for (let [x, y, v] of iter) this.update(x, y, v);
+
+    return this;
+  }
+
   *indexed(by, to) {
     yield* indexed(this, by, to);
   }
@@ -109,6 +156,23 @@ class Sparse {
     for (let x in this) for (let y in this[x]) if (!~vec.indexOf(y)) vec.push(y);
 
     return vec;
+  }
+
+  toCrostab(to, nu) {
+    const {
+      side,
+      head
+    } = this,
+          ht = side.length,
+          wd = head.length;
+    const rows = nu instanceof Function ? init(ht, wd, nu) : iso(ht, wd, nu);
+    const crostab$1 = crostab.Crostab.build(side, head, rows);
+
+    for (let [x, y, v] of this) {
+      crostab$1.update(x, y, to ? to(v) : v);
+    }
+
+    return crostab$1;
   }
 
 }
@@ -160,6 +224,10 @@ class CrosList extends Sparse {
     return new CrosList(el);
   }
 
+  static gather(iter) {
+    return CrosList.build().collect(iter);
+  }
+
   update(x, y, v) {
     this.cellOrInit(x, y).push(v);
   } // toObject(fn) { return {side: this.side, head: this.head, rows: mapper(this.rows, fn ?? (li => li.average))} }
@@ -173,6 +241,10 @@ class CrosMax extends Sparse {
 
   static build(el) {
     return new CrosMax(el);
+  }
+
+  static gather(iter) {
+    return CrosMax.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -190,6 +262,10 @@ class CrosMin extends Sparse {
     return new CrosMin(el);
   }
 
+  static gather(iter) {
+    return CrosMin.build().collect(iter);
+  }
+
   update(x, y, v) {
     const row = this.rowOn(x, y);
     if (v < row[y]) row[y] = v;
@@ -205,6 +281,10 @@ class CrosSum extends Sparse {
     return new CrosSum(el);
   }
 
+  static gather(iter) {
+    return CrosSum.build().collect(iter);
+  }
+
   update(x, y, v) {
     this.rowOn(x, y)[y] += v;
   }
@@ -216,7 +296,11 @@ class CrosFirst extends Sparse {
   }
 
   static build() {
-    return new CrosSum();
+    return new CrosFirst();
+  }
+
+  static gather(iter) {
+    return CrosFirst.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -231,7 +315,11 @@ class CrosLast extends Sparse {
   }
 
   static build() {
-    return new CrosSum();
+    return new CrosLast();
+  }
+
+  static gather(iter) {
+    return CrosLast.build().collect(iter);
   }
 
   update(x, y, v) {

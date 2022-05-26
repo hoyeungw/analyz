@@ -16,9 +16,7 @@ const points = [
   [ 'B', 'e', 1 ]
 ]
 
-for (let [ x, y, v ] of points) {
-  sparse.update(x, y, v)
-}
+for (let [ x, y, v ] of points) sparse.update(x, y, v)
 
 for (let k in sparse) { k|> logger}
 sparse.side |> deco |> says['side']
