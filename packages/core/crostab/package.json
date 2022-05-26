@@ -19,7 +19,11 @@
     "@analyz/mappable": "^0.0.0",
     "@analyz/selectable": "^0.0.0",
     "@analyz/updatable": "^0.0.0",
-    "@ject/mixin": "^0.0.17"
+    "@ject/mixin": "^0.0.17",
+    "@vect/matrix-algebra": "^0.7.9",
+    "@vect/matrix-init": "^0.7.9",
+    "@vect/vector-init": "^0.7.9",
+    "@vect/vector-mapper": "^0.7.9"
   },
   "devDependencies": {
     "@vect/vector-init": "^0.7.9"

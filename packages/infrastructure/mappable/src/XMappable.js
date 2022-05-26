@@ -1,8 +1,8 @@
 import { transpose }                                                      from '@vect/matrix-algebra'
 import { entryIndexed, entryIndexedTo, tripletIndexed, tripletIndexedTo } from '@vect/matrix-mapper'
 import { mutate, mutate as mutateVector }                                 from '@vect/vector-mapper'
-import { Labels }                                                         from './Labels'
 import { indexed, indexedTo }                                             from '@vect/columns-mapper'
+import { Labels }                                                         from './Labels'
 
 export class XMappable {
   side

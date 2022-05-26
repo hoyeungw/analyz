@@ -3,40 +3,29 @@ import { XMappable, YMappable } from '@analyz/mappable';
 import { XSelectable, YSelectable } from '@analyz/selectable';
 import { XUpdatable, YUpdatable } from '@analyz/updatable';
 import { mixin } from '@ject/mixin';
-
-const shallow = mx => mx.map(r => r.slice());
-
-const height = mx => mx === null || mx === void 0 ? void 0 : mx.length;
-
-const width = mx => {
-  var _mx$;
-
-  return mx !== null && mx !== void 0 && mx.length ? (_mx$ = mx[0]) === null || _mx$ === void 0 ? void 0 : _mx$.length : null;
-};
+import { transpose } from '@vect/matrix-algebra';
+import { shallow } from '@vect/matrix-init';
+import { mutate as mutate$1 } from '@vect/vector-mapper';
+import { collect } from '@vect/vector-init';
 
 /**
- * Transpose a 2d-array.
+ * Iterate through elements on each (x of rows,y of columns) coordinate of a 2d-array.
  * @param {*[][]} mx
- * @returns {*[][]}
+ * @param {function} fn
+ * @param {number} [h]
+ * @param {number} [w]
+ * @returns {*[]}
  */
 
+function mapper(mx, fn, h, w) {
+  var _mx$;
 
-const transpose = mx => {
-  const h = height(mx),
-        w = width(mx),
-        cols = Array(w);
+  h = h || (mx === null || mx === void 0 ? void 0 : mx.length), w = w || h && ((_mx$ = mx[0]) === null || _mx$ === void 0 ? void 0 : _mx$.length);
+  const tx = Array(h);
 
-  for (let j = 0; j < w; j++) for (let i = 0, col = cols[j] = Array(h); i < h; i++) col[i] = mx[i][j];
+  for (let i = 0, j, r, tr; i < h; i++) for (tx[i] = tr = Array(w), r = mx[i], j = 0; j < w; j++) tr[j] = fn(r[j], i, j);
 
-  return cols;
-};
-
-function mutate$1(vec, fn, l) {
-  l = l || (vec === null || vec === void 0 ? void 0 : vec.length);
-
-  for (--l; l >= 0; l--) vec[l] = fn.call(this, vec[l], l);
-
-  return vec;
+  return tx;
 }
 
 function mutate(mx, fn, h, w) {
@@ -196,6 +185,10 @@ class Crostab {
     return mutate$1(this.side, fn), mutate$1(this.head, fn), this;
   }
 
+  update(x, y, v) {
+    return this.rows[this.roin(x)][this.coin(y)] = v;
+  }
+
   transpose(title) {
     let {
       side: head,
@@ -223,4 +216,77 @@ class Crostab {
 
 }
 
-export { Crostab, Headward, Sideward };
+const ZERO = 'zero';
+class DynamicCrostab extends Crostab {
+  /** @type {function} */
+  init = null;
+  /** @type {*}        */
+
+  val = null;
+
+  constructor(element) {
+    super({
+      side: [],
+      head: [],
+      rows: []
+    });
+    element instanceof Function ? this.init = element : this.val = element;
+  }
+
+  static build(element) {
+    return new DynamicCrostab(element);
+  }
+
+  get zero() {
+    var _this$init;
+
+    return ((_this$init = this.init) === null || _this$init === void 0 ? void 0 : _this$init.call(this)) ?? this.val;
+  }
+
+  roin(x) {
+    const i = this.side.indexOf(x);
+    if (~i) return i;
+    this.rows.push(collect.call(this, ZERO, this.head.length));
+    return i + this.side.push(x);
+  }
+
+  coin(y) {
+    const i = this.head.indexOf(y);
+    if (~i) return i;
+
+    for (let row of this.rows) row.push(this.zero);
+
+    return i + this.head.push(y);
+  }
+
+  update(x, y, v) {
+    return this.rows[this.roin(x)][this.coin(y)] = v;
+  }
+
+  append(x, y, v) {
+    return this.rows[this.roin(x)][this.coin(y)].push(v);
+  }
+
+  assign(x, y, k, v) {
+    return this.rows[this.roin(x)][this.coin(y)][k] = v;
+  }
+
+  cell(x, y) {
+    return this.rows[this.roin(x)][this.coin(y)];
+  }
+
+  query(x, y) {
+    return ~(x = this.side.indexOf(x)) && ~(y = this.head.indexOf(y)) ? this.rows[x][y] : void 0;
+  }
+
+  toObject(po) {
+    return {
+      side: this.side,
+      head: this.head,
+      rows: po ? mapper(this.rows, po) : this.rows
+    };
+  }
+
+}
+
+export { Crostab, DynamicCrostab, Headward, Sideward };

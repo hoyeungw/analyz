@@ -32,5 +32,4 @@ export class Sparse {
     for (let x in this) for (let y in this[x]) if (!~vec.indexOf(y)) vec.push(y)
     return vec
   }
-
 }

@@ -1,8 +1,9 @@
 import { INTERSECT, LEFT, RIGHT, UNION } from '@analys/enum-join-modes'
 import { Table }                         from '@analyz/table'
-import { decoTable, says } from '@spare/logger'
-import { tableJoin }       from '../src/tableJoin'
+import { decoTable, says }               from '@spare/logger'
+import { Algebra }                       from '../src/Algebra'
 
+const MODES = {INTERSECT, LEFT, RIGHT, UNION}
 const test = () => {
   const balance = new Table({
     head: [ 'date', 'symbol', 'ast', 'liab', 'eqt' ],
@@ -31,11 +32,11 @@ const test = () => {
 
   balance |> decoTable |> says['balance']
   income |> decoTable |> says['income']
-  tableJoin(balance, income, [ 'date', 'symbol' ], UNION) |> decoTable |> says['joined']
+
+  const mode = 'INTERSECT'
+  Algebra.joins(MODES[mode], [ 'date', 'symbol' ], null, balance, income) |> decoTable |> says['joined'].by(mode)
 
   '' |> console.log
-  // 'Original balance util-table' |> console.log
-  // balance |> TableX.brief |> console.log
 }
 
 test()
