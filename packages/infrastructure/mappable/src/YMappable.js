@@ -1,14 +1,19 @@
-import { indexedTo }              from '@analyz/sparse'
-import { mutate as mutateVector } from '@vect/vector-mapper'
 import {
-  entryIndexed, entryIndexedTo, indexed, mutate as mutateMatrix, tripletIndexed, tripletIndexedTo
+  entryIndexed,
+  entryIndexedTo,
+  indexed,
+  indexedTo,
+  mutate as mutateMatrix,
+  tripletIndexed,
+  tripletIndexedTo
 }                                 from '@vect/matrix-mapper'
+import { mutate as mutateVector } from '@vect/vector-mapper'
 import { Labels }                 from './Labels'
 
 export class YMappable {
   head
   rows
-  constructor({head, rows}) { this.head = head, this.rows = rows }
+  constructor({ head, rows }) { this.head = head, this.rows = rows }
   // mapKeys(fn) { return new YMappable({head: this.head.map(fn), rows: shallow(this.rows)})}
   // map(keys, fn) {
   //   keys = Labels.prototype.indexesOf.call(this.head, keys)

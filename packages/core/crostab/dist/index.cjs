@@ -2,15 +2,14 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var vectorMapper = require('@vect/vector-mapper');
+var matrixAlgebra = require('@vect/matrix-algebra');
+var matrixInit = require('@vect/matrix-init');
 var indexable = require('@analyz/indexable');
 var mappable = require('@analyz/mappable');
 var selectable = require('@analyz/selectable');
 var updatable = require('@analyz/updatable');
 var mixin = require('@ject/mixin');
-var matrixAlgebra = require('@vect/matrix-algebra');
-var matrixInit = require('@vect/matrix-init');
-var vectorMapper = require('@vect/vector-mapper');
-var vectorInit = require('@vect/vector-init');
 
 /**
  * Iterate through elements on each (x of rows,y of columns) coordinate of a 2d-array.
@@ -40,6 +39,53 @@ function mutate(mx, fn, h, w) {
   for (let i = 0, j, r; i < h; i++) for (j = 0, r = mx[i]; j < w; j++) r[j] = fn(r[j], i, j);
 
   return mx;
+}
+
+function* indexedOf(crostab) {
+  const {
+    side,
+    head,
+    rows
+  } = crostab;
+  const h = side === null || side === void 0 ? void 0 : side.length,
+        w = head === null || head === void 0 ? void 0 : head.length;
+
+  for (let i = 0; i < h; i++) for (let j = 0; j < w; j++) yield [side[i], head[j], rows[i][j]];
+}
+function* indexedBy(crostab, by) {
+  const {
+    side,
+    head,
+    rows
+  } = crostab;
+  const h = side === null || side === void 0 ? void 0 : side.length,
+        w = head === null || head === void 0 ? void 0 : head.length;
+
+  for (let i = 0; i < h; i++) for (let j = 0; j < w; j++) if (by(side[i], head[j], rows[i][j])) yield [side[i], head[j], rows[i][j]];
+}
+function* indexedTo(crostab, to) {
+  if (!to) return yield* indexedOf(crostab);
+  const {
+    side,
+    head,
+    rows
+  } = crostab;
+  const h = side === null || side === void 0 ? void 0 : side.length,
+        w = head === null || head === void 0 ? void 0 : head.length;
+
+  for (let i = 0; i < h; i++) for (let j = 0; j < w; j++) yield to(side[i], head[j], rows[i][j]);
+}
+function* indexed(crostab, by, to) {
+  if (!to) return yield* !by ? indexedOf(crostab) : indexedBy(crostab, by);
+  const {
+    side,
+    head,
+    rows
+  } = crostab;
+  const h = side === null || side === void 0 ? void 0 : side.length,
+        w = head === null || head === void 0 ? void 0 : head.length;
+
+  for (let i = 0; i < h; i++) for (let j = 0; j < w; j++) if (by(side[i], head[j], rows[i][j])) yield to(side[i], head[j], rows[i][j]);
 }
 
 /**
@@ -106,16 +152,17 @@ const Sideward = mixin.mixin(indexable.XIndexable, mappable.XMappable, updatable
  */
 
 const Headward = mixin.mixin(indexable.YIndexable, mappable.YMappable, updatable.YUpdatable, selectable.YSelectable);
+
 class Crostab {
   /** @type {string[]} */
   side;
   /** @type {string[]} */
 
   head;
-  /** @type {any[][]} */
+  /** @type {any[][]}  */
 
   rows;
-  /** @type {string} */
+  /** @type {string}   */
 
   title;
   /** @type {Sideward} */
@@ -125,32 +172,36 @@ class Crostab {
 
   #yward;
 
-  constructor({
-    side,
-    head,
-    rows,
-    title
-  }) {
-    this.side = side;
-    this.head = head;
-    this.rows = rows;
-    this.title = title;
+  constructor(o) {
+    this.side = (o === null || o === void 0 ? void 0 : o.side) ?? [];
+    this.head = (o === null || o === void 0 ? void 0 : o.head) ?? [];
+    this.rows = (o === null || o === void 0 ? void 0 : o.rows) ?? [];
+    this.title = o === null || o === void 0 ? void 0 : o.title;
   }
-  /** @returns {Sideward} */
+
+  static build(side, head, rows, title) {
+    return new Crostab({
+      side,
+      head,
+      rows,
+      title
+    });
+  }
+
+  static from(o) {
+    return new Crostab(o);
+  }
+  /** @returns {Sideward|Hybrid} */
 
 
   get sideward() {
     return this.#xward ?? (this.#xward = new Sideward(this));
   }
-  /** @returns {Headward} */
+  /** @returns {Headward|Hybrid} */
 
 
   get headward() {
     return this.#yward ?? (this.#yward = new Headward(this));
-  }
-
-  get size() {
-    return [this.height, this.width];
   }
 
   get height() {
@@ -161,17 +212,21 @@ class Crostab {
     return this.head.length;
   }
 
-  roin(r) {
-    return this.side.indexOf(r);
+  [Symbol.iterator]() {
+    return indexedOf(this);
   }
 
-  coin(c) {
-    return this.head.indexOf(c);
+  roin(x) {
+    return this.side.indexOf(x);
   }
 
-  cell(r, c) {
-    const row = this.rows[this.roin(r)];
-    return row[this.coin[c]];
+  coin(y) {
+    return this.head.indexOf(y);
+  }
+
+  cell(x, y) {
+    const row = this.rows[this.roin(x)];
+    return row[this.coin[y]];
   }
 
   coord(r, c) {
@@ -190,7 +245,13 @@ class Crostab {
   }
 
   update(x, y, v) {
-    return this.rows[this.roin(x)][this.coin(y)] = v;
+    if (~(x = this.roin(x)) && ~(y = this.coin(y))) this.rows[x][y] = v;
+  }
+
+  collect(iter) {
+    for (let [x, y, v] of iter) this.update(x, y, v);
+
+    return this;
   }
 
   transpose(title) {
@@ -220,13 +281,12 @@ class Crostab {
 
 }
 
-const ZERO = 'zero';
 class DynamicCrostab extends Crostab {
   /** @type {function} */
   init = null;
   /** @type {*}        */
 
-  val = null;
+  base = null;
 
   constructor(element) {
     super({
@@ -234,49 +294,62 @@ class DynamicCrostab extends Crostab {
       head: [],
       rows: []
     });
-    element instanceof Function ? this.init = element : this.val = element;
+    element instanceof Function ? this.init = element : this.base = element;
   }
 
   static build(element) {
     return new DynamicCrostab(element);
   }
 
+  static gather(iter) {
+    const crostab = new DynamicCrostab();
+
+    for (let [x, y, v] of iter) crostab.update(x, y, v);
+
+    return crostab;
+  }
+
   get zero() {
     var _this$init;
 
-    return ((_this$init = this.init) === null || _this$init === void 0 ? void 0 : _this$init.call(this)) ?? this.val;
+    return ((_this$init = this.init) === null || _this$init === void 0 ? void 0 : _this$init.call(this)) ?? this.base;
   }
 
-  roin(x) {
-    const i = this.side.indexOf(x);
-    if (~i) return i;
-    this.rows.push(vectorInit.collect.call(this, ZERO, this.head.length));
-    return i + this.side.push(x);
+  xi(x) {
+    const xi = this.side.indexOf(x);
+    if (~xi) return xi;
+    const wd = this.head.length,
+          row = Array(wd);
+
+    for (let i = 0; i < wd; i++) row[i] = this.zero;
+
+    return (this.rows.push(row), this.side.push(x)) - 1;
   }
 
-  coin(y) {
-    const i = this.head.indexOf(y);
-    if (~i) return i;
+  yi(y) {
+    const yi = this.head.indexOf(y);
+    if (~yi) return yi;
+    const ht = this.side.length;
 
-    for (let row of this.rows) row.push(this.zero);
+    for (let i = 0; i < ht; i++) this.rows[i].push(this.zero);
 
-    return i + this.head.push(y);
+    return this.head.push(y) - 1;
   }
 
   update(x, y, v) {
-    return this.rows[this.roin(x)][this.coin(y)] = v;
+    return this.rows[this.xi(x)][this.yi(y)] = v;
   }
 
   append(x, y, v) {
-    return this.rows[this.roin(x)][this.coin(y)].push(v);
+    return this.rows[this.xi(x)][this.yi(y)].push(v);
   }
 
   assign(x, y, k, v) {
-    return this.rows[this.roin(x)][this.coin(y)][k] = v;
+    return this.rows[this.xi(x)][this.yi(y)][k] = v;
   }
 
   cell(x, y) {
-    return this.rows[this.roin(x)][this.coin(y)];
+    return this.rows[this.xi(x)][this.yi(y)];
   }
 
   query(x, y) {
@@ -293,7 +366,69 @@ class DynamicCrostab extends Crostab {
 
 }
 
+class Flatward {
+  side;
+  head;
+  rows;
+  title;
+
+  constructor({
+    side,
+    head,
+    rows,
+    title
+  }) {
+    this.side = side;
+    this.head = head;
+    this.rows = rows;
+    this.title = title;
+  }
+
+  static from(crostab) {
+    return new Flatward(crostab);
+  }
+
+  *rowsIndexed() {
+    yield this.headIndexed();
+
+    for (let i = 0, h = this.side.length; i < h; i++) yield this.rowIndexed(i);
+  }
+
+  *columnsIndexed() {
+    yield this.sideIndexed();
+
+    for (let j = 0, w = this.head.length; j < w; j++) yield this.columnIndexed(j);
+  }
+
+  *headIndexed() {
+    yield this.title;
+    yield* this.head;
+  }
+
+  *sideIndexed() {
+    yield this.title;
+    yield* this.side;
+  }
+
+  *rowIndexed(xi) {
+    yield this.side[xi];
+    yield* this.rows[xi];
+  }
+
+  *columnIndexed(yi) {
+    yield this.head[yi];
+
+    for (let i = 0, h = this.rows.length; i < h; i++) yield this.rows[i][yi];
+  }
+
+}
+
 exports.Crostab = Crostab;
 exports.DynamicCrostab = DynamicCrostab;
+exports.Flatward = Flatward;
 exports.Headward = Headward;
 exports.Sideward = Sideward;
+exports.indexed = indexed;
+exports.indexedBy = indexedBy;
+exports.indexedOf = indexedOf;
+exports.indexedTo = indexedTo;

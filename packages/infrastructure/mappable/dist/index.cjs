@@ -2,35 +2,10 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('@vect/matrix-init');
+var columnsMapper = require('@vect/columns-mapper');
+var matrixAlgebra = require('@vect/matrix-algebra');
 var matrixMapper = require('@vect/matrix-mapper');
 var vectorMapper = require('@vect/vector-mapper');
-var columnsMapper = require('@vect/columns-mapper');
-
-const height = mx => mx === null || mx === void 0 ? void 0 : mx.length;
-
-const width = mx => {
-  var _mx$;
-
-  return mx !== null && mx !== void 0 && mx.length ? (_mx$ = mx[0]) === null || _mx$ === void 0 ? void 0 : _mx$.length : null;
-};
-
-/**
- * Transpose a 2d-array.
- * @param {*[][]} mx
- * @returns {*[][]}
- */
-
-
-const transpose = mx => {
-  const h = height(mx),
-        w = width(mx),
-        cols = Array(w);
-
-  for (let j = 0; j < w; j++) for (let i = 0, col = cols[j] = Array(h); i < h; i++) col[i] = mx[i][j];
-
-  return cols;
-};
 
 class Labels extends Array {
   constructor(size) {
@@ -94,11 +69,11 @@ class XMappable {
   }
 
   *entryIndexed(kv, by, to) {
-    yield* matrixMapper.entryIndexed(transpose(this.rows), kv, by, to);
+    yield* matrixMapper.entryIndexed(matrixAlgebra.transpose(this.rows), kv, by, to);
   }
 
   *tripletIndexed(xyz, by, to) {
-    yield* matrixMapper.tripletIndexed(transpose(this.rows), xyz, by, to);
+    yield* matrixMapper.tripletIndexed(matrixAlgebra.transpose(this.rows), xyz, by, to);
   }
 
   *indexedTo(to) {
@@ -106,23 +81,13 @@ class XMappable {
   }
 
   *entryIndexedTo(kv, to) {
-    yield* matrixMapper.entryIndexedTo(transpose(this.rows), kv, to);
+    yield* matrixMapper.entryIndexedTo(matrixAlgebra.transpose(this.rows), kv, to);
   }
 
   *tripletIndexedTo(xyz, to) {
-    yield* matrixMapper.tripletIndexedTo(transpose(this.rows), xyz, to);
+    yield* matrixMapper.tripletIndexedTo(matrixAlgebra.transpose(this.rows), xyz, to);
   }
 
-}
-
-function* indexedTo(sparse, to) {
-  let row;
-
-  for (let x in sparse) {
-    for (let y in row = sparse[x]) {
-      yield to(x, y, row[y]);
-    }
-  }
 }
 
 class YMappable {
@@ -172,7 +137,7 @@ class YMappable {
   }
 
   *indexedTo(to) {
-    yield* indexedTo(this.rows, to);
+    yield* matrixMapper.indexedTo(this.rows, to);
   }
 
   *entryIndexedTo(kv, to) {

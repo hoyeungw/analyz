@@ -1,13 +1,13 @@
+import { indexed, indexedTo }                                             from '@vect/columns-mapper'
 import { transpose }                                                      from '@vect/matrix-algebra'
 import { entryIndexed, entryIndexedTo, tripletIndexed, tripletIndexedTo } from '@vect/matrix-mapper'
 import { mutate, mutate as mutateVector }                                 from '@vect/vector-mapper'
-import { indexed, indexedTo }                                             from '@vect/columns-mapper'
 import { Labels }                                                         from './Labels'
 
 export class XMappable {
   side
   rows
-  constructor({side, rows}) { this.side = side, this.rows = rows }
+  constructor({ side, rows }) { this.side = side, this.rows = rows }
   // mapKeys(fn) { return new XMappable({side: this.side.map(fn), rows: shallow(this.rows)}) }
   // map(keys, fn) {
   //   keys = Labels.prototype.indexesOf.call(this.side, keys)

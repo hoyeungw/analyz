@@ -14,6 +14,7 @@ export function* indexedBy(crostab, by) {
 }
 
 export function* indexedTo(crostab, to) {
+  if (!to) return yield* indexedOf(crostab)
   const { side, head, rows } = crostab
   const h = side?.length, w = head?.length
   for (let i = 0; i < h; i++) for (let j = 0; j < w; j++)
@@ -21,8 +22,7 @@ export function* indexedTo(crostab, to) {
 }
 
 export function* indexed(crostab, by, to) {
-  if (!to) { return yield* !by ? indexedOf(crostab) : indexedBy(crostab, by) }
-  if (!to) return yield* indexedBy(crostab, by)
+  if (!to) return yield* !by ? indexedOf(crostab) : indexedBy(crostab, by)
   const { side, head, rows } = crostab
   const h = side?.length, w = head?.length
   for (let i = 0; i < h; i++) for (let j = 0; j < w; j++)

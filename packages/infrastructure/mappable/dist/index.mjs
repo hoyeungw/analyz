@@ -1,32 +1,7 @@
-import '@vect/matrix-init';
-import { entryIndexed, tripletIndexed, entryIndexedTo, tripletIndexedTo, mutate as mutate$1, indexed as indexed$1 } from '@vect/matrix-mapper';
+import { indexed, indexedTo } from '@vect/columns-mapper';
+import { transpose } from '@vect/matrix-algebra';
+import { entryIndexed, tripletIndexed, entryIndexedTo, tripletIndexedTo, mutate as mutate$1, indexed as indexed$1, indexedTo as indexedTo$1 } from '@vect/matrix-mapper';
 import { mutate } from '@vect/vector-mapper';
-import { indexed, indexedTo as indexedTo$1 } from '@vect/columns-mapper';
-
-const height = mx => mx === null || mx === void 0 ? void 0 : mx.length;
-
-const width = mx => {
-  var _mx$;
-
-  return mx !== null && mx !== void 0 && mx.length ? (_mx$ = mx[0]) === null || _mx$ === void 0 ? void 0 : _mx$.length : null;
-};
-
-/**
- * Transpose a 2d-array.
- * @param {*[][]} mx
- * @returns {*[][]}
- */
-
-
-const transpose = mx => {
-  const h = height(mx),
-        w = width(mx),
-        cols = Array(w);
-
-  for (let j = 0; j < w; j++) for (let i = 0, col = cols[j] = Array(h); i < h; i++) col[i] = mx[i][j];
-
-  return cols;
-};
 
 class Labels extends Array {
   constructor(size) {
@@ -98,7 +73,7 @@ class XMappable {
   }
 
   *indexedTo(to) {
-    yield* indexedTo$1(this.rows, to);
+    yield* indexedTo(this.rows, to);
   }
 
   *entryIndexedTo(kv, to) {
@@ -109,16 +84,6 @@ class XMappable {
     yield* tripletIndexedTo(transpose(this.rows), xyz, to);
   }
 
-}
-
-function* indexedTo(sparse, to) {
-  let row;
-
-  for (let x in sparse) {
-    for (let y in row = sparse[x]) {
-      yield to(x, y, row[y]);
-    }
-  }
 }
 
 class YMappable {
@@ -168,7 +133,7 @@ class YMappable {
   }
 
   *indexedTo(to) {
-    yield* indexedTo(this.rows, to);
+    yield* indexedTo$1(this.rows, to);
   }
 
   *entryIndexedTo(kv, to) {
