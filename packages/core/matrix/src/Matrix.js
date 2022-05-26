@@ -45,10 +45,3 @@ export class Matrix extends Array {
   * entriesTo(xy, to) { yield* entriesTo(this, xy, to) }
   * tripletsTo(xyz, to) { yield* tripletsTo(this, xyz, to) }
 }
-
-export class Columns extends Array {
-  constructor() {
-    super()
-    return new Proxy()
-  }
-}

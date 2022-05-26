@@ -8,6 +8,51 @@ var selectable = require('@analyz/selectable');
 var updatable = require('@analyz/updatable');
 var mixin = require('@ject/mixin');
 
+const shallow = mx => mx.map(r => r.slice());
+
+const height = mx => mx === null || mx === void 0 ? void 0 : mx.length;
+
+const width = mx => {
+  var _mx$;
+
+  return mx !== null && mx !== void 0 && mx.length ? (_mx$ = mx[0]) === null || _mx$ === void 0 ? void 0 : _mx$.length : null;
+};
+
+/**
+ * Transpose a 2d-array.
+ * @param {*[][]} mx
+ * @returns {*[][]}
+ */
+
+
+const transpose = mx => {
+  const h = height(mx),
+        w = width(mx),
+        cols = Array(w);
+
+  for (let j = 0; j < w; j++) for (let i = 0, col = cols[j] = Array(h); i < h; i++) col[i] = mx[i][j];
+
+  return cols;
+};
+
+function mutate$1(vec, fn, l) {
+  l = l || (vec === null || vec === void 0 ? void 0 : vec.length);
+
+  for (--l; l >= 0; l--) vec[l] = fn.call(this, vec[l], l);
+
+  return vec;
+}
+
+function mutate(mx, fn, h, w) {
+  var _mx$3;
+
+  h = h || (mx === null || mx === void 0 ? void 0 : mx.length), w = w || h && ((_mx$3 = mx[0]) === null || _mx$3 === void 0 ? void 0 : _mx$3.length);
+
+  for (let i = 0, j, r; i < h; i++) for (j = 0, r = mx[i]; j < w; j++) r[j] = fn(r[j], i, j);
+
+  return mx;
+}
+
 /**
  * @typedef {Object} Sideward.at
  */
@@ -73,9 +118,16 @@ const Sideward = mixin.mixin(indexable.XIndexable, mappable.XMappable, updatable
 
 const Headward = mixin.mixin(indexable.YIndexable, mappable.YMappable, updatable.YUpdatable, selectable.YSelectable);
 class Crostab {
+  /** @type {string[]} */
   side;
+  /** @type {string[]} */
+
   head;
+  /** @type {any[][]} */
+
   rows;
+  /** @type {string} */
+
   title;
   /** @type {Sideward} */
 
@@ -106,6 +158,71 @@ class Crostab {
 
   get headward() {
     return this.#yward ?? (this.#yward = new Headward(this));
+  }
+
+  get size() {
+    return [this.height, this.width];
+  }
+
+  get height() {
+    return this.side.length;
+  }
+
+  get width() {
+    return this.head.length;
+  }
+
+  roin(r) {
+    return this.side.indexOf(r);
+  }
+
+  coin(c) {
+    return this.head.indexOf(c);
+  }
+
+  cell(r, c) {
+    const row = this.rows[this.roin(r)];
+    return row[this.coin[c]];
+  }
+
+  coord(r, c) {
+    return {
+      x: this.roin(r),
+      y: this.coin(c)
+    };
+  }
+
+  mutate(fn) {
+    return mutate(this.rows, fn, this.height, this.width), this;
+  }
+
+  mutateKeys(fn) {
+    return mutate$1(this.side, fn), mutate$1(this.head, fn), this;
+  }
+
+  transpose(title) {
+    let {
+      side: head,
+      head: side,
+      rows: columns
+    } = this;
+    this.side = side, this.head = head, this.rows = transpose(columns), this.title = title ?? this.title;
+    return this;
+  }
+
+  slice() {
+    let {
+      side,
+      head,
+      rows,
+      title
+    } = this;
+    return new Crostab({
+      side: side.slice(),
+      head: head.slice(),
+      rows: shallow(rows),
+      title
+    });
   }
 
 }

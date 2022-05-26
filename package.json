@@ -12,17 +12,17 @@
     "build-spec": "lerna exec --scope=@analys/data-gram -- rollup -c ../../../rollup.config.mjs"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.0",
-    "@babel/plugin-proposal-pipeline-operator": "^7.17.12",
-    "@babel/preset-env": "^7.18.0",
+    "@babel/core": "^7.18.2",
+    "@babel/plugin-proposal-pipeline-operator": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
     "@babel/register": "^7.17.7",
-    "@babel/runtime": "^7.18.0",
+    "@babel/runtime": "^7.18.3",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@spare/logger": "^0.14.1",
     "@spare/xr": "^0.14.1",
-    "lerna": "^4.0.0",
+    "lerna": "^5.0.0",
     "rollup": "^2.74.1",
     "rollup-plugin-fileinfo": "^0.3.1"
   }

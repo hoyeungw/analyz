@@ -21,6 +21,9 @@
     "@analyz/updatable": "^0.0.0",
     "@ject/mixin": "^0.0.17"
   },
+  "devDependencies": {
+    "@vect/vector-init": "^0.7.9"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hoyeungw/analyz.git"
