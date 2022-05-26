@@ -1,6 +1,6 @@
 {
   "name": "@analyz/table-algebra",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A cross-table analytics tool",
   "main": "./dist/index.cjs",
   "exports": {
@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@analys/enum-join-modes": "^0.6.10",
-    "@analyz/mappable": "^0.0.0",
-    "@analyz/table": "^0.0.0",
+    "@analyz/mappable": "^0.0.1",
+    "@analyz/table": "^0.0.1",
     "@aryth/comparer": "^0.5.10",
     "@vect/columns-select": "^0.7.9",
     "@vect/matrix-index": "^0.7.9",
