@@ -1,6 +1,6 @@
 {
   "name": "@analyz/convert",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A convert",
   "main": "dist/index.cjs",
   "exports": {
@@ -15,7 +15,7 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/crostab": "^0.0.12"
+    "@analyz/crostab": "^0.0.13"
   },
   "repository": {
     "type": "git",
