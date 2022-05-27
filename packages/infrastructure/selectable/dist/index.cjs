@@ -3,46 +3,10 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var mappable = require('@analyz/mappable');
+var vectorIndex = require('@vect/vector-index');
 var vectorMapper = require('@vect/vector-mapper');
+var vectorUpdate = require('@vect/vector-update');
 var matrixAlgebra = require('@vect/matrix-algebra');
-
-function rollTop(vec, inds) {
-  for (let lo = 0, hi = inds.length; lo < hi; lo++) {
-    const ind = inds[lo];
-    if (ind > lo) rollLo.call(vec, ind, lo);
-  }
-
-  return vec;
-}
-
-function fitRoll(inds) {
-  for (let hi = inds.length - 1; hi > 0; hi--) {
-    const cu = inds[hi];
-
-    for (let i = 0; i < hi; i++) if (inds[i] > cu) inds[hi]++;
-  }
-
-  return inds;
-}
-/**
- * Roll vec[i]
- * pt <= i
- */
-
-
-function rollLo(i, lo) {
-  const el = this[i];
-
-  while (lo < i) this[i] = this[--i]; // roll to lower index by moving previous element higher up
-
-
-  return this[lo] = el;
-}
-
-function keep(vec, inds) {
-  rollTop(vec, inds).splice(inds.length);
-  return vec;
-}
 
 class XSelectable {
   side;
@@ -61,7 +25,7 @@ class XSelectable {
       rows
     } = this,
           inds = mappable.indexesOf.call(side, keys);
-    keep(side, fitRoll(inds)), keep(rows, inds);
+    vectorUpdate.keep(side, vectorIndex.fitRoll(inds)), vectorUpdate.keep(rows, inds);
     return this;
   }
 
@@ -72,7 +36,7 @@ class XSelectable {
     } = this,
           inds = mappable.indexesAt.call(this.side, keys);
     side.splice(inds.length);
-    vectorMapper.mutate(side, (_, i) => inds[i].as), keep(rows, fitRoll(inds.map(({
+    vectorMapper.mutate(side, (_, i) => inds[i].as), vectorUpdate.keep(rows, vectorIndex.fitRoll(inds.map(({
       at
     }) => at)));
     return this;
@@ -90,7 +54,7 @@ class XSelectable {
       if (by(side[i], i)) inds.push(i);
     }
 
-    keep(side, inds), keep(rows, inds);
+    vectorUpdate.keep(side, inds), vectorUpdate.keep(rows, inds);
     return this;
   }
 
@@ -106,7 +70,7 @@ class XSelectable {
       if (by(rows[i][yi], i)) inds.push(i);
     }
 
-    keep(side, inds), keep(rows, inds);
+    vectorUpdate.keep(side, inds), vectorUpdate.keep(rows, inds);
     return this;
   }
 
@@ -169,7 +133,7 @@ class YSelectable {
       rows
     } = this,
           inds = mappable.indexesOf.call(head, keys);
-    keep(head, fitRoll(inds)), vectorMapper.iterate(rows, row => keep(row, inds));
+    vectorUpdate.keep(head, vectorIndex.fitRoll(inds)), vectorMapper.iterate(rows, row => vectorUpdate.keep(row, inds));
     return this;
   }
 
@@ -179,11 +143,11 @@ class YSelectable {
       rows
     } = this,
           inds = mappable.indexesAt.call(this.head, keys),
-          fitInds = fitRoll(inds.map(({
+          fitInds = vectorIndex.fitRoll(inds.map(({
       at
     }) => at));
     head.splice(inds.length);
-    vectorMapper.mutate(head, (_, i) => inds[i].as), vectorMapper.iterate(rows, row => keep(row, fitInds));
+    vectorMapper.mutate(head, (_, i) => inds[i].as), vectorMapper.iterate(rows, row => vectorUpdate.keep(row, fitInds));
     return this;
   }
 
@@ -199,7 +163,7 @@ class YSelectable {
       if (by(head[j], j)) inds.push(j);
     }
 
-    keep(head, inds), vectorMapper.iterate(rows, row => keep(row, inds));
+    vectorUpdate.keep(head, inds), vectorMapper.iterate(rows, row => vectorUpdate.keep(row, inds));
     return this;
   }
 
@@ -216,7 +180,7 @@ class YSelectable {
       if (by(columns[j][xi], j)) inds.push(j);
     }
 
-    keep(head, inds), vectorMapper.iterate(rows, row => keep(row, inds));
+    vectorUpdate.keep(head, inds), vectorMapper.iterate(rows, row => vectorUpdate.keep(row, inds));
     return this;
   }
 

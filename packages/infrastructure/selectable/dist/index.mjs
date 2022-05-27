@@ -1,44 +1,8 @@
 import { indexesOf, indexesAt } from '@analyz/mappable';
+import { fitRoll } from '@vect/vector-index';
 import { mutate, iterate } from '@vect/vector-mapper';
+import { keep } from '@vect/vector-update';
 import { transpose } from '@vect/matrix-algebra';
-
-function rollTop(vec, inds) {
-  for (let lo = 0, hi = inds.length; lo < hi; lo++) {
-    const ind = inds[lo];
-    if (ind > lo) rollLo.call(vec, ind, lo);
-  }
-
-  return vec;
-}
-
-function fitRoll(inds) {
-  for (let hi = inds.length - 1; hi > 0; hi--) {
-    const cu = inds[hi];
-
-    for (let i = 0; i < hi; i++) if (inds[i] > cu) inds[hi]++;
-  }
-
-  return inds;
-}
-/**
- * Roll vec[i]
- * pt <= i
- */
-
-
-function rollLo(i, lo) {
-  const el = this[i];
-
-  while (lo < i) this[i] = this[--i]; // roll to lower index by moving previous element higher up
-
-
-  return this[lo] = el;
-}
-
-function keep(vec, inds) {
-  rollTop(vec, inds).splice(inds.length);
-  return vec;
-}
 
 class XSelectable {
   side;
