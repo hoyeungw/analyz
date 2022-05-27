@@ -1,37 +1,48 @@
-import { transpose } from '@vect/matrix-algebra'
-import { select }    from '@vect/vector-select'
-import { zipper }    from '@vect/vector-zipper'
-import { Labels }    from '@analyz/mappable'
+import { indexesAt, indexesOf } from '@analyz/mappable'
+import { fitRoll }              from '@vect/vector-index'
+import { mutate }               from '@vect/vector-mapper'
+import { keep }                 from '@vect/vector-update'
 
 export class XSelectable {
   side
   rows
-  constructor({side, rows}) { this.side = side, this.rows = rows }
+  constructor({ side, rows }) { this.side = side, this.rows = rows }
+
   select(keys) {
-    const xs = Labels.prototype.indexesAt.call(this.side, keys)
-    this.head = xs.map(({as}) => as), this.rows = select(this.rows, xs.map(({at}) => at))
+    const { side, rows } = this, inds = indexesOf.call(side, keys)
+    keep(side, fitRoll(inds)), keep(rows, inds)
     return this
-    // return new XSelectable({head: xs.map(({as}) => as), rows: select(this.rows, xs.map(({at}) => at))})
   }
-  filter(x, by) {
-    const xi = this.side.indexOf(x)
-    const columns = transpose(this.rows).filter(col => by(col[xi]))
-    this.rows = transpose(columns)
+  selectAs(keys) {
+    const { side, rows } = this, inds = indexesAt.call(this.side, keys)
+    side.splice(inds.length)
+    mutate(side, (_, i) => inds[i].as), keep(rows, fitRoll(inds.map(({ at }) => at)))
     return this
-    // return new XSelectable({side: this.side.slice(), rows: transpose(columns)})
+  }
+  filterKeys(by) {
+    const { side, rows } = this, h = rows.length, inds = []
+    for (let i = 0; i < h; i++) { if (by(side[i], i)) inds.push(i)}
+    keep(side, inds), keep(rows, inds)
+    return this
+  }
+  filterKeysBy(yi, by) {
+    const { side, rows } = this, h = rows.length, inds = []
+    for (let i = 0; i < h; i++) { if (by(rows[i][yi], i)) inds.push(i)}
+    keep(side, inds), keep(rows, inds)
+    return this
   }
   sortKeys(comp) {
-    const list = zipper(this.side, this.rows, (key, row) => ({key, row}))
-    list.sort((a, b) => comp(a.key, b.key))
-    this.side = list.map(({key}) => key), this.rows = list.map(({row}) => row)
+    const { side, rows } = this, h = rows.length
+    for (let i = 0; i < h; i++) { rows[i].key = side[i] }
+    rows.sort((a, b) => comp(a.key, b.key))
+    for (let i = 0; i < h; i++) { side[i] = rows[i].key, (delete rows[i].key) }
     return this
-    // return new XSelectable({side: list.map(({key}) => key), rows: list.map(({row}) => row)})
   }
   sortKeysBy(yi, comp) {
-    const list = zipper(this.side, this.rows, (key, row) => ({y: row[yi], key, row}))
-    list.sort((a, b) => comp(a.y, b.y))
-    this.side = list.map(({key}) => key), this.rows = list.map(({row}) => row)
+    const { side, rows } = this, h = rows.length
+    for (let i = 0; i < h; i++) { rows[i].key = side[i] }
+    rows.sort((a, b) => comp(a[yi], b[yi]))
+    for (let i = 0; i < h; i++) { side[i] = rows[i].key, (delete rows[i].key) }
     return this
-    // return new XSelectable({side: list.map(({key}) => key), rows: list.map(({row}) => row)})
   }
 }
