@@ -3,7 +3,7 @@ import { YMappable }   from '@analyz/mappable'
 import { YSelectable } from '@analyz/selectable'
 import { YUpdatable }  from '@analyz/updatable'
 
-export class Headward  {
+export class Headward {
   head
   rows
   constructor({ head, rows }) { this.head = head, this.rows = rows }
@@ -20,9 +20,11 @@ export class Headward  {
   * tripletIndexedTo(xyz, to) { yield* YMappable.prototype.tripletIndexedTo.call(this, xyz, to) }
 
   select(keys) { return YSelectable.prototype.select.call(this, keys) }
-  filter(x, by) { return YSelectable.prototype.filter.call(this, x, by) }
+  selectAs(keys) { return YSelectable.prototype.selectAs.call(this, keys) }
+  filterKeys(by) { return YSelectable.prototype.filterKeys.call(this, by) }
+  filterKeysBy(xi, by) { return YSelectable.prototype.filterKeysBy.call(this, xi, by) }
   sortKeys(comp) { return YSelectable.prototype.sortKeys.call(this, comp) }
-  sortKeysBy(yi, comp) { return YSelectable.prototype.sortKeysBy.call(this, yi, comp) }
+  sortKeysBy(xi, comp) { return YSelectable.prototype.sortKeysBy.call(this, xi, comp) }
 
   set(x, row) { return YUpdatable.prototype.set.call(this, x, row) }
   delete(x) { return YUpdatable.prototype.delete.call(this, x) }

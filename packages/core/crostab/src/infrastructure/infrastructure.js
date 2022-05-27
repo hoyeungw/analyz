@@ -22,7 +22,9 @@ import { mixin }                    from '@ject/mixin'
  * @property {function():Generator} Sideward.entryIndexedTo
  * @property {function():Generator} Sideward.tripletIndexedTo
  * @property {function():Sideward} Sideward.select
- * @property {function():Sideward} Sideward.filter
+ * @property {function():Sideward} Sideward.selectAs
+ * @property {function():Sideward} Sideward.filterKeys
+ * @property {function():Sideward} Sideward.filterKeysBy
  * @property {function():Sideward} Sideward.sortKeys
  * @property {function():Sideward} Sideward.sortKeysBy
  * @property {function():Sideward} Sideward.set
@@ -54,10 +56,14 @@ export const Sideward = mixin(XIndexable, XMappable, XUpdatable, XSelectable)
  * @property {function():Generator} Headward.indexedTo
  * @property {function():Generator} Headward.entryIndexedTo
  * @property {function():Generator} Headward.tripletIndexedTo
+ *
  * @property {function():Headward} Headward.select
- * @property {function():Headward} Headward.filter
+ * @property {function():Headward} Headward.selectAs
+ * @property {function():Headward} Headward.filterKeys
+ * @property {function():Headward} Headward.filterKeysBy
  * @property {function():Headward} Headward.sortKeys
  * @property {function():Headward} Headward.sortKeysBy
+
  * @property {function():Headward} Headward.set
  * @property {function():Headward} Headward.delete
  * @property {function():Headward} Headward.prepend

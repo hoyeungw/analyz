@@ -22,7 +22,9 @@ export class Sideward {
   * tripletIndexedTo(xyz, to) { yield* XMappable.prototype.tripletIndexedTo.call(this, xyz, to) }
 
   select(keys) { return XSelectable.prototype.select.call(this, keys) }
-  filter(x, by) { return XSelectable.prototype.filter.call(this, x, by) }
+  selectAs(keys) { return XSelectable.prototype.selectAs.call(this, keys) }
+  filterKeys(by) { return XSelectable.prototype.filterKeys.call(this, by) }
+  filterKeysBy(yi, by) { return XSelectable.prototype.filterKeysBy.call(this, yi, by) }
   sortKeys(comp) { return XSelectable.prototype.sortKeys.call(this, comp) }
   sortKeysBy(yi, comp) { return XSelectable.prototype.sortKeysBy.call(this, yi, comp) }
 
