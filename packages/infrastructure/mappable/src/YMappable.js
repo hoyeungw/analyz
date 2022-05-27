@@ -23,9 +23,9 @@ export class YMappable {
   }
 
   * indexed(by, to) { yield* indexed(this.rows, by, to) }
-  * entryIndexed(kv, by, to) { yield* entryIndexed(this.rows, kv, by, to) }
-  * tripletIndexed(xyz, by, to) { yield* tripletIndexed(this.rows, xyz, by, to) }
+  * entryIndexed(kv, by, to) { yield* entryIndexed(this.rows, indexesOf.call(this.head, kv), by, to) }
+  * tripletIndexed(xyz, by, to) { yield* tripletIndexed(this.rows, indexesOf.call(this.head, xyz), by, to) }
   * indexedTo(to) { yield* indexedTo(this.rows, to) }
-  * entryIndexedTo(kv, to) { yield* entryIndexedTo(this.rows, kv, to) }
-  * tripletIndexedTo(xyz, to) { yield* tripletIndexedTo(this.rows, xyz, to) }
+  * entryIndexedTo(kv, to) { yield* entryIndexedTo(this.rows, indexesOf.call(this.head, kv), to) }
+  * tripletIndexedTo(xyz, to) { yield* tripletIndexedTo(this.rows, indexesOf.call(this.head, xyz), to) }
 }

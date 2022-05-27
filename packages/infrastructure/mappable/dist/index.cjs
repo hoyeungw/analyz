@@ -87,11 +87,11 @@ class XMappable {
   }
 
   *entryIndexed(kv, by, to) {
-    yield* matrixMapper.entryIndexed(matrixAlgebra.transpose(this.rows), kv, by, to);
+    yield* matrixMapper.entryIndexed(matrixAlgebra.transpose(this.rows), indexesOf.call(this.side, kv), by, to);
   }
 
   *tripletIndexed(xyz, by, to) {
-    yield* matrixMapper.tripletIndexed(matrixAlgebra.transpose(this.rows), xyz, by, to);
+    yield* matrixMapper.tripletIndexed(matrixAlgebra.transpose(this.rows), indexesOf.call(this.side, xyz), by, to);
   }
 
   *indexedTo(to) {
@@ -99,11 +99,11 @@ class XMappable {
   }
 
   *entryIndexedTo(kv, to) {
-    yield* matrixMapper.entryIndexedTo(matrixAlgebra.transpose(this.rows), kv, to);
+    yield* matrixMapper.entryIndexedTo(matrixAlgebra.transpose(this.rows), indexesOf.call(this.side, kv), to);
   }
 
   *tripletIndexedTo(xyz, to) {
-    yield* matrixMapper.tripletIndexedTo(matrixAlgebra.transpose(this.rows), xyz, to);
+    yield* matrixMapper.tripletIndexedTo(matrixAlgebra.transpose(this.rows), indexesOf.call(this.side, xyz), to);
   }
 
 }
@@ -147,11 +147,11 @@ class YMappable {
   }
 
   *entryIndexed(kv, by, to) {
-    yield* matrixMapper.entryIndexed(this.rows, kv, by, to);
+    yield* matrixMapper.entryIndexed(this.rows, indexesOf.call(this.head, kv), by, to);
   }
 
   *tripletIndexed(xyz, by, to) {
-    yield* matrixMapper.tripletIndexed(this.rows, xyz, by, to);
+    yield* matrixMapper.tripletIndexed(this.rows, indexesOf.call(this.head, xyz), by, to);
   }
 
   *indexedTo(to) {
@@ -159,11 +159,11 @@ class YMappable {
   }
 
   *entryIndexedTo(kv, to) {
-    yield* matrixMapper.entryIndexedTo(this.rows, kv, to);
+    yield* matrixMapper.entryIndexedTo(this.rows, indexesOf.call(this.head, kv), to);
   }
 
   *tripletIndexedTo(xyz, to) {
-    yield* matrixMapper.tripletIndexedTo(this.rows, xyz, to);
+    yield* matrixMapper.tripletIndexedTo(this.rows, indexesOf.call(this.head, xyz), to);
   }
 
 }

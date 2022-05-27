@@ -24,9 +24,9 @@ export class XMappable {
   }
 
   * indexed(by, to) { yield* indexed(this.rows, by, to) }
-  * entryIndexed(kv, by, to) { yield* entryIndexed(transpose(this.rows), kv, by, to) }
-  * tripletIndexed(xyz, by, to) { yield* tripletIndexed(transpose(this.rows), xyz, by, to) }
+  * entryIndexed(kv, by, to) { yield* entryIndexed(transpose(this.rows), indexesOf.call(this.side, kv), by, to) }
+  * tripletIndexed(xyz, by, to) { yield* tripletIndexed(transpose(this.rows), indexesOf.call(this.side, xyz), by, to) }
   * indexedTo(to) { yield* indexedTo(this.rows, to) }
-  * entryIndexedTo(kv, to) { yield* entryIndexedTo(transpose(this.rows), kv, to) }
-  * tripletIndexedTo(xyz, to) { yield* tripletIndexedTo(transpose(this.rows), xyz, to) }
+  * entryIndexedTo(kv, to) { yield* entryIndexedTo(transpose(this.rows), indexesOf.call(this.side, kv), to) }
+  * tripletIndexedTo(xyz, to) { yield* tripletIndexedTo(transpose(this.rows), indexesOf.call(this.side, xyz), to) }
 }

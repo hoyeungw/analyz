@@ -83,11 +83,11 @@ class XMappable {
   }
 
   *entryIndexed(kv, by, to) {
-    yield* entryIndexed(transpose(this.rows), kv, by, to);
+    yield* entryIndexed(transpose(this.rows), indexesOf.call(this.side, kv), by, to);
   }
 
   *tripletIndexed(xyz, by, to) {
-    yield* tripletIndexed(transpose(this.rows), xyz, by, to);
+    yield* tripletIndexed(transpose(this.rows), indexesOf.call(this.side, xyz), by, to);
   }
 
   *indexedTo(to) {
@@ -95,11 +95,11 @@ class XMappable {
   }
 
   *entryIndexedTo(kv, to) {
-    yield* entryIndexedTo(transpose(this.rows), kv, to);
+    yield* entryIndexedTo(transpose(this.rows), indexesOf.call(this.side, kv), to);
   }
 
   *tripletIndexedTo(xyz, to) {
-    yield* tripletIndexedTo(transpose(this.rows), xyz, to);
+    yield* tripletIndexedTo(transpose(this.rows), indexesOf.call(this.side, xyz), to);
   }
 
 }
@@ -143,11 +143,11 @@ class YMappable {
   }
 
   *entryIndexed(kv, by, to) {
-    yield* entryIndexed(this.rows, kv, by, to);
+    yield* entryIndexed(this.rows, indexesOf.call(this.head, kv), by, to);
   }
 
   *tripletIndexed(xyz, by, to) {
-    yield* tripletIndexed(this.rows, xyz, by, to);
+    yield* tripletIndexed(this.rows, indexesOf.call(this.head, xyz), by, to);
   }
 
   *indexedTo(to) {
@@ -155,11 +155,11 @@ class YMappable {
   }
 
   *entryIndexedTo(kv, to) {
-    yield* entryIndexedTo(this.rows, kv, to);
+    yield* entryIndexedTo(this.rows, indexesOf.call(this.head, kv), to);
   }
 
   *tripletIndexedTo(xyz, to) {
-    yield* tripletIndexedTo(this.rows, xyz, to);
+    yield* tripletIndexedTo(this.rows, indexesOf.call(this.head, xyz), to);
   }
 
 }
