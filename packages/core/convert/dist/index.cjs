@@ -4,12 +4,48 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var crostab = require('@analyz/crostab');
 
+function* indexedOf(sparse) {
+  let row;
+
+  for (let x in sparse) {
+    for (let y in row = sparse[x]) {
+      yield [x, y, row[y]];
+    }
+  }
+}
+
+function* indexedBy(sparse, by) {
+  let row;
+
+  for (let x in sparse) {
+    for (let y in row = sparse[x]) {
+      const v = row[y];
+      if (by(x, y, v)) yield [x, y, v];
+    }
+  }
+}
+
+function* indexed(sparse, by, to) {
+  if (!to) {
+    return yield* !by ? indexedOf(sparse) : indexedBy(sparse, by);
+  }
+
+  let row;
+
+  for (let x in sparse) {
+    for (let y in row = sparse[x]) {
+      const v = row[y];
+      if (by(x, y, v)) yield to(x, y, v);
+    }
+  }
+} // public field is not allowed to be assigned to Sparse instance
+
 const sparseToCrostab = (sparse, element) => {
-  const crostab$1 = new crostab.DynamicCrostab(element);
+  const crostab$1 = crostab.DynamicCrostab.build(element);
 
-  for (let [x, y, v] of sparse.indexed()) crostab$1.update(x, y, v);
+  for (let [x, y, v] of indexed(sparse)) crostab$1.update(x, y, v);
 
-  return new crostab.Crostab(crostab$1);
+  return crostab.Crostab.from(crostab$1);
 };
 
 exports.sparseToCrostab = sparseToCrostab;

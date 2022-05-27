@@ -263,11 +263,7 @@ class DynamicCrostab extends Crostab {
   base = null;
 
   constructor(element) {
-    super({
-      side: [],
-      head: [],
-      rows: []
-    });
+    super();
     element instanceof Function ? this.init = element : this.base = element;
   }
 

@@ -1,1 +1,1 @@
-export { sparseToCrostab } from './src/sparse-vs-crostab'
+export { sparseToCrostab, crostabToSparse } from './src/sparse-vs-crostab'

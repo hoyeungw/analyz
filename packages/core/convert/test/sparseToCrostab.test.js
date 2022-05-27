@@ -1,9 +1,8 @@
-import { Sparse }              from '@analyz/sparse'
-import { decoCrostab, logger } from '@spare/logger'
-import { sparseToCrostab }     from '../src/sparse-vs-crostab'
+import { Sparse }                           from '@analyz/sparse'
+import { deco, decoCrostab, logger }        from '@spare/logger'
+import { crostabToSparse, sparseToCrostab } from '../src/sparse-vs-crostab'
 
-const sparse = new Sparse()
-const points = [
+const coords = [
   [ 'A', 'b', 1 ],
   [ 'B', 'b', 1 ],
   [ 'C', 'b', 1 ],
@@ -16,7 +15,13 @@ const points = [
   [ 'B', 'e', 1 ]
 ]
 
-for (let [ x, y, v ] of points) sparse.update(x, y, v)
+const sparse = Sparse.gather(coords)
 
 const crostab = sparseToCrostab(sparse, '')
+
+crostab |> deco |> console.log
 crostab |> decoCrostab |> logger
+
+const sparse2 = crostabToSparse(crostab, (x, y, v) => v)
+
+sparse2 |> deco |> console.log

@@ -5,7 +5,7 @@ export class DynamicCrostab extends Crostab {
   /** @type {function} */ init = null
   /** @type {*}        */ base = null
   constructor(element) {
-    super({ side: [], head: [], rows: [] })
+    super()
     element instanceof Function ? (this.init = element) : (this.base = element)
   }
   static build(element) { return new DynamicCrostab(element) }
