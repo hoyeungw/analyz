@@ -1,14 +1,6 @@
-import {
-  entryIndexed,
-  entryIndexedTo,
-  indexed,
-  indexedTo,
-  mutate as mutateMatrix,
-  tripletIndexed,
-  tripletIndexedTo
-}                                 from '@vect/matrix-mapper'
-import { mutate as mutateVector } from '@vect/vector-mapper'
-import { Labels }                 from './Labels'
+import { entryIndexed, entryIndexedTo, indexed, indexedTo, mutate as mutateMatrix, tripletIndexed, tripletIndexedTo } from '@vect/matrix-mapper'
+import { mutate as mutateVector }                                                                                     from '@vect/vector-mapper'
+import { indexesOf }                                                                                                  from './Labels'
 
 export class YMappable {
   head
@@ -25,7 +17,7 @@ export class YMappable {
   mutateKeys(fn) { return mutateVector(this.head, fn), this }
   mutateValues(fn) { return mutateMatrix(this.rows, fn), this }
   mutate(keys, fn) {
-    keys = Labels.prototype.indexesOf.call(this.head, keys)
+    keys = indexesOf.call(this.head, keys)
     for (let row of this.rows) for (let y of keys) row[y] = fn(row[y])
     return this
   }

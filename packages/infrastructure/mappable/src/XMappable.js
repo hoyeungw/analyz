@@ -2,7 +2,7 @@ import { indexed, indexedTo }                                             from '
 import { transpose }                                                      from '@vect/matrix-algebra'
 import { entryIndexed, entryIndexedTo, tripletIndexed, tripletIndexedTo } from '@vect/matrix-mapper'
 import { mutate, mutate as mutateVector }                                 from '@vect/vector-mapper'
-import { Labels }                                                         from './Labels'
+import { indexesOf }                                                      from './Labels'
 
 export class XMappable {
   side
@@ -10,7 +10,7 @@ export class XMappable {
   constructor({ side, rows }) { this.side = side, this.rows = rows }
   // mapKeys(fn) { return new XMappable({side: this.side.map(fn), rows: shallow(this.rows)}) }
   // map(keys, fn) {
-  //   keys = Labels.prototype.indexesOf.call(this.side, keys)
+  //   keys = indexesOf.call(this.side, keys)
   //   const rows = shallow(this.rows)
   //   for (let x of keys) { mutate(rows[x], fn) }
   //   return new XMappable({side: this.side.slice(), rows})
@@ -18,7 +18,7 @@ export class XMappable {
 
   mutateKeys(fn) { return mutateVector(this.side, fn), this }
   mutate(keys, fn) {
-    keys = Labels.prototype.indexesOf.call(this.side, keys)
+    keys = indexesOf.call(this.side, keys)
     for (let x of keys) { mutate(this.rows[x], fn) }
     return this
   }
