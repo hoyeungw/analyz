@@ -9,7 +9,7 @@ export class Sparse {
   #init = null
   #base = null
   constructor(el) { el instanceof Function ? (this.#init = el) : (this.#base = el) }
-  [Symbol.iterator]() { return this.indexed() }
+  static build(el) { return new Sparse(el) }
   static from(nested) {
     const sparse = new Sparse()
     for (let [ x, y, v ] of indexed(nested)) sparse.update(x, y, v)
@@ -20,6 +20,8 @@ export class Sparse {
     for (let [ x, y, v ] of iter) sparse.update(x, y, v)
     return sparse
   }
+
+  [Symbol.iterator]() { return this.indexed() }
   clear() { for (let x in this) delete this[x] }
   get zero() { return this.#init?.call(this) ?? this.#base }
   cell(x, y) {
@@ -49,7 +51,7 @@ export class Sparse {
     for (let x in this) for (let y in this[x]) if (!~vec.indexOf(y)) vec.push(y)
     return vec
   }
-  toCrostab(to, nu) {
+  crostab(to, nu) {
     const { side, head } = this, ht = side.length, wd = head.length
     const rows = nu instanceof Function ? init(ht, wd, nu) : iso(ht, wd, nu)
     const crostab = Crostab.build(side, head, rows)

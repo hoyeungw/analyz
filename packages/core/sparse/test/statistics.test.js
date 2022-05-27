@@ -1,5 +1,6 @@
-import { decoCrostab }                      from '@spare/logger'
-import { CrosAverage, CrosCount, CrosList } from '../src/extensions'
+import { ACCUM, AVERAGE, COUNT } from '@analys/enum-pivot-mode'
+import { decoCrostab }           from '@spare/logger'
+import { Stat }                  from '../src/Stat'
 
 const samples = [
   [ 'Beer', 'QD', 200 ],
@@ -17,6 +18,6 @@ const samples = [
   [ 'Liqu', 'CS', 120 ],
 ]
 
-CrosList.gather(samples).toCrostab(x => x?.average ?? 0, '') |> decoCrostab |> console.log
-CrosCount.gather(samples).toCrostab(null, '') |> decoCrostab |> console.log
-CrosAverage.gather(samples).toCrostab(x => x?.average ?? 0, '') |> decoCrostab |> console.log
+Stat.of(ACCUM).collect(samples).crostab(x => x?.average ?? 0, '') |> decoCrostab |> console.log
+Stat.of(COUNT).collect(samples).crostab(null, '') |> decoCrostab |> console.log
+Stat.of(AVERAGE).collect(samples).crostab(x => x?.average ?? 0, '') |> decoCrostab |> console.log

@@ -74,8 +74,8 @@ class Sparse {
     el instanceof Function ? this.#init = el : this.#base = el;
   }
 
-  [Symbol.iterator]() {
-    return this.indexed();
+  static build(el) {
+    return new Sparse(el);
   }
 
   static from(nested) {
@@ -92,6 +92,10 @@ class Sparse {
     for (let [x, y, v] of iter) sparse.update(x, y, v);
 
     return sparse;
+  }
+
+  [Symbol.iterator]() {
+    return this.indexed();
   }
 
   clear() {
@@ -154,7 +158,7 @@ class Sparse {
     return vec;
   }
 
-  toCrostab(to, nu) {
+  crostab(to, nu) {
     const {
       side,
       head
@@ -230,6 +234,7 @@ class Counter {
   }
 
 }
+
 class CrosList extends Sparse {
   constructor(el = List.build) {
     super(el);
@@ -245,8 +250,7 @@ class CrosList extends Sparse {
 
   update(x, y, v) {
     this.cellOrInit(x, y).push(v);
-  } // toObject(fn) { return {side: this.side, head: this.head, rows: mapper(this.rows, fn ?? (li => li.average))} }
-
+  }
 
 }
 class CrosMax extends Sparse {

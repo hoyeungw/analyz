@@ -9,5 +9,4 @@ table.headward |> console.log
 
 table.headward.grow('served', x => x * 10, 'served_10', 'sold')
 
-
 table |> decoTable |> console.log
