@@ -3,13 +3,14 @@ export class Flatward {
   head
   rows
   title
-  constructor({side, head, rows, title}) {
-    this.side = side
-    this.head = head
-    this.rows = rows
+  constructor(side, head, rows, title) {
+    this.side = side ?? []
+    this.head = head ?? []
+    this.rows = rows ?? []
     this.title = title
   }
-  static from(crostab) { return new Flatward(crostab) }
+  static from(o = {}) { return new Flatward(o.side, o.head, o.rows, o.title) }
+  static build(side, head, rows, title) { return new Flatward(side, head, rows, title) }
 
   * rowsIndexed() {
     yield this.headIndexed()

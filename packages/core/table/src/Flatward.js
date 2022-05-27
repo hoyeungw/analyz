@@ -1,11 +1,12 @@
 export class Flatward {
   head
   rows
-  constructor({head, rows}) {
+  constructor(head, rows) {
     this.head = head
     this.rows = rows
   }
-  static from(table) { return new Flatward(table) }
+  static build(head, rows) { return new Flatward(head, rows) }
+  static from(o = {}) { return new Flatward(o.head, o.rows) }
 
   * rowsIndexed() {
     yield this.head

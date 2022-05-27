@@ -1,10 +1,10 @@
-import { Matrix }                 from '@analyz/matrix'
-import { transpose }              from '@vect/matrix-algebra'
-import { shallow }                from '@vect/matrix-init'
-import { mutate as mutateMatrix } from '@vect/matrix-mapper'
-import { mutate as mutateVector } from '@vect/vector-mapper'
-import { indexedOf }              from './infrastructure/indexed'
-import { Headward, Sideward }     from './infrastructure/infrastructure'
+import { Matrix }                                         from '@analyz/matrix'
+import { transpose }                                      from '@vect/matrix-algebra'
+import { shallow }                                        from '@vect/matrix-init'
+import { mapper as mapperMatrix, mutate as mutateMatrix } from '@vect/matrix-mapper'
+import { mutate as mutateVector }                         from '@vect/vector-mapper'
+import { indexedOf }                                      from './infrastructure/indexed'
+import { Headward, Sideward }                             from './infrastructure/infrastructure'
 
 
 export class Crostab {
@@ -15,14 +15,14 @@ export class Crostab {
   /** @type {Sideward} */ #xward
   /** @type {Headward} */ #yward
 
-  constructor(o) {
-    this.side = o?.side ?? []
-    this.head = o?.head ?? []
-    this.rows = o?.rows ?? []
-    this.title = o?.title
+  constructor(side, head, rows, title) {
+    this.side = side ?? []
+    this.head = head ?? []
+    this.rows = rows ?? []
+    this.title = title
   }
-  static build(side, head, rows, title) { return new Crostab({ side, head, rows, title }) }
-  static from(o) { return new Crostab(o) }
+  static build(side, head, rows, title) { return new Crostab(side, head, rows, title) }
+  static from(o = {}) { return new Crostab(o.side, o.head, o.rows, o.title) }
   /** @returns {Sideward} */ get sideward() { return this.#xward ?? (this.#xward = new Sideward(this)) }
   /** @returns {Headward} */ get headward() { return this.#yward ?? (this.#yward = new Headward(this)) }
   get height() { return this.side.length }
@@ -38,7 +38,8 @@ export class Crostab {
   }
 
   coord(r, c) { return { x: this.roin(r), y: this.coin(c) } }
-  mutate(fn) { return mutateMatrix(this.rows, fn, this.height, this.width), this }
+  map(fn) { return Crostab.build(this.side.slice(), this.head.slice(), mapperMatrix(this.rows, fn), this.title) }
+  mutate(fn) { return mutateMatrix(this.rows, fn), this }
   mutateKeys(fn) { return mutateVector(this.side, fn), mutateVector(this.head, fn), this }
   update(x, y, v) { if (~(x = this.roin(x)) && ~(y = this.coin(y))) this.rows[x][y] = v }
   collect(iter) {
@@ -50,8 +51,6 @@ export class Crostab {
     this.side = side, this.head = head, this.rows = transpose(columns), this.title = title ?? this.title
     return this
   }
-  slice() {
-    let { side, head, rows, title } = this
-    return new Crostab({ side: side.slice(), head: head.slice(), rows: shallow(rows), title })
-  }
+  slice() { return Crostab.build(this.side.slice(), this.head.slice(), shallow(this.rows), this.title) }
 }
+

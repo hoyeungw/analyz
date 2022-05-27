@@ -2,7 +2,7 @@ import { decoCrostab, logger } from '@spare/logger'
 import { Crostab }             from '../src/Crostab'
 
 
-const crostab = new Crostab({
+const crostab = Crostab.from({
   side: [ 'A', 'B', 'C', 'D', 'E' ],
   head: [ 'a', 'b', 'c', 'd' ],
   rows: [
