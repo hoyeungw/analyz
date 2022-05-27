@@ -30,6 +30,7 @@ export class Table {
   column(y) { return Matrix.prototype.column.call(this.coin[y]) }
 
   map(fn) { return Table.build(this.head.slice(), mapperMatrix(this.rows, fn), this.title) }
+  filter(y, fn) { return y = this.coin(y), Table.build(this.head.slice, this.rows.filter(row => fn(row[y])), this.title) }
   mutate(fn) { return mutateMatrix(this.rows, fn), this }
   mutateKeys(fn) { return mutateVector(this.head, fn), this }
 

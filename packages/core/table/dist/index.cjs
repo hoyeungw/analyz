@@ -428,6 +428,10 @@ class Table {
     return Table.build(this.head.slice(), mapper(this.rows, fn), this.title);
   }
 
+  filter(y, fn) {
+    return y = this.coin(y), Table.build(this.head.slice, this.rows.filter(row => fn(row[y])), this.title);
+  }
+
   mutate(fn) {
     return mutate(this.rows, fn), this;
   }
