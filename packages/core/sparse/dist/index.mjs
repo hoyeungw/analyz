@@ -1,5 +1,6 @@
 import { Crostab } from '@analyz/crostab';
 import { nullish } from '@typen/nullish';
+import { ACCUM, AVERAGE, COUNT, INCRE, MAX, MIN, FIRST, LAST } from '@analys/enum-pivot-mode';
 
 function iso(h, w, v) {
   const mx = Array(h);
@@ -327,6 +328,24 @@ class CrosSum extends Sparse {
   }
 
 }
+class CrosCount extends Sparse {
+  constructor(el = 0) {
+    super(el);
+  }
+
+  static build(el) {
+    return new CrosCount(el);
+  }
+
+  static gather(iter) {
+    return CrosCount.build().collect(iter);
+  }
+
+  update(x, y, _) {
+    this.rowOn(x, y)[y]++;
+  }
+
+}
 class CrosFirst extends Sparse {
   constructor() {
     super(null);
@@ -367,4 +386,19 @@ class CrosLast extends Sparse {
 
 }
 
-export { CrosAverage, CrosFirst, CrosLast, CrosList, CrosMax, CrosMin, CrosSum, Sparse, indexed, indexedBy, indexedOf, indexedTo, transpose };
+class Stat {
+  static of(mode) {
+    if (mode === ACCUM) return new CrosList();
+    if (mode === AVERAGE) return new CrosAverage();
+    if (mode === COUNT) return new CrosCount();
+    if (mode === INCRE) return new CrosSum();
+    if (mode === MAX) return new CrosMax();
+    if (mode === MIN) return new CrosMin();
+    if (mode === FIRST) return new CrosFirst();
+    if (mode === LAST) return new CrosLast();
+    return new CrosList();
+  }
+
+}
+
+export { CrosAverage, CrosFirst, CrosLast, CrosList, CrosMax, CrosMin, CrosSum, Sparse, Stat, indexed, indexedBy, indexedOf, indexedTo, transpose };

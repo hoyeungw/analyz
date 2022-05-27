@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var crostab = require('@analyz/crostab');
 var nullish = require('@typen/nullish');
+var enumPivotMode = require('@analys/enum-pivot-mode');
 
 function iso(h, w, v) {
   const mx = Array(h);
@@ -331,6 +332,24 @@ class CrosSum extends Sparse {
   }
 
 }
+class CrosCount extends Sparse {
+  constructor(el = 0) {
+    super(el);
+  }
+
+  static build(el) {
+    return new CrosCount(el);
+  }
+
+  static gather(iter) {
+    return CrosCount.build().collect(iter);
+  }
+
+  update(x, y, _) {
+    this.rowOn(x, y)[y]++;
+  }
+
+}
 class CrosFirst extends Sparse {
   constructor() {
     super(null);
@@ -371,6 +390,21 @@ class CrosLast extends Sparse {
 
 }
 
+class Stat {
+  static of(mode) {
+    if (mode === enumPivotMode.ACCUM) return new CrosList();
+    if (mode === enumPivotMode.AVERAGE) return new CrosAverage();
+    if (mode === enumPivotMode.COUNT) return new CrosCount();
+    if (mode === enumPivotMode.INCRE) return new CrosSum();
+    if (mode === enumPivotMode.MAX) return new CrosMax();
+    if (mode === enumPivotMode.MIN) return new CrosMin();
+    if (mode === enumPivotMode.FIRST) return new CrosFirst();
+    if (mode === enumPivotMode.LAST) return new CrosLast();
+    return new CrosList();
+  }
+
+}
+
 exports.CrosAverage = CrosAverage;
 exports.CrosFirst = CrosFirst;
 exports.CrosLast = CrosLast;
@@ -379,6 +413,7 @@ exports.CrosMax = CrosMax;
 exports.CrosMin = CrosMin;
 exports.CrosSum = CrosSum;
 exports.Sparse = Sparse;
+exports.Stat = Stat;
 exports.indexed = indexed;
 exports.indexedBy = indexedBy;
 exports.indexedOf = indexedOf;
