@@ -1,9 +1,11 @@
+import { Matrix }                 from '@analyz/matrix'
 import { transpose }              from '@vect/matrix-algebra'
 import { shallow }                from '@vect/matrix-init'
 import { mutate as mutateMatrix } from '@vect/matrix-mapper'
 import { mutate as mutateVector } from '@vect/vector-mapper'
-import { indexedOf }              from './indexed'
-import { Headward, Sideward }     from './infrastructure'
+import { indexedOf }              from './infrastructure/indexed'
+import { Headward, Sideward }     from './infrastructure/infrastructure'
+
 
 export class Crostab {
   /** @type {string[]} */ side
@@ -21,13 +23,15 @@ export class Crostab {
   }
   static build(side, head, rows, title) { return new Crostab({ side, head, rows, title }) }
   static from(o) { return new Crostab(o) }
-  /** @returns {Sideward|Hybrid} */ get sideward() { return this.#xward ?? (this.#xward = new Sideward(this)) }
-  /** @returns {Headward|Hybrid} */ get headward() { return this.#yward ?? (this.#yward = new Headward(this)) }
+  /** @returns {Sideward} */ get sideward() { return this.#xward ?? (this.#xward = new Sideward(this)) }
+  /** @returns {Headward} */ get headward() { return this.#yward ?? (this.#yward = new Headward(this)) }
   get height() { return this.side.length }
   get width() { return this.head.length }
   [Symbol.iterator]() { return indexedOf(this) }
   roin(x) { return this.side.indexOf(x) }
   coin(y) { return this.head.indexOf(y) }
+  row(x) { return this.rows[this.roin(x)] }
+  column(y) { return Matrix.prototype.column.call(this.coin[y]) }
   cell(x, y) {
     const row = this.rows[this.roin(x)]
     return row[this.coin[y]]
