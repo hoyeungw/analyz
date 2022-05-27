@@ -1,6 +1,6 @@
 {
   "name": "@analyz/updatable",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Updatable class as infrastructure for table and crostab",
   "main": "dist/index.cjs",
   "exports": {
