@@ -1,6 +1,6 @@
 {
   "name": "@analyz/matrix",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A matrix",
   "main": "dist/index.cjs",
   "exports": {
@@ -33,5 +33,6 @@
   "bugs": {
     "url": "https://github.com/hoyeungw/analyz"
   },
-  "homepage": "https://github.com/hoyeungw/analyz#readme"
+  "homepage": "https://github.com/hoyeungw/analyz#readme",
+  "gitHead": "90ac400cfc8af4b39ab3bbb61c42f22d5fde791b"
 }
