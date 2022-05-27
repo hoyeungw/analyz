@@ -171,11 +171,7 @@ class Algebra {
           rowsL = verso.rows.map(row => vectorIndex.rollTop(row === null || row === void 0 ? void 0 : row.slice(), indsL));
     const headR = vectorIndex.rollTop(recto.head.slice(), indsR),
           rowsR = recto.rows.map(row => vectorIndex.rollTop(row === null || row === void 0 ? void 0 : row.slice(), indsR));
-    return new table.Table({
-      head: vectorAlgebra.merge(headL, headR.slice(keys.length)),
-      rows: Join.joinRows(mode, rowsL, rowsR, keys.length, fill),
-      title: `${verso.title} ${recto.title}`
-    });
+    return table.Table.build(vectorAlgebra.merge(headL, headR.slice(keys.length)), Join.joinRows(mode, rowsL, rowsR, keys.length, fill), `${verso.title} ${recto.title}`);
   }
 
   static joins(mode, keys, fill, ...tables) {
@@ -183,8 +179,8 @@ class Algebra {
   }
 
   static separate(table$1, keys) {
-    const selected = new table.Table({}),
-          remained = new table.Table({});
+    const selected = table.Table.build(),
+          remained = table.Table.build();
     const {
       head,
       rows
@@ -216,10 +212,7 @@ class Algebra {
   static merge(table$1, another) {
     const head = vectorAlgebra.merge(table$1.head, another.head);
     const rows = vectorZipper.zipper(table$1.rows, another.rows, (va, vb) => vectorAlgebra.merge(va, vb));
-    return table.Table.from({
-      head,
-      rows
-    });
+    return table.Table.build(head, rows);
   }
 
 }

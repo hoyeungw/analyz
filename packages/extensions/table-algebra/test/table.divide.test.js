@@ -2,7 +2,7 @@ import { Table }           from '@analyz/table'
 import { decoTable, says } from '@spare/logger'
 import { Algebra }         from '../src/Algebra'
 
-const table = new Table({
+const table =  Table.from({
   head: [ 'date', 'symbol', 'ast', 'liab', 'eqt' ],
   rows: [
     [ '2025', 'AAPL', 1000, 500, 500 ],

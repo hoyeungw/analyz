@@ -3,9 +3,9 @@ import { Table }                         from '@analyz/table'
 import { decoTable, says }               from '@spare/logger'
 import { Algebra }                       from '../src/Algebra'
 
-const MODES = {INTERSECT, LEFT, RIGHT, UNION}
+const MODES = { INTERSECT, LEFT, RIGHT, UNION }
 const test = () => {
-  const balance = new Table({
+  const balance = Table.from({
     head: [ 'date', 'symbol', 'ast', 'liab', 'eqt' ],
     rows: [
       [ '2025', 'AAPL', 1000, 500, 500 ],
@@ -17,7 +17,7 @@ const test = () => {
     ],
     title: 'balance'
   })
-  const income = new Table({
+  const income = Table.from({
     head: [ 'symbol', 'rev', 'cost', 'inc', 'date' ],
     rows: [
       [ 'AAPL', 600, 500, 100, '2024' ],
@@ -34,7 +34,7 @@ const test = () => {
   income |> decoTable |> says['income']
 
   const mode = 'INTERSECT'
-  Algebra.joins(MODES[mode], [ 'date', 'symbol' ], null, balance, income) |> decoTable |> says['joined'].by(mode)
+  Algebra.joins(MODES[mode], [ 'date', 'symbol' ], null, balance, income, income) |> decoTable |> says['joined'].by(mode)
 
   '' |> console.log
 }

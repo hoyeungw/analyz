@@ -1,9 +1,9 @@
-import { mutate, mapper } from '@vect/matrix-mapper';
+import { mapper, mutate } from '@vect/matrix-mapper';
 import { Matrix } from '@analyz/matrix';
 import { transpose } from '@vect/matrix-algebra';
 import { shallow } from '@vect/matrix-init';
 import { mutate as mutate$1 } from '@vect/vector-mapper';
-import { XIndexable, YIndexable, ProxyFab } from '@analyz/indexable';
+import { XIndexable, YIndexable } from '@analyz/indexable';
 import { XMappable, YMappable } from '@analyz/mappable';
 import { XSelectable, YSelectable } from '@analyz/selectable';
 import { XUpdatable, YUpdatable } from '@analyz/updatable';
@@ -88,7 +88,7 @@ function* indexed(crostab, by, to) {
  * @property {function():Sideward} Sideward.grow
  */
 
-const Sideward$1 = mixin(XIndexable, XMappable, XUpdatable, XSelectable);
+const Sideward = mixin(XIndexable, XMappable, XUpdatable, XSelectable);
 /**
  * @typedef {Object} Headward.at
  */
@@ -125,7 +125,7 @@ const Sideward$1 = mixin(XIndexable, XMappable, XUpdatable, XSelectable);
  * @property {function():Headward} Headward.grow
  */
 
-const Headward$1 = mixin(YIndexable, YMappable, YUpdatable, YSelectable);
+const Headward = mixin(YIndexable, YMappable, YUpdatable, YSelectable);
 
 class Crostab {
   /** @type {string[]} */
@@ -146,36 +146,31 @@ class Crostab {
 
   #yward;
 
-  constructor(o) {
-    this.side = (o === null || o === void 0 ? void 0 : o.side) ?? [];
-    this.head = (o === null || o === void 0 ? void 0 : o.head) ?? [];
-    this.rows = (o === null || o === void 0 ? void 0 : o.rows) ?? [];
-    this.title = o === null || o === void 0 ? void 0 : o.title;
+  constructor(side, head, rows, title) {
+    this.side = side ?? [];
+    this.head = head ?? [];
+    this.rows = rows ?? [];
+    this.title = title;
   }
 
   static build(side, head, rows, title) {
-    return new Crostab({
-      side,
-      head,
-      rows,
-      title
-    });
+    return new Crostab(side, head, rows, title);
   }
 
-  static from(o) {
-    return new Crostab(o);
+  static from(o = {}) {
+    return new Crostab(o.side, o.head, o.rows, o.title);
   }
   /** @returns {Sideward} */
 
 
   get sideward() {
-    return this.#xward ?? (this.#xward = new Sideward$1(this));
+    return this.#xward ?? (this.#xward = new Sideward(this));
   }
   /** @returns {Headward} */
 
 
   get headward() {
-    return this.#yward ?? (this.#yward = new Headward$1(this));
+    return this.#yward ?? (this.#yward = new Headward(this));
   }
 
   get height() {
@@ -218,8 +213,12 @@ class Crostab {
     };
   }
 
+  map(fn) {
+    return Crostab.build(this.side.slice(), this.head.slice(), mapper(this.rows, fn), this.title);
+  }
+
   mutate(fn) {
-    return mutate(this.rows, fn, this.height, this.width), this;
+    return mutate(this.rows, fn), this;
   }
 
   mutateKeys(fn) {
@@ -247,18 +246,7 @@ class Crostab {
   }
 
   slice() {
-    let {
-      side,
-      head,
-      rows,
-      title
-    } = this;
-    return new Crostab({
-      side: side.slice(),
-      head: head.slice(),
-      rows: shallow(rows),
-      title
-    });
+    return Crostab.build(this.side.slice(), this.head.slice(), shallow(this.rows), this.title);
   }
 
 }
@@ -348,228 +336,25 @@ class DynamicCrostab extends Crostab {
 
 }
 
-class Headward {
-  head;
-  rows;
-
-  constructor({
-    head,
-    rows
-  }) {
-    this.head = head, this.rows = rows;
-  }
-
-  get at() {
-    return this._hdi ?? (this._hdi = ProxyFab.headwardIndexer(this));
-  }
-
-  mutateKeys(fn) {
-    return YMappable.prototype.mutateKeys.call(this, fn);
-  }
-
-  mutate(keys, fn) {
-    return YMappable.prototype.mutate.call(this, keys, fn);
-  }
-
-  *indexed(by, to) {
-    yield* YMappable.prototype.indexed.call(this, by, to);
-  }
-
-  *entryIndexed(kv, by, to) {
-    yield* YMappable.prototype.entryIndexed.call(this, kv, by, to);
-  }
-
-  *tripletIndexed(xyz, by, to) {
-    yield* YMappable.prototype.tripletIndexed.call(this, xyz, by, to);
-  }
-
-  *indexedTo(to) {
-    yield* YMappable.prototype.indexedTo.call(this, to);
-  }
-
-  *entryIndexedTo(kv, to) {
-    yield* YMappable.prototype.entryIndexedTo.call(this, kv, to);
-  }
-
-  *tripletIndexedTo(xyz, to) {
-    yield* YMappable.prototype.tripletIndexedTo.call(this, xyz, to);
-  }
-
-  select(keys) {
-    return YSelectable.prototype.select.call(this, keys);
-  }
-
-  selectAs(keys) {
-    return YSelectable.prototype.selectAs.call(this, keys);
-  }
-
-  filterKeys(by) {
-    return YSelectable.prototype.filterKeys.call(this, by);
-  }
-
-  filterKeysBy(xi, by) {
-    return YSelectable.prototype.filterKeysBy.call(this, xi, by);
-  }
-
-  sortKeys(comp) {
-    return YSelectable.prototype.sortKeys.call(this, comp);
-  }
-
-  sortKeysBy(xi, comp) {
-    return YSelectable.prototype.sortKeysBy.call(this, xi, comp);
-  }
-
-  set(x, row) {
-    return YUpdatable.prototype.set.call(this, x, row);
-  }
-
-  delete(x) {
-    return YUpdatable.prototype.delete.call(this, x);
-  }
-
-  prepend(x, row) {
-    return YUpdatable.prototype.prepend.call(this, x, row);
-  }
-
-  append(x, row) {
-    return YUpdatable.prototype.append.call(this, x, row);
-  }
-
-  shift() {
-    return YUpdatable.prototype.shift.call(this);
-  }
-
-  pop() {
-    return YUpdatable.prototype.pop.call(this);
-  }
-
-  grow(from, to, as, at) {
-    return YUpdatable.prototype.grow.call(this, from, to, as, at);
-  }
-
-}
-
-class Sideward {
-  side;
-  rows;
-
-  constructor({
-    side,
-    rows
-  }) {
-    this.side = side, this.rows = rows;
-  }
-
-  get at() {
-    return this._sdi ?? (this._sdi = ProxyFab.sidewardIndexer(this));
-  }
-
-  mutateKeys(fn) {
-    return XMappable.prototype.mutateKeys.call(this, fn);
-  }
-
-  mutate(keys, fn) {
-    return XMappable.prototype.mutate.call(this, keys, fn);
-  }
-
-  *indexed(by, to) {
-    yield* XMappable.prototype.indexed.call(this, by, to);
-  }
-
-  *entryIndexed(kv, by, to) {
-    yield* XMappable.prototype.entryIndexed.call(this, kv, by, to);
-  }
-
-  *tripletIndexed(xyz, by, to) {
-    yield* XMappable.prototype.tripletIndexed.call(this, xyz, by, to);
-  }
-
-  *indexedTo(to) {
-    yield* XMappable.prototype.indexedTo.call(this, to);
-  }
-
-  *entryIndexedTo(kv, to) {
-    yield* XMappable.prototype.entryIndexedTo.call(this, kv, to);
-  }
-
-  *tripletIndexedTo(xyz, to) {
-    yield* XMappable.prototype.tripletIndexedTo.call(this, xyz, to);
-  }
-
-  select(keys) {
-    return XSelectable.prototype.select.call(this, keys);
-  }
-
-  selectAs(keys) {
-    return XSelectable.prototype.selectAs.call(this, keys);
-  }
-
-  filterKeys(by) {
-    return XSelectable.prototype.filterKeys.call(this, by);
-  }
-
-  filterKeysBy(yi, by) {
-    return XSelectable.prototype.filterKeysBy.call(this, yi, by);
-  }
-
-  sortKeys(comp) {
-    return XSelectable.prototype.sortKeys.call(this, comp);
-  }
-
-  sortKeysBy(yi, comp) {
-    return XSelectable.prototype.sortKeysBy.call(this, yi, comp);
-  }
-
-  set(x, row) {
-    return XUpdatable.prototype.set.call(this, x, row);
-  }
-
-  delete(x) {
-    return XUpdatable.prototype.delete.call(this, x);
-  }
-
-  prepend(x, row) {
-    return XUpdatable.prototype.prepend.call(this, x, row);
-  }
-
-  append(x, row) {
-    return XUpdatable.prototype.append.call(this, x, row);
-  }
-
-  shift() {
-    return XUpdatable.prototype.shift.call(this);
-  }
-
-  pop() {
-    return XUpdatable.prototype.pop.call(this);
-  }
-
-  grow(from, to, as, at) {
-    return XUpdatable.prototype.grow.call(this, from, to, as, at);
-  }
-
-}
-
 class Flatward {
   side;
   head;
   rows;
   title;
 
-  constructor({
-    side,
-    head,
-    rows,
-    title
-  }) {
-    this.side = side;
-    this.head = head;
-    this.rows = rows;
+  constructor(side, head, rows, title) {
+    this.side = side ?? [];
+    this.head = head ?? [];
+    this.rows = rows ?? [];
     this.title = title;
   }
 
-  static from(crostab) {
-    return new Flatward(crostab);
+  static from(o = {}) {
+    return new Flatward(o.side, o.head, o.rows, o.title);
+  }
+
+  static build(side, head, rows, title) {
+    return new Flatward(side, head, rows, title);
   }
 
   *rowsIndexed() {

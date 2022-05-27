@@ -167,11 +167,7 @@ class Algebra {
           rowsL = verso.rows.map(row => rollTop(row === null || row === void 0 ? void 0 : row.slice(), indsL));
     const headR = rollTop(recto.head.slice(), indsR),
           rowsR = recto.rows.map(row => rollTop(row === null || row === void 0 ? void 0 : row.slice(), indsR));
-    return new Table({
-      head: merge(headL, headR.slice(keys.length)),
-      rows: Join.joinRows(mode, rowsL, rowsR, keys.length, fill),
-      title: `${verso.title} ${recto.title}`
-    });
+    return Table.build(merge(headL, headR.slice(keys.length)), Join.joinRows(mode, rowsL, rowsR, keys.length, fill), `${verso.title} ${recto.title}`);
   }
 
   static joins(mode, keys, fill, ...tables) {
@@ -179,8 +175,8 @@ class Algebra {
   }
 
   static separate(table, keys) {
-    const selected = new Table({}),
-          remained = new Table({});
+    const selected = Table.build(),
+          remained = Table.build();
     const {
       head,
       rows
@@ -212,10 +208,7 @@ class Algebra {
   static merge(table, another) {
     const head = merge(table.head, another.head);
     const rows = zipper(table.rows, another.rows, (va, vb) => merge(va, vb));
-    return Table.from({
-      head,
-      rows
-    });
+    return Table.build(head, rows);
   }
 
 }
