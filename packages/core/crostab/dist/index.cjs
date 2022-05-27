@@ -2,44 +2,16 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var vectorMapper = require('@vect/vector-mapper');
+var matrixMapper = require('@vect/matrix-mapper');
+var matrix = require('@analyz/matrix');
 var matrixAlgebra = require('@vect/matrix-algebra');
 var matrixInit = require('@vect/matrix-init');
+var vectorMapper = require('@vect/vector-mapper');
 var indexable = require('@analyz/indexable');
 var mappable = require('@analyz/mappable');
 var selectable = require('@analyz/selectable');
 var updatable = require('@analyz/updatable');
 var mixin = require('@ject/mixin');
-
-/**
- * Iterate through elements on each (x of rows,y of columns) coordinate of a 2d-array.
- * @param {*[][]} mx
- * @param {function} fn
- * @param {number} [h]
- * @param {number} [w]
- * @returns {*[]}
- */
-
-function mapper(mx, fn, h, w) {
-  var _mx$;
-
-  h = h || (mx === null || mx === void 0 ? void 0 : mx.length), w = w || h && ((_mx$ = mx[0]) === null || _mx$ === void 0 ? void 0 : _mx$.length);
-  const tx = Array(h);
-
-  for (let i = 0, j, r, tr; i < h; i++) for (tx[i] = tr = Array(w), r = mx[i], j = 0; j < w; j++) tr[j] = fn(r[j], i, j);
-
-  return tx;
-}
-
-function mutate(mx, fn, h, w) {
-  var _mx$3;
-
-  h = h || (mx === null || mx === void 0 ? void 0 : mx.length), w = w || h && ((_mx$3 = mx[0]) === null || _mx$3 === void 0 ? void 0 : _mx$3.length);
-
-  for (let i = 0, j, r; i < h; i++) for (j = 0, r = mx[i]; j < w; j++) r[j] = fn(r[j], i, j);
-
-  return mx;
-}
 
 function* indexedOf(crostab) {
   const {
@@ -118,7 +90,7 @@ function* indexed(crostab, by, to) {
  * @property {function():Sideward} Sideward.grow
  */
 
-const Sideward = mixin.mixin(indexable.XIndexable, mappable.XMappable, updatable.XUpdatable, selectable.XSelectable);
+const Sideward$1 = mixin.mixin(indexable.XIndexable, mappable.XMappable, updatable.XUpdatable, selectable.XSelectable);
 /**
  * @typedef {Object} Headward.at
  */
@@ -151,7 +123,7 @@ const Sideward = mixin.mixin(indexable.XIndexable, mappable.XMappable, updatable
  * @property {function():Headward} Headward.grow
  */
 
-const Headward = mixin.mixin(indexable.YIndexable, mappable.YMappable, updatable.YUpdatable, selectable.YSelectable);
+const Headward$1 = mixin.mixin(indexable.YIndexable, mappable.YMappable, updatable.YUpdatable, selectable.YSelectable);
 
 class Crostab {
   /** @type {string[]} */
@@ -191,17 +163,17 @@ class Crostab {
   static from(o) {
     return new Crostab(o);
   }
-  /** @returns {Sideward|Hybrid} */
+  /** @returns {Sideward} */
 
 
   get sideward() {
-    return this.#xward ?? (this.#xward = new Sideward(this));
+    return this.#xward ?? (this.#xward = new Sideward$1(this));
   }
-  /** @returns {Headward|Hybrid} */
+  /** @returns {Headward} */
 
 
   get headward() {
-    return this.#yward ?? (this.#yward = new Headward(this));
+    return this.#yward ?? (this.#yward = new Headward$1(this));
   }
 
   get height() {
@@ -224,6 +196,14 @@ class Crostab {
     return this.head.indexOf(y);
   }
 
+  row(x) {
+    return this.rows[this.roin(x)];
+  }
+
+  column(y) {
+    return matrix.Matrix.prototype.column.call(this.coin[y]);
+  }
+
   cell(x, y) {
     const row = this.rows[this.roin(x)];
     return row[this.coin[y]];
@@ -237,7 +217,7 @@ class Crostab {
   }
 
   mutate(fn) {
-    return mutate(this.rows, fn, this.height, this.width), this;
+    return matrixMapper.mutate(this.rows, fn, this.height, this.width), this;
   }
 
   mutateKeys(fn) {
@@ -360,8 +340,194 @@ class DynamicCrostab extends Crostab {
     return {
       side: this.side,
       head: this.head,
-      rows: po ? mapper(this.rows, po) : this.rows
+      rows: po ? matrixMapper.mapper(this.rows, po) : this.rows
     };
+  }
+
+}
+
+class Headward {
+  head;
+  rows;
+
+  constructor({
+    head,
+    rows
+  }) {
+    this.head = head, this.rows = rows;
+  }
+
+  get at() {
+    return this._hdi ?? (this._hdi = indexable.ProxyFab.headwardIndexer(this));
+  }
+
+  mutateKeys(fn) {
+    return mappable.YMappable.prototype.mutateKeys.call(this, fn);
+  }
+
+  mutate(keys, fn) {
+    return mappable.YMappable.prototype.mutate.call(this, keys, fn);
+  }
+
+  *indexed(by, to) {
+    yield* mappable.YMappable.prototype.indexed.call(this, by, to);
+  }
+
+  *entryIndexed(kv, by, to) {
+    yield* mappable.YMappable.prototype.entryIndexed.call(this, kv, by, to);
+  }
+
+  *tripletIndexed(xyz, by, to) {
+    yield* mappable.YMappable.prototype.tripletIndexed.call(this, xyz, by, to);
+  }
+
+  *indexedTo(to) {
+    yield* mappable.YMappable.prototype.indexedTo.call(this, to);
+  }
+
+  *entryIndexedTo(kv, to) {
+    yield* mappable.YMappable.prototype.entryIndexedTo.call(this, kv, to);
+  }
+
+  *tripletIndexedTo(xyz, to) {
+    yield* mappable.YMappable.prototype.tripletIndexedTo.call(this, xyz, to);
+  }
+
+  select(keys) {
+    return selectable.YSelectable.prototype.select.call(this, keys);
+  }
+
+  filter(x, by) {
+    return selectable.YSelectable.prototype.filter.call(this, x, by);
+  }
+
+  sortKeys(comp) {
+    return selectable.YSelectable.prototype.sortKeys.call(this, comp);
+  }
+
+  sortKeysBy(yi, comp) {
+    return selectable.YSelectable.prototype.sortKeysBy.call(this, yi, comp);
+  }
+
+  set(x, row) {
+    return updatable.YUpdatable.prototype.set.call(this, x, row);
+  }
+
+  delete(x) {
+    return updatable.YUpdatable.prototype.delete.call(this, x);
+  }
+
+  prepend(x, row) {
+    return updatable.YUpdatable.prototype.prepend.call(this, x, row);
+  }
+
+  append(x, row) {
+    return updatable.YUpdatable.prototype.append.call(this, x, row);
+  }
+
+  shift() {
+    return updatable.YUpdatable.prototype.shift.call(this);
+  }
+
+  pop() {
+    return updatable.YUpdatable.prototype.pop.call(this);
+  }
+
+  grow(from, to, as, at) {
+    return updatable.YUpdatable.prototype.grow.call(this, from, to, as, at);
+  }
+
+}
+
+class Sideward {
+  side;
+  rows;
+
+  constructor({
+    side,
+    rows
+  }) {
+    this.side = side, this.rows = rows;
+  }
+
+  get at() {
+    return this._sdi ?? (this._sdi = indexable.ProxyFab.sidewardIndexer(this));
+  }
+
+  mutateKeys(fn) {
+    return mappable.XMappable.prototype.mutateKeys.call(this, fn);
+  }
+
+  mutate(keys, fn) {
+    return mappable.XMappable.prototype.mutate.call(this, keys, fn);
+  }
+
+  *indexed(by, to) {
+    yield* mappable.XMappable.prototype.indexed.call(this, by, to);
+  }
+
+  *entryIndexed(kv, by, to) {
+    yield* mappable.XMappable.prototype.entryIndexed.call(this, kv, by, to);
+  }
+
+  *tripletIndexed(xyz, by, to) {
+    yield* mappable.XMappable.prototype.tripletIndexed.call(this, xyz, by, to);
+  }
+
+  *indexedTo(to) {
+    yield* mappable.XMappable.prototype.indexedTo.call(this, to);
+  }
+
+  *entryIndexedTo(kv, to) {
+    yield* mappable.XMappable.prototype.entryIndexedTo.call(this, kv, to);
+  }
+
+  *tripletIndexedTo(xyz, to) {
+    yield* mappable.XMappable.prototype.tripletIndexedTo.call(this, xyz, to);
+  }
+
+  select(keys) {
+    return selectable.XSelectable.prototype.select.call(this, keys);
+  }
+
+  filter(x, by) {
+    return selectable.XSelectable.prototype.filter.call(this, x, by);
+  }
+
+  sortKeys(comp) {
+    return selectable.XSelectable.prototype.sortKeys.call(this, comp);
+  }
+
+  sortKeysBy(yi, comp) {
+    return selectable.XSelectable.prototype.sortKeysBy.call(this, yi, comp);
+  }
+
+  set(x, row) {
+    return updatable.XUpdatable.prototype.set.call(this, x, row);
+  }
+
+  delete(x) {
+    return updatable.XUpdatable.prototype.delete.call(this, x);
+  }
+
+  prepend(x, row) {
+    return updatable.XUpdatable.prototype.prepend.call(this, x, row);
+  }
+
+  append(x, row) {
+    return updatable.XUpdatable.prototype.append.call(this, x, row);
+  }
+
+  shift() {
+    return updatable.XUpdatable.prototype.shift.call(this);
+  }
+
+  pop() {
+    return updatable.XUpdatable.prototype.pop.call(this);
+  }
+
+  grow(from, to, as, at) {
+    return updatable.XUpdatable.prototype.grow.call(this, from, to, as, at);
   }
 
 }

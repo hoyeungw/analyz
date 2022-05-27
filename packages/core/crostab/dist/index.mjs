@@ -1,41 +1,13 @@
-import { mutate as mutate$1 } from '@vect/vector-mapper';
+import { mutate, mapper } from '@vect/matrix-mapper';
+import { Matrix } from '@analyz/matrix';
 import { transpose } from '@vect/matrix-algebra';
 import { shallow } from '@vect/matrix-init';
-import { XIndexable, YIndexable } from '@analyz/indexable';
+import { mutate as mutate$1 } from '@vect/vector-mapper';
+import { XIndexable, YIndexable, ProxyFab } from '@analyz/indexable';
 import { XMappable, YMappable } from '@analyz/mappable';
 import { XSelectable, YSelectable } from '@analyz/selectable';
 import { XUpdatable, YUpdatable } from '@analyz/updatable';
 import { mixin } from '@ject/mixin';
-
-/**
- * Iterate through elements on each (x of rows,y of columns) coordinate of a 2d-array.
- * @param {*[][]} mx
- * @param {function} fn
- * @param {number} [h]
- * @param {number} [w]
- * @returns {*[]}
- */
-
-function mapper(mx, fn, h, w) {
-  var _mx$;
-
-  h = h || (mx === null || mx === void 0 ? void 0 : mx.length), w = w || h && ((_mx$ = mx[0]) === null || _mx$ === void 0 ? void 0 : _mx$.length);
-  const tx = Array(h);
-
-  for (let i = 0, j, r, tr; i < h; i++) for (tx[i] = tr = Array(w), r = mx[i], j = 0; j < w; j++) tr[j] = fn(r[j], i, j);
-
-  return tx;
-}
-
-function mutate(mx, fn, h, w) {
-  var _mx$3;
-
-  h = h || (mx === null || mx === void 0 ? void 0 : mx.length), w = w || h && ((_mx$3 = mx[0]) === null || _mx$3 === void 0 ? void 0 : _mx$3.length);
-
-  for (let i = 0, j, r; i < h; i++) for (j = 0, r = mx[i]; j < w; j++) r[j] = fn(r[j], i, j);
-
-  return mx;
-}
 
 function* indexedOf(crostab) {
   const {
@@ -114,7 +86,7 @@ function* indexed(crostab, by, to) {
  * @property {function():Sideward} Sideward.grow
  */
 
-const Sideward = mixin(XIndexable, XMappable, XUpdatable, XSelectable);
+const Sideward$1 = mixin(XIndexable, XMappable, XUpdatable, XSelectable);
 /**
  * @typedef {Object} Headward.at
  */
@@ -147,7 +119,7 @@ const Sideward = mixin(XIndexable, XMappable, XUpdatable, XSelectable);
  * @property {function():Headward} Headward.grow
  */
 
-const Headward = mixin(YIndexable, YMappable, YUpdatable, YSelectable);
+const Headward$1 = mixin(YIndexable, YMappable, YUpdatable, YSelectable);
 
 class Crostab {
   /** @type {string[]} */
@@ -187,17 +159,17 @@ class Crostab {
   static from(o) {
     return new Crostab(o);
   }
-  /** @returns {Sideward|Hybrid} */
+  /** @returns {Sideward} */
 
 
   get sideward() {
-    return this.#xward ?? (this.#xward = new Sideward(this));
+    return this.#xward ?? (this.#xward = new Sideward$1(this));
   }
-  /** @returns {Headward|Hybrid} */
+  /** @returns {Headward} */
 
 
   get headward() {
-    return this.#yward ?? (this.#yward = new Headward(this));
+    return this.#yward ?? (this.#yward = new Headward$1(this));
   }
 
   get height() {
@@ -218,6 +190,14 @@ class Crostab {
 
   coin(y) {
     return this.head.indexOf(y);
+  }
+
+  row(x) {
+    return this.rows[this.roin(x)];
+  }
+
+  column(y) {
+    return Matrix.prototype.column.call(this.coin[y]);
   }
 
   cell(x, y) {
@@ -358,6 +338,192 @@ class DynamicCrostab extends Crostab {
       head: this.head,
       rows: po ? mapper(this.rows, po) : this.rows
     };
+  }
+
+}
+
+class Headward {
+  head;
+  rows;
+
+  constructor({
+    head,
+    rows
+  }) {
+    this.head = head, this.rows = rows;
+  }
+
+  get at() {
+    return this._hdi ?? (this._hdi = ProxyFab.headwardIndexer(this));
+  }
+
+  mutateKeys(fn) {
+    return YMappable.prototype.mutateKeys.call(this, fn);
+  }
+
+  mutate(keys, fn) {
+    return YMappable.prototype.mutate.call(this, keys, fn);
+  }
+
+  *indexed(by, to) {
+    yield* YMappable.prototype.indexed.call(this, by, to);
+  }
+
+  *entryIndexed(kv, by, to) {
+    yield* YMappable.prototype.entryIndexed.call(this, kv, by, to);
+  }
+
+  *tripletIndexed(xyz, by, to) {
+    yield* YMappable.prototype.tripletIndexed.call(this, xyz, by, to);
+  }
+
+  *indexedTo(to) {
+    yield* YMappable.prototype.indexedTo.call(this, to);
+  }
+
+  *entryIndexedTo(kv, to) {
+    yield* YMappable.prototype.entryIndexedTo.call(this, kv, to);
+  }
+
+  *tripletIndexedTo(xyz, to) {
+    yield* YMappable.prototype.tripletIndexedTo.call(this, xyz, to);
+  }
+
+  select(keys) {
+    return YSelectable.prototype.select.call(this, keys);
+  }
+
+  filter(x, by) {
+    return YSelectable.prototype.filter.call(this, x, by);
+  }
+
+  sortKeys(comp) {
+    return YSelectable.prototype.sortKeys.call(this, comp);
+  }
+
+  sortKeysBy(yi, comp) {
+    return YSelectable.prototype.sortKeysBy.call(this, yi, comp);
+  }
+
+  set(x, row) {
+    return YUpdatable.prototype.set.call(this, x, row);
+  }
+
+  delete(x) {
+    return YUpdatable.prototype.delete.call(this, x);
+  }
+
+  prepend(x, row) {
+    return YUpdatable.prototype.prepend.call(this, x, row);
+  }
+
+  append(x, row) {
+    return YUpdatable.prototype.append.call(this, x, row);
+  }
+
+  shift() {
+    return YUpdatable.prototype.shift.call(this);
+  }
+
+  pop() {
+    return YUpdatable.prototype.pop.call(this);
+  }
+
+  grow(from, to, as, at) {
+    return YUpdatable.prototype.grow.call(this, from, to, as, at);
+  }
+
+}
+
+class Sideward {
+  side;
+  rows;
+
+  constructor({
+    side,
+    rows
+  }) {
+    this.side = side, this.rows = rows;
+  }
+
+  get at() {
+    return this._sdi ?? (this._sdi = ProxyFab.sidewardIndexer(this));
+  }
+
+  mutateKeys(fn) {
+    return XMappable.prototype.mutateKeys.call(this, fn);
+  }
+
+  mutate(keys, fn) {
+    return XMappable.prototype.mutate.call(this, keys, fn);
+  }
+
+  *indexed(by, to) {
+    yield* XMappable.prototype.indexed.call(this, by, to);
+  }
+
+  *entryIndexed(kv, by, to) {
+    yield* XMappable.prototype.entryIndexed.call(this, kv, by, to);
+  }
+
+  *tripletIndexed(xyz, by, to) {
+    yield* XMappable.prototype.tripletIndexed.call(this, xyz, by, to);
+  }
+
+  *indexedTo(to) {
+    yield* XMappable.prototype.indexedTo.call(this, to);
+  }
+
+  *entryIndexedTo(kv, to) {
+    yield* XMappable.prototype.entryIndexedTo.call(this, kv, to);
+  }
+
+  *tripletIndexedTo(xyz, to) {
+    yield* XMappable.prototype.tripletIndexedTo.call(this, xyz, to);
+  }
+
+  select(keys) {
+    return XSelectable.prototype.select.call(this, keys);
+  }
+
+  filter(x, by) {
+    return XSelectable.prototype.filter.call(this, x, by);
+  }
+
+  sortKeys(comp) {
+    return XSelectable.prototype.sortKeys.call(this, comp);
+  }
+
+  sortKeysBy(yi, comp) {
+    return XSelectable.prototype.sortKeysBy.call(this, yi, comp);
+  }
+
+  set(x, row) {
+    return XUpdatable.prototype.set.call(this, x, row);
+  }
+
+  delete(x) {
+    return XUpdatable.prototype.delete.call(this, x);
+  }
+
+  prepend(x, row) {
+    return XUpdatable.prototype.prepend.call(this, x, row);
+  }
+
+  append(x, row) {
+    return XUpdatable.prototype.append.call(this, x, row);
+  }
+
+  shift() {
+    return XUpdatable.prototype.shift.call(this);
+  }
+
+  pop() {
+    return XUpdatable.prototype.pop.call(this);
+  }
+
+  grow(from, to, as, at) {
+    return XUpdatable.prototype.grow.call(this, from, to, as, at);
   }
 
 }

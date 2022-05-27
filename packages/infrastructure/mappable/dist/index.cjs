@@ -31,6 +31,10 @@ class Labels extends Array {
   }
 
 }
+const {
+  indexesOf,
+  indexesAt
+} = Labels.prototype;
 
 class XMappable {
   side;
@@ -43,7 +47,7 @@ class XMappable {
     this.side = side, this.rows = rows;
   } // mapKeys(fn) { return new XMappable({side: this.side.map(fn), rows: shallow(this.rows)}) }
   // map(keys, fn) {
-  //   keys = Labels.prototype.indexesOf.call(this.side, keys)
+  //   keys = indexesOf.call(this.side, keys)
   //   const rows = shallow(this.rows)
   //   for (let x of keys) { mutate(rows[x], fn) }
   //   return new XMappable({side: this.side.slice(), rows})
@@ -55,7 +59,7 @@ class XMappable {
   }
 
   mutate(keys, fn) {
-    keys = Labels.prototype.indexesOf.call(this.side, keys);
+    keys = indexesOf.call(this.side, keys);
 
     for (let x of keys) {
       vectorMapper.mutate(this.rows[x], fn);
@@ -117,7 +121,7 @@ class YMappable {
   }
 
   mutate(keys, fn) {
-    keys = Labels.prototype.indexesOf.call(this.head, keys);
+    keys = indexesOf.call(this.head, keys);
 
     for (let row of this.rows) for (let y of keys) row[y] = fn(row[y]);
 
@@ -153,3 +157,5 @@ class YMappable {
 exports.Labels = Labels;
 exports.XMappable = XMappable;
 exports.YMappable = YMappable;
+exports.indexesAt = indexesAt;
+exports.indexesOf = indexesOf;
