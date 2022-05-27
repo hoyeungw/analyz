@@ -107,7 +107,7 @@ class Sparse {
     for (let x in this) delete this[x];
   }
 
-  get zero() {
+  get #zero() {
     var _this$init;
 
     return ((_this$init = this.#init) === null || _this$init === void 0 ? void 0 : _this$init.call(this)) ?? this.#base;
@@ -120,7 +120,7 @@ class Sparse {
 
   cellOrInit(x, y) {
     const row = this[x] ?? (this[x] = {});
-    return row[y] ?? (row[y] = this.zero);
+    return row[y] ?? (row[y] = this.#zero);
   }
 
   row(x) {
@@ -129,7 +129,7 @@ class Sparse {
 
   rowOn(x, y) {
     const row = this[x] ?? (this[x] = {});
-    if (!(y in row)) row[y] = this.zero;
+    if (!(y in row)) row[y] = this.#zero;
     return row;
   }
 
