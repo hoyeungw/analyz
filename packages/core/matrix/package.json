@@ -1,6 +1,6 @@
 {
   "name": "@analyz/matrix",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A matrix",
   "main": "dist/index.cjs",
   "exports": {
