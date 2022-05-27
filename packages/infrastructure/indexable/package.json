@@ -1,6 +1,6 @@
 {
   "name": "@analyz/indexable",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Indexable class as infrastructure for table and crostab",
   "main": "dist/index.cjs",
   "exports": {
