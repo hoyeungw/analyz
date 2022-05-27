@@ -17,6 +17,8 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/register": "^7.17.7",
     "@babel/runtime": "^7.18.3",
+    "@foba/crostab": "^0.5.5",
+    "@foba/table": "^0.5.5",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",

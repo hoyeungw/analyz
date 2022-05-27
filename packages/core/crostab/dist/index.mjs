@@ -74,7 +74,9 @@ function* indexed(crostab, by, to) {
  * @property {function():Generator} Sideward.entryIndexedTo
  * @property {function():Generator} Sideward.tripletIndexedTo
  * @property {function():Sideward} Sideward.select
- * @property {function():Sideward} Sideward.filter
+ * @property {function():Sideward} Sideward.selectAs
+ * @property {function():Sideward} Sideward.filterKeys
+ * @property {function():Sideward} Sideward.filterKeysBy
  * @property {function():Sideward} Sideward.sortKeys
  * @property {function():Sideward} Sideward.sortKeysBy
  * @property {function():Sideward} Sideward.set
@@ -106,10 +108,14 @@ const Sideward$1 = mixin(XIndexable, XMappable, XUpdatable, XSelectable);
  * @property {function():Generator} Headward.indexedTo
  * @property {function():Generator} Headward.entryIndexedTo
  * @property {function():Generator} Headward.tripletIndexedTo
+ *
  * @property {function():Headward} Headward.select
- * @property {function():Headward} Headward.filter
+ * @property {function():Headward} Headward.selectAs
+ * @property {function():Headward} Headward.filterKeys
+ * @property {function():Headward} Headward.filterKeysBy
  * @property {function():Headward} Headward.sortKeys
  * @property {function():Headward} Headward.sortKeysBy
+
  * @property {function():Headward} Headward.set
  * @property {function():Headward} Headward.delete
  * @property {function():Headward} Headward.prepend
@@ -393,16 +399,24 @@ class Headward {
     return YSelectable.prototype.select.call(this, keys);
   }
 
-  filter(x, by) {
-    return YSelectable.prototype.filter.call(this, x, by);
+  selectAs(keys) {
+    return YSelectable.prototype.selectAs.call(this, keys);
+  }
+
+  filterKeys(by) {
+    return YSelectable.prototype.filterKeys.call(this, by);
+  }
+
+  filterKeysBy(xi, by) {
+    return YSelectable.prototype.filterKeysBy.call(this, xi, by);
   }
 
   sortKeys(comp) {
     return YSelectable.prototype.sortKeys.call(this, comp);
   }
 
-  sortKeysBy(yi, comp) {
-    return YSelectable.prototype.sortKeysBy.call(this, yi, comp);
+  sortKeysBy(xi, comp) {
+    return YSelectable.prototype.sortKeysBy.call(this, xi, comp);
   }
 
   set(x, row) {
@@ -486,8 +500,16 @@ class Sideward {
     return XSelectable.prototype.select.call(this, keys);
   }
 
-  filter(x, by) {
-    return XSelectable.prototype.filter.call(this, x, by);
+  selectAs(keys) {
+    return XSelectable.prototype.selectAs.call(this, keys);
+  }
+
+  filterKeys(by) {
+    return XSelectable.prototype.filterKeys.call(this, by);
+  }
+
+  filterKeysBy(yi, by) {
+    return XSelectable.prototype.filterKeysBy.call(this, yi, by);
   }
 
   sortKeys(comp) {
