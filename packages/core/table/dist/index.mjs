@@ -425,7 +425,7 @@ class Table {
   }
 
   filter(y, fn) {
-    return y = this.coin(y), Table.build(this.head.slice, this.rows.filter(row => fn(row[y])), this.title);
+    return y = this.coin(y), Table.build(this.head.slice(), this.rows.filter(row => fn(row[y])), this.title);
   }
 
   mutate(fn) {
