@@ -23,19 +23,19 @@ export class Sparse {
 
   [Symbol.iterator]() { return this.indexed() }
   clear() { for (let x in this) delete this[x] }
-  get zero() { return this.#init?.call(this) ?? this.#base }
+  get #zero() { return this.#init?.call(this) ?? this.#base }
   cell(x, y) {
     const row = this[x]
     return row ? row[y] : null
   }
   cellOrInit(x, y) {
     const row = this[x] ?? (this[x] = {})
-    return row[y] ?? (row[y] = this.zero)
+    return row[y] ?? (row[y] = this.#zero)
   }
   row(x) { return this[x] ?? (this[x] = {}) }
   rowOn(x, y) {
     const row = this[x] ?? (this[x] = {})
-    if (!(y in row)) row[y] = this.zero
+    if (!(y in row)) row[y] = this.#zero
     return row
   }
   update(x, y, v) { (this[x] ?? (this[x] = {}))[y] = v }

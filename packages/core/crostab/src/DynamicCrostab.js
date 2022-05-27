@@ -15,20 +15,20 @@ export class DynamicCrostab extends Crostab {
     return crostab
   }
 
-  get zero() { return this.init?.call(this) ?? this.base }
+  get #zero() { return this.init?.call(this) ?? this.base }
 
   xi(x) {
     const xi = this.side.indexOf(x)
     if (~xi) return xi
     const wd = this.head.length, row = Array(wd)
-    for (let i = 0; i < wd; i++) row[i] = this.zero
+    for (let i = 0; i < wd; i++) row[i] = this.#zero
     return (this.rows.push(row), this.side.push(x)) - 1
   }
   yi(y) {
     const yi = this.head.indexOf(y)
     if (~yi) return yi
     const ht = this.side.length
-    for (let i = 0; i < ht; i++) this.rows[i].push(this.zero)
+    for (let i = 0; i < ht; i++) this.rows[i].push(this.#zero)
     return this.head.push(y) - 1
   }
 
