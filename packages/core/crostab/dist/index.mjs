@@ -275,7 +275,7 @@ class DynamicCrostab extends Crostab {
     return crostab;
   }
 
-  get #zero() {
+  get zero() {
     var _this$init;
 
     return ((_this$init = this.init) === null || _this$init === void 0 ? void 0 : _this$init.call(this)) ?? this.base;
@@ -287,7 +287,7 @@ class DynamicCrostab extends Crostab {
     const wd = this.head.length,
           row = Array(wd);
 
-    for (let i = 0; i < wd; i++) row[i] = this.#zero;
+    for (let i = 0; i < wd; i++) row[i] = this.zero;
 
     return (this.rows.push(row), this.side.push(x)) - 1;
   }
@@ -297,7 +297,7 @@ class DynamicCrostab extends Crostab {
     if (~yi) return yi;
     const ht = this.side.length;
 
-    for (let i = 0; i < ht; i++) this.rows[i].push(this.#zero);
+    for (let i = 0; i < ht; i++) this.rows[i].push(this.zero);
 
     return this.head.push(y) - 1;
   }

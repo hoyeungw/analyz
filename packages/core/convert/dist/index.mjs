@@ -68,6 +68,7 @@ function* indexed(sparse, by, to) {
 
 
 class Sparse {
+  data = {};
   #init = null;
   #base = null;
 
@@ -100,37 +101,37 @@ class Sparse {
   }
 
   clear() {
-    for (let x in this) delete this[x];
+    for (let x in this.data) delete this.data[x];
   }
 
-  get #zero() {
+  get zero() {
     var _this$init;
 
     return ((_this$init = this.#init) === null || _this$init === void 0 ? void 0 : _this$init.call(this)) ?? this.#base;
   }
 
   cell(x, y) {
-    const row = this[x];
+    const row = this.data[x];
     return row ? row[y] : null;
   }
 
   cellOrInit(x, y) {
-    const row = this[x] ?? (this[x] = {});
-    return row[y] ?? (row[y] = this.#zero);
+    const row = this.data[x] ?? (this.data[x] = {});
+    return row[y] ?? (row[y] = this.zero);
   }
 
   row(x) {
-    return this[x] ?? (this[x] = {});
+    return this.data[x] ?? (this.data[x] = {});
   }
 
   rowOn(x, y) {
-    const row = this[x] ?? (this[x] = {});
-    if (!(y in row)) row[y] = this.#zero;
+    const row = this.data[x] ?? (this.data[x] = {});
+    if (!(y in row)) row[y] = this.zero;
     return row;
   }
 
   update(x, y, v) {
-    (this[x] ?? (this[x] = {}))[y] = v;
+    (this.data[x] ?? (this.data[x] = {}))[y] = v;
   }
 
   collect(iter) {
@@ -140,21 +141,21 @@ class Sparse {
   }
 
   *indexed(by, to) {
-    yield* indexed(this, by, to);
+    yield* indexed(this.data, by, to);
   }
 
   *indexedTo(to) {
-    yield* indexedTo(this, to);
+    yield* indexedTo(this.data, to);
   }
 
   get side() {
-    return Object.keys(this);
+    return Object.keys(this.data);
   }
 
   get head() {
     const vec = [];
 
-    for (let x in this) for (let y in this[x]) if (!~vec.indexOf(y)) vec.push(y);
+    for (let x in this.data) for (let y in this.data[x]) if (!~vec.indexOf(y)) vec.push(y);
 
     return vec;
   }

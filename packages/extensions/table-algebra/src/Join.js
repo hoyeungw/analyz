@@ -1,7 +1,7 @@
-import { INTERSECT, LEFT, RIGHT, UNION } from '@analys/enum-join-modes'
 import { width }                         from '@vect/matrix-index'
 import { difference, merge, merges }     from '@vect/vector-algebra'
 import { indexes, iso }                  from '@vect/vector-init'
+import { INTERSECT, LEFT, RIGHT, UNION } from './constants'
 
 function isMatch(vecL, vecR, hi) {
   for (let i = 0; i < hi; i++) if (vecL[i] !== vecR[i]) return false
@@ -31,18 +31,18 @@ export class Join {
     return Join.intersect(verso, recto, depth, fill)
   }
   static intersect(verso, recto, depth, fill) {
-    const rows         = [],
-          matchRightBy = Rows.prototype.matchRowBy.bind(recto)
+    const rows = [],
+      matchRightBy = Rows.prototype.matchRowBy.bind(recto)
     for (let i = 0, ht = verso.length; i < ht; i++) {
       const rowL = verso[i],
-            rowR = matchRightBy(rowL, depth)
+        rowR = matchRightBy(rowL, depth)
       if (rowR) rows.push(merge(rowL, rowR.slice(depth)))
     }
     return rows
   }
   static union(verso, recto, depth, fill) {
-    const rows         = [],
-          indexRightBy = Rows.prototype.matchIndexBy.bind(recto)
+    const rows = [],
+      indexRightBy = Rows.prototype.matchIndexBy.bind(recto)
     const indsL = [], indsR = []  // matchedIndex for left and right
     for (let indL = 0, htL = verso.length, rowL, indR; indL < htL; indL++) {
       if ((rowL = verso[indL]) && ~(indR = indexRightBy(rowL, depth))) {
@@ -65,7 +65,7 @@ export class Join {
     const matchRightBy = Rows.prototype.matchRowBy.bind(recto)
     for (let i = 0; i < ht; i++) {
       const rowL = verso[i],
-            rowR = matchRightBy(rowL, depth)
+        rowR = matchRightBy(rowL, depth)
       rows[i] = merge(rowL, rowR?.slice(depth) ?? iso(wdR, fill))
     }
     return rows
@@ -75,7 +75,7 @@ export class Join {
     const matchLeftBy = Rows.prototype.matchRowBy.bind(verso)
     for (let i = 0; i < ht; i++) {
       const rowR = recto[i],
-            rowL = matchLeftBy(rowR, depth)
+        rowL = matchLeftBy(rowR, depth)
       rows[i] = rowL
         ? merge(rowL, rowR.slice(depth))
         : merges(rowR.slice(0, depth), iso(wdL, fill), rowR.slice(depth))

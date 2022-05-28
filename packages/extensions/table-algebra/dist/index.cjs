@@ -217,4 +217,13 @@ class Algebra {
 
 }
 
+const INTERSECT = -1,
+      UNION = 0,
+      LEFT = 1,
+      RIGHT = 2;
+
 exports.Algebra = Algebra;
+exports.INTERSECT = INTERSECT;
+exports.LEFT = LEFT;
+exports.RIGHT = RIGHT;
+exports.UNION = UNION;

@@ -18,7 +18,6 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analys/enum-join-modes": "^0.6.10",
     "@analyz/mappable": "^0.0.15",
     "@analyz/table": "^0.0.15",
     "@aryth/comparer": "^0.5.10",
