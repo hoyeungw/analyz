@@ -1,6 +1,6 @@
 {
   "name": "@analyz/crostab",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Table class that contains head and rows",
   "main": "dist/index.cjs",
   "exports": {
@@ -15,11 +15,11 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/indexable": "^0.0.18",
-    "@analyz/mappable": "^0.0.18",
-    "@analyz/matrix": "^0.0.18",
-    "@analyz/selectable": "^0.0.18",
-    "@analyz/updatable": "^0.0.18",
+    "@analyz/indexable": "^0.0.19",
+    "@analyz/mappable": "^0.0.19",
+    "@analyz/matrix": "^0.0.19",
+    "@analyz/selectable": "^0.0.19",
+    "@analyz/updatable": "^0.0.19",
     "@ject/mixin": "^0.0.17",
     "@vect/matrix-algebra": "^0.7.11",
     "@vect/matrix-init": "^0.7.11",
