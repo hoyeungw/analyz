@@ -12,7 +12,7 @@ export class XUpdatable {
   }
   prepend(x, row) { return this.side.unshift(x), this.rows.unshift(row), this }
   append(x, row) { return this.side.push(x), this.rows.push(row), this }
-  shift() { return [ this.side.unshift(), this.rows.unshift() ] }
+  shift() { return [ this.side.unshift(), this.rows.shift() ] }
   pop() { return [ this.side.pop(), this.rows.pop() ] }
   grow(from, to, as, at) {
     if (~(from = this.side.indexOf(from)) && ~(at = this.side.indexOf(at))) {

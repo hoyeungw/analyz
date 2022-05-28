@@ -1,3 +1,5 @@
+import { unshift, push, shift, pop } from '@vect/columns-update';
+
 class XUpdatable {
   /** @type {Array} */
   side;
@@ -37,7 +39,7 @@ class XUpdatable {
   }
 
   shift() {
-    return [this.side.unshift(), this.rows.unshift()];
+    return [this.side.unshift(), this.rows.shift()];
   }
 
   pop() {
@@ -85,19 +87,19 @@ class YUpdatable {
   }
 
   prepend(y, column) {
-    return this.head.unshift(y), this.rows.unshift(column), this;
+    return this.head.unshift(y), unshift(this.rows, column), this;
   }
 
   append(y, column) {
-    return this.head.push(y), this.rows.push(column), this;
+    return this.head.push(y), push(this.rows, column), this;
   }
 
   shift() {
-    return [this.head.unshift(), this.rows.unshift()];
+    return [this.head.unshift(), shift(this.rows)];
   }
 
   pop() {
-    return [this.head.pop(), this.rows.pop()];
+    return [this.head.pop(), pop(this.rows)];
   }
 
   grow(from, to, as, at) {

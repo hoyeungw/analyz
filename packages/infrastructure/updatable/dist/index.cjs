@@ -2,6 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var columnsUpdate = require('@vect/columns-update');
+
 class XUpdatable {
   /** @type {Array} */
   side;
@@ -41,7 +43,7 @@ class XUpdatable {
   }
 
   shift() {
-    return [this.side.unshift(), this.rows.unshift()];
+    return [this.side.unshift(), this.rows.shift()];
   }
 
   pop() {
@@ -89,19 +91,19 @@ class YUpdatable {
   }
 
   prepend(y, column) {
-    return this.head.unshift(y), this.rows.unshift(column), this;
+    return this.head.unshift(y), columnsUpdate.unshift(this.rows, column), this;
   }
 
   append(y, column) {
-    return this.head.push(y), this.rows.push(column), this;
+    return this.head.push(y), columnsUpdate.push(this.rows, column), this;
   }
 
   shift() {
-    return [this.head.unshift(), this.rows.unshift()];
+    return [this.head.unshift(), columnsUpdate.shift(this.rows)];
   }
 
   pop() {
-    return [this.head.pop(), this.rows.pop()];
+    return [this.head.pop(), columnsUpdate.pop(this.rows)];
   }
 
   grow(from, to, as, at) {

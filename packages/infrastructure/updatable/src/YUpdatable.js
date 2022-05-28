@@ -1,3 +1,5 @@
+import { pop, push, shift, unshift } from '@vect/columns-update'
+
 export class YUpdatable {
   /** @type {Array} */ head
   /** @type {Array} */ rows
@@ -10,10 +12,10 @@ export class YUpdatable {
     if (~(y = this.head.indexOf(y))) { this.head.splice(y, 1), this.rows.map(row => row.splice(y, 1)) }
     return this
   }
-  prepend(y, column) { return this.head.unshift(y), this.rows.unshift(column), this }
-  append(y, column) { return this.head.push(y), this.rows.push(column), this }
-  shift() { return [ this.head.unshift(), this.rows.unshift() ] }
-  pop() { return [ this.head.pop(), this.rows.pop() ] }
+  prepend(y, column) { return this.head.unshift(y), unshift(this.rows, column), this }
+  append(y, column) { return this.head.push(y), push(this.rows, column), this }
+  shift() { return [ this.head.unshift(), shift(this.rows) ] }
+  pop() { return [ this.head.pop(), pop(this.rows) ] }
   grow(from, to, as, at) {
     if (~(from = this.head.indexOf(from)) && ~(at = this.head.indexOf(at))) {
       at++
