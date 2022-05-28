@@ -13,7 +13,8 @@ export class Sideward {
   get at() { return this._sdi ?? (this._sdi = ProxyFab.sidewardIndexer(this)) }
 
   mutateKeys(fn) { return XMappable.prototype.mutateKeys.call(this, fn) }
-  mutate(keys, fn) { return XMappable.prototype.mutate.call(this, keys, fn) }
+  mutateAt(x, fn) { return XMappable.prototype.mutateAt.call(this, x, fn) }
+  mutate(xs, fn) { return XMappable.prototype.mutate.call(this, xs, fn) }
   * indexed(by, to) { yield* XMappable.prototype.indexed.call(this, by, to) }
   * entryIndexed(kv, by, to) { yield* XMappable.prototype.entryIndexed.call(this, kv, by, to) }
   * tripletIndexed(xyz, by, to) { yield* XMappable.prototype.tripletIndexed.call(this, xyz, by, to) }

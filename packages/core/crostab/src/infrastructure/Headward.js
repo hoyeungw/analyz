@@ -6,12 +6,13 @@ import { YUpdatable }  from '@analyz/updatable'
 export class Headward {
   head
   rows
-  constructor({ head, rows }) { this.head = head, this.rows = rows }
+  constructor({head, rows}) { this.head = head, this.rows = rows }
 
   get at() { return this._hdi ?? (this._hdi = ProxyFab.headwardIndexer(this)) }
 
   mutateKeys(fn) { return YMappable.prototype.mutateKeys.call(this, fn) }
-  mutate(keys, fn) { return YMappable.prototype.mutate.call(this, keys, fn) }
+  mutateAt(y, fn) { return YMappable.prototype.mutateAt.call(this, y, fn) }
+  mutate(ys, fn) { return YMappable.prototype.mutate.call(this, ys, fn) }
   * indexed(by, to) { yield* YMappable.prototype.indexed.call(this, by, to) }
   * entryIndexed(kv, by, to) { yield* YMappable.prototype.entryIndexed.call(this, kv, by, to) }
   * tripletIndexed(xyz, by, to) { yield* YMappable.prototype.tripletIndexed.call(this, xyz, by, to) }

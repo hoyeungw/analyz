@@ -7,19 +7,20 @@ import { indexesOf }                                                      from '
 export class XMappable {
   side
   rows
-  constructor({ side, rows }) { this.side = side, this.rows = rows }
-  // mapKeys(fn) { return new XMappable({side: this.side.map(fn), rows: shallow(this.rows)}) }
-  // map(keys, fn) {
-  //   keys = indexesOf.call(this.side, keys)
-  //   const rows = shallow(this.rows)
-  //   for (let x of keys) { mutate(rows[x], fn) }
-  //   return new XMappable({side: this.side.slice(), rows})
-  // }
+  constructor({side, rows}) { this.side = side, this.rows = rows }
 
   mutateKeys(fn) { return mutateVector(this.side, fn), this }
-  mutate(keys, fn) {
-    keys = indexesOf.call(this.side, keys)
-    for (let x of keys) { mutate(this.rows[x], fn) }
+  mutateAt(x, fn) {
+    x = this.side.indexOf(x)
+    if (!~x) return this
+    for (let row of this.rows) row[x] = fn(row[x])
+    return this
+  }
+  mutate(xs, fn) {
+    if (!Array.isArray(xs)) return this.mutateAt(xs, fn)
+    if (xs.length === 1) return this.mutateAt(xs[0], fn)
+    xs = indexesOf.call(this.side, xs)
+    for (let row of this.rows) for (let x of xs) row[x] = fn(row[x])
     return this
   }
 

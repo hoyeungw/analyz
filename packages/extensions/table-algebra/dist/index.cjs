@@ -9,9 +9,13 @@ var vectorAlgebra = require('@vect/vector-algebra');
 var vectorIndex = require('@vect/vector-index');
 var vectorSelect = require('@vect/vector-select');
 var vectorZipper = require('@vect/vector-zipper');
-var enumJoinModes = require('@analys/enum-join-modes');
 var matrixIndex = require('@vect/matrix-index');
 var vectorInit = require('@vect/vector-init');
+
+const INTERSECT = -1,
+      UNION = 0,
+      LEFT = 1,
+      RIGHT = 2;
 
 function isMatch(vecL, vecR, hi) {
   for (let i = 0; i < hi; i++) if (vecL[i] !== vecR[i]) return false;
@@ -37,19 +41,19 @@ class Rows extends Array {
 }
 class Join {
   static make(mode) {
-    if (mode === enumJoinModes.UNION) {
+    if (mode === UNION) {
       return Join.union;
     }
 
-    if (mode === enumJoinModes.LEFT) {
+    if (mode === LEFT) {
       return Join.left;
     }
 
-    if (mode === enumJoinModes.RIGHT) {
+    if (mode === RIGHT) {
       return Join.right;
     }
 
-    if (mode === enumJoinModes.INTERSECT) {
+    if (mode === INTERSECT) {
       return Join.intersect;
     }
 
@@ -57,19 +61,19 @@ class Join {
   }
 
   static joinRows(mode, verso, recto, depth, fill) {
-    if (mode === enumJoinModes.UNION) {
+    if (mode === UNION) {
       return Join.union(verso, recto, depth, fill);
     }
 
-    if (mode === enumJoinModes.LEFT) {
+    if (mode === LEFT) {
       return Join.left(verso, recto, depth, fill);
     }
 
-    if (mode === enumJoinModes.RIGHT) {
+    if (mode === RIGHT) {
       return Join.right(verso, recto, depth, fill);
     }
 
-    if (mode === enumJoinModes.INTERSECT) {
+    if (mode === INTERSECT) {
       return Join.intersect(verso, recto, depth, fill);
     }
 
@@ -217,13 +221,4 @@ class Algebra {
 
 }
 
-const INTERSECT = -1,
-      UNION = 0,
-      LEFT = 1,
-      RIGHT = 2;
-
 exports.Algebra = Algebra;
-exports.INTERSECT = INTERSECT;
-exports.LEFT = LEFT;
-exports.RIGHT = RIGHT;
-exports.UNION = UNION;

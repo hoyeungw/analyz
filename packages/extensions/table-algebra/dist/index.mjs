@@ -5,9 +5,13 @@ import { merge, difference, merges, acquire } from '@vect/vector-algebra';
 import { fitRoll, rollTop } from '@vect/vector-index';
 import { separate } from '@vect/vector-select';
 import { mutazip, zipper } from '@vect/vector-zipper';
-import { UNION as UNION$1, LEFT as LEFT$1, RIGHT as RIGHT$1, INTERSECT as INTERSECT$1 } from '@analys/enum-join-modes';
 import { width } from '@vect/matrix-index';
 import { indexes, iso } from '@vect/vector-init';
+
+const INTERSECT = -1,
+      UNION = 0,
+      LEFT = 1,
+      RIGHT = 2;
 
 function isMatch(vecL, vecR, hi) {
   for (let i = 0; i < hi; i++) if (vecL[i] !== vecR[i]) return false;
@@ -33,19 +37,19 @@ class Rows extends Array {
 }
 class Join {
   static make(mode) {
-    if (mode === UNION$1) {
+    if (mode === UNION) {
       return Join.union;
     }
 
-    if (mode === LEFT$1) {
+    if (mode === LEFT) {
       return Join.left;
     }
 
-    if (mode === RIGHT$1) {
+    if (mode === RIGHT) {
       return Join.right;
     }
 
-    if (mode === INTERSECT$1) {
+    if (mode === INTERSECT) {
       return Join.intersect;
     }
 
@@ -53,19 +57,19 @@ class Join {
   }
 
   static joinRows(mode, verso, recto, depth, fill) {
-    if (mode === UNION$1) {
+    if (mode === UNION) {
       return Join.union(verso, recto, depth, fill);
     }
 
-    if (mode === LEFT$1) {
+    if (mode === LEFT) {
       return Join.left(verso, recto, depth, fill);
     }
 
-    if (mode === RIGHT$1) {
+    if (mode === RIGHT) {
       return Join.right(verso, recto, depth, fill);
     }
 
-    if (mode === INTERSECT$1) {
+    if (mode === INTERSECT) {
       return Join.intersect(verso, recto, depth, fill);
     }
 
@@ -213,9 +217,4 @@ class Algebra {
 
 }
 
-const INTERSECT = -1,
-      UNION = 0,
-      LEFT = 1,
-      RIGHT = 2;
-
-export { Algebra, INTERSECT, LEFT, RIGHT, UNION };
+export { Algebra };

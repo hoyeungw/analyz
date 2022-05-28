@@ -59,25 +59,27 @@ class XMappable {
     rows
   }) {
     this.side = side, this.rows = rows;
-  } // mapKeys(fn) { return new XMappable({side: this.side.map(fn), rows: shallow(this.rows)}) }
-  // map(keys, fn) {
-  //   keys = indexesOf.call(this.side, keys)
-  //   const rows = shallow(this.rows)
-  //   for (let x of keys) { mutate(rows[x], fn) }
-  //   return new XMappable({side: this.side.slice(), rows})
-  // }
-
+  }
 
   mutateKeys(fn) {
     return vectorMapper.mutate(this.side, fn), this;
   }
 
-  mutate(keys, fn) {
-    keys = indexesOf.call(this.side, keys);
+  mutateAt(x, fn) {
+    x = this.side.indexOf(x);
+    if (!~x) return this;
 
-    for (let x of keys) {
-      vectorMapper.mutate(this.rows[x], fn);
-    }
+    for (let row of this.rows) row[x] = fn(row[x]);
+
+    return this;
+  }
+
+  mutate(xs, fn) {
+    if (!Array.isArray(xs)) return this.mutateAt(xs, fn);
+    if (xs.length === 1) return this.mutateAt(xs[0], fn);
+    xs = indexesOf.call(this.side, xs);
+
+    for (let row of this.rows) for (let x of xs) row[x] = fn(row[x]);
 
     return this;
   }
@@ -117,14 +119,7 @@ class YMappable {
     rows
   }) {
     this.head = head, this.rows = rows;
-  } // mapKeys(fn) { return new YMappable({head: this.head.map(fn), rows: shallow(this.rows)})}
-  // map(keys, fn) {
-  //   keys = Labels.prototype.indexesOf.call(this.head, keys)
-  //   const rows = shallow(this.rows)
-  //   for (let row of rows) for (let y of keys) row[y] = fn(row[y])
-  //   return new YMappable({head: this.head.slice(), rows})
-  // }
-
+  }
 
   mutateKeys(fn) {
     return vectorMapper.mutate(this.head, fn), this;
@@ -134,10 +129,21 @@ class YMappable {
     return matrixMapper.mutate(this.rows, fn), this;
   }
 
-  mutate(keys, fn) {
-    keys = indexesOf.call(this.head, keys);
+  mutateAt(y, fn) {
+    y = this.head.indexOf(y);
+    if (!~y) return this;
 
-    for (let row of this.rows) for (let y of keys) row[y] = fn(row[y]);
+    for (let row of this.rows) row[y] = fn(row[y]);
+
+    return this;
+  }
+
+  mutate(ys, fn) {
+    if (!Array.isArray(ys)) return this.mutateAt(ys, fn);
+    if (ys.length === 1) return this.mutateAt(ys[0], fn);
+    ys = indexesOf.call(this.head, ys);
+
+    for (let row of this.rows) for (let y of ys) row[y] = fn(row[y]);
 
     return this;
   }

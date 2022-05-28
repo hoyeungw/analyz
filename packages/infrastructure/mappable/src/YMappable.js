@@ -1,24 +1,28 @@
-import { entryIndexed, entryIndexedTo, indexed, indexedTo, mutate as mutateMatrix, tripletIndexed, tripletIndexedTo } from '@vect/matrix-mapper'
-import { mutate as mutateVector }                                                                                     from '@vect/vector-mapper'
-import { indexesOf }                                                                                                  from './Labels'
+import {
+  entryIndexed, entryIndexedTo, indexed, indexedTo, mutate as mutateMatrix, tripletIndexed, tripletIndexedTo
+}                                 from '@vect/matrix-mapper'
+import { mutate as mutateVector } from '@vect/vector-mapper'
+import { indexesOf }              from './Labels'
 
 export class YMappable {
   head
   rows
-  constructor({ head, rows }) { this.head = head, this.rows = rows }
-  // mapKeys(fn) { return new YMappable({head: this.head.map(fn), rows: shallow(this.rows)})}
-  // map(keys, fn) {
-  //   keys = Labels.prototype.indexesOf.call(this.head, keys)
-  //   const rows = shallow(this.rows)
-  //   for (let row of rows) for (let y of keys) row[y] = fn(row[y])
-  //   return new YMappable({head: this.head.slice(), rows})
-  // }
+  constructor({head, rows}) { this.head = head, this.rows = rows }
 
   mutateKeys(fn) { return mutateVector(this.head, fn), this }
   mutateValues(fn) { return mutateMatrix(this.rows, fn), this }
-  mutate(keys, fn) {
-    keys = indexesOf.call(this.head, keys)
-    for (let row of this.rows) for (let y of keys) row[y] = fn(row[y])
+
+  mutateAt(y, fn) {
+    y = this.head.indexOf(y)
+    if (!~y) return this
+    for (let row of this.rows) row[y] = fn(row[y])
+    return this
+  }
+  mutate(ys, fn) {
+    if (!Array.isArray(ys)) return this.mutateAt(ys, fn)
+    if (ys.length === 1) return this.mutateAt(ys[0], fn)
+    ys = indexesOf.call(this.head, ys)
+    for (let row of this.rows) for (let y of ys) row[y] = fn(row[y])
     return this
   }
 
