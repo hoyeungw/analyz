@@ -1,6 +1,6 @@
-import { TableCollection }                               from '@foba/table'
-import { deco, decoFunc, decoTable, decoVector, logger } from '@spare/logger'
-import { says }                                          from '@spare/xr'
+import { TableCollection }                     from '@foba/table'
+import { deco, decoTable, decoVector, logger } from '@spare/logger'
+import { says }                                from '@spare/xr'
 
 const table = TableCollection.TopBoxOffice
 
@@ -19,10 +19,11 @@ function getMethods(instance) {
     if (e !== arr[i + 1] && instance[e] instanceof Function) return true
   })
 }
+
 getMethods(table.headward) |> decoVector|> logger
-table.headward.pop.toString() |> logger
-table.headward.mutate.toString() |> logger
-table.headward.mutateAt.toString() |> logger
+// table.headward.pop.toString() |> logger
+// table.headward.mutate.toString() |> logger
+// table.headward.mutateAt.toString() |> logger
 
 
 column  |> deco |> says[key]

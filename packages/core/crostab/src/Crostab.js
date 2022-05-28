@@ -4,7 +4,7 @@ import { shallow }                                        from '@vect/matrix-ini
 import { mapper as mapperMatrix, mutate as mutateMatrix } from '@vect/matrix-mapper'
 import { mutate as mutateVector }                         from '@vect/vector-mapper'
 import { indexedOf }                                      from './infrastructure/indexed'
-import { Headward, Sideward }                             from './infrastructure/infrastructure'
+import { Headward, Sideward }                             from './infrastructure/ward.mixins'
 
 
 export class Crostab {
@@ -37,7 +37,7 @@ export class Crostab {
     return row[this.coin[y]]
   }
 
-  coord(r, c) { return { x: this.roin(r), y: this.coin(c) } }
+  coord(r, c) { return {x: this.roin(r), y: this.coin(c)} }
   map(fn) { return Crostab.build(this.side.slice(), this.head.slice(), mapperMatrix(this.rows, fn), this.title) }
   mutate(fn) { return mutateMatrix(this.rows, fn), this }
   mutateKeys(fn) { return mutateVector(this.side, fn), mutateVector(this.head, fn), this }
@@ -47,7 +47,7 @@ export class Crostab {
     return this
   }
   transpose(title) {
-    let { side: head, head: side, rows: columns } = this
+    let {side: head, head: side, rows: columns} = this
     this.side = side, this.head = head, this.rows = transpose(columns), this.title = title ?? this.title
     return this
   }
