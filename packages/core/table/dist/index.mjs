@@ -429,7 +429,14 @@ class Table {
   }
 
   filter(y, fn) {
-    return y = this.coin(y), Table.build(this.head.slice(), this.rows.filter(row => fn(row[y])), this.title);
+    return y = this.head.indexOf(y), Table.build(this.head.slice(), this.rows.filter(row => fn(row[y])), this.title);
+  }
+
+  sort(y, comp) {
+    y = this.head.indexOf(y);
+    if (!~y) return this;
+    this.rows.sort((ra, rb) => comp(ra[y], rb[y]));
+    return this;
   }
 
   mutate(fn) {
