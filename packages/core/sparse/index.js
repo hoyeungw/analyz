@@ -2,4 +2,4 @@ export { Sparse }                                                               
 export { transpose }                                                             from './src/infrastructure/algebra'
 export { indexed, indexedTo, indexedBy, indexedOf }                              from './src/infrastructure/indexed'
 export { Stat }                                                                  from './src/Stat'
-export { CrosList, CrosAverage, CrosSum, CrosMax, CrosMin, CrosFirst, CrosLast } from './src/extensions'
+export { IntoList, IntoAverage, IntoSum, IntoMax, IntoMin, IntoFirst, IntoLast } from './src/intos'

@@ -5,6 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var crostab = require('@analyz/crostab');
 var nullish = require('@typen/nullish');
 var enumPivotMode = require('@analys/enum-pivot-mode');
+var scarce = require('@analyz/scarce');
 
 function iso(h, w, v) {
   const mx = Array(h);
@@ -191,67 +192,17 @@ function transpose(sparse) {
   return s;
 }
 
-class List extends Array {
-  constructor() {
-    super();
-  }
-
-  static build() {
-    return new List();
-  }
-
-  get count() {
-    return this.length;
-  }
-
-  get sum() {
-    return this.reduce((a, b) => a + b, 0);
-  }
-
-  get average() {
-    return this.length ? this.sum / this.length : 0;
-  }
-
-  get max() {
-    return Math.max.apply(null, this);
-  }
-
-  get min() {
-    return Math.min.apply(null, this);
-  }
-
-}
-class Counter {
-  sum = 0;
-  count = 0;
-
-  constructor() {}
-
-  static build() {
-    return new Counter();
-  }
-
-  record(value) {
-    this.sum += value, this.count++;
-  }
-
-  get average() {
-    return this.sum / this.count;
-  }
-
-}
-
-class CrosList extends Sparse {
-  constructor(el = List.build) {
+class IntoList extends Sparse {
+  constructor(el = scarce.List.build) {
     super(el);
   }
 
   static build(el) {
-    return new CrosList(el);
+    return new IntoList(el);
   }
 
   static gather(iter) {
-    return CrosList.build().collect(iter);
+    return IntoList.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -259,17 +210,17 @@ class CrosList extends Sparse {
   }
 
 }
-class CrosMax extends Sparse {
+class IntoMax extends Sparse {
   constructor(el = Number.NEGATIVE_INFINITY) {
     super(el);
   }
 
   static build(el) {
-    return new CrosMax(el);
+    return new IntoMax(el);
   }
 
   static gather(iter) {
-    return CrosMax.build().collect(iter);
+    return IntoMax.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -278,17 +229,17 @@ class CrosMax extends Sparse {
   }
 
 }
-class CrosMin extends Sparse {
+class IntoMin extends Sparse {
   constructor(el = Number.POSITIVE_INFINITY) {
     super(el);
   }
 
   static build(el) {
-    return new CrosMin(el);
+    return new IntoMin(el);
   }
 
   static gather(iter) {
-    return CrosMin.build().collect(iter);
+    return IntoMin.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -297,17 +248,17 @@ class CrosMin extends Sparse {
   }
 
 }
-class CrosAverage extends Sparse {
-  constructor(el = Counter.build) {
+class IntoAverage extends Sparse {
+  constructor(el = scarce.Vast.build) {
     super(el);
   }
 
   static build(el) {
-    return new CrosAverage(el);
+    return new IntoAverage(el);
   }
 
   static gather(iter) {
-    return CrosAverage.build().collect(iter);
+    return IntoAverage.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -315,17 +266,17 @@ class CrosAverage extends Sparse {
   }
 
 }
-class CrosSum extends Sparse {
+class IntoSum extends Sparse {
   constructor(el = 0) {
     super(el);
   }
 
   static build(el) {
-    return new CrosSum(el);
+    return new IntoSum(el);
   }
 
   static gather(iter) {
-    return CrosSum.build().collect(iter);
+    return IntoSum.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -333,17 +284,17 @@ class CrosSum extends Sparse {
   }
 
 }
-class CrosCount extends Sparse {
+class IntoCount extends Sparse {
   constructor(el = 0) {
     super(el);
   }
 
   static build(el) {
-    return new CrosCount(el);
+    return new IntoCount(el);
   }
 
   static gather(iter) {
-    return CrosCount.build().collect(iter);
+    return IntoCount.build().collect(iter);
   }
 
   update(x, y, _) {
@@ -351,17 +302,17 @@ class CrosCount extends Sparse {
   }
 
 }
-class CrosFirst extends Sparse {
+class IntoFirst extends Sparse {
   constructor() {
     super(null);
   }
 
   static build() {
-    return new CrosFirst();
+    return new IntoFirst();
   }
 
   static gather(iter) {
-    return CrosFirst.build().collect(iter);
+    return IntoFirst.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -370,17 +321,17 @@ class CrosFirst extends Sparse {
   }
 
 }
-class CrosLast extends Sparse {
+class IntoLast extends Sparse {
   constructor() {
     super(null);
   }
 
   static build() {
-    return new CrosLast();
+    return new IntoLast();
   }
 
   static gather(iter) {
-    return CrosLast.build().collect(iter);
+    return IntoLast.build().collect(iter);
   }
 
   update(x, y, v) {
@@ -393,26 +344,26 @@ class CrosLast extends Sparse {
 
 class Stat {
   static of(mode) {
-    if (mode === enumPivotMode.ACCUM) return new CrosList();
-    if (mode === enumPivotMode.AVERAGE) return new CrosAverage();
-    if (mode === enumPivotMode.COUNT) return new CrosCount();
-    if (mode === enumPivotMode.INCRE) return new CrosSum();
-    if (mode === enumPivotMode.MAX) return new CrosMax();
-    if (mode === enumPivotMode.MIN) return new CrosMin();
-    if (mode === enumPivotMode.FIRST) return new CrosFirst();
-    if (mode === enumPivotMode.LAST) return new CrosLast();
-    return new CrosList();
+    if (mode === enumPivotMode.ACCUM) return new IntoList();
+    if (mode === enumPivotMode.AVERAGE) return new IntoAverage();
+    if (mode === enumPivotMode.COUNT) return new IntoCount();
+    if (mode === enumPivotMode.INCRE) return new IntoSum();
+    if (mode === enumPivotMode.MAX) return new IntoMax();
+    if (mode === enumPivotMode.MIN) return new IntoMin();
+    if (mode === enumPivotMode.FIRST) return new IntoFirst();
+    if (mode === enumPivotMode.LAST) return new IntoLast();
+    return new IntoList();
   }
 
 }
 
-exports.CrosAverage = CrosAverage;
-exports.CrosFirst = CrosFirst;
-exports.CrosLast = CrosLast;
-exports.CrosList = CrosList;
-exports.CrosMax = CrosMax;
-exports.CrosMin = CrosMin;
-exports.CrosSum = CrosSum;
+exports.IntoAverage = IntoAverage;
+exports.IntoFirst = IntoFirst;
+exports.IntoLast = IntoLast;
+exports.IntoList = IntoList;
+exports.IntoMax = IntoMax;
+exports.IntoMin = IntoMin;
+exports.IntoSum = IntoSum;
 exports.Sparse = Sparse;
 exports.Stat = Stat;
 exports.indexed = indexed;

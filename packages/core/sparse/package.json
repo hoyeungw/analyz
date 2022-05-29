@@ -2,7 +2,7 @@
   "name": "@analyz/sparse",
   "version": "0.0.19",
   "description": "A sparse",
-  "main": "dist/index.cjs",
+  "main": "./dist/index.cjs",
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.cjs"
@@ -17,6 +17,7 @@
   "dependencies": {
     "@analys/enum-pivot-mode": "^0.6.14",
     "@analyz/crostab": "^0.0.19",
+    "@analyz/scarce": "^0.0.19",
     "@typen/nullish": "^0.1.19",
     "@vect/nested": "^0.7.11"
   },

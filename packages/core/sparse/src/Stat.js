@@ -1,16 +1,16 @@
 import { ACCUM, AVERAGE, COUNT, FIRST, INCRE, LAST, MAX, MIN }                              from '@analys/enum-pivot-mode'
-import { CrosAverage, CrosCount, CrosFirst, CrosLast, CrosList, CrosMax, CrosMin, CrosSum } from './extensions'
+import { IntoAverage, IntoCount, IntoFirst, IntoLast, IntoList, IntoMax, IntoMin, IntoSum } from './intos'
 
 export class Stat {
   static of(mode) {
-    if (mode === ACCUM) return new CrosList()
-    if (mode === AVERAGE) return new CrosAverage()
-    if (mode === COUNT) return new CrosCount()
-    if (mode === INCRE) return new CrosSum()
-    if (mode === MAX) return new CrosMax()
-    if (mode === MIN) return new CrosMin()
-    if (mode === FIRST) return new CrosFirst()
-    if (mode === LAST) return new CrosLast()
-    return new CrosList()
+    if (mode === ACCUM) return new IntoList()
+    if (mode === AVERAGE) return new IntoAverage()
+    if (mode === COUNT) return new IntoCount()
+    if (mode === INCRE) return new IntoSum()
+    if (mode === MAX) return new IntoMax()
+    if (mode === MIN) return new IntoMin()
+    if (mode === FIRST) return new IntoFirst()
+    if (mode === LAST) return new IntoLast()
+    return new IntoList()
   }
 }
