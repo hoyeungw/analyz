@@ -1,0 +1,39 @@
+{
+  "name": "@analyz/samples",
+  "version": "0.0.19",
+  "description": "A samples",
+  "main": "./dist/index.cjs",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "pub": "npm publish",
+    "test": "node -r @babel/register test/test.index.js"
+  },
+  "dependencies": {
+    "@vect/matrix-init": "^0.7.11",
+    "@vect/object-mapper": "^0.7.11",
+    "@vect/object-select": "^0.7.11",
+    "@vect/vector-mapper": "^0.7.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoyeungw/analyz.git"
+  },
+  "keywords": [
+    "analyz",
+    "function",
+    "samples"
+  ],
+  "author": "Hoyeung Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoyeungw/analyz"
+  },
+  "homepage": "https://github.com/hoyeungw/analyz#readme",
+  "gitHead": "90ac400cfc8af4b39ab3bbb61c42f22d5fde791b"
+}
