@@ -9,7 +9,7 @@
     "pub": "lerna publish --force-publish",
     "build": "lerna exec --parallel --stream -- rollup -c ../../../rollup.config.mjs",
     "watch": "lerna exec --parallel -- rollup -c ../../../rollup.config.mjs -w",
-    "build-spec": "lerna exec --scope=@analys/data-gram -- rollup -c ../../../rollup.config.mjs"
+    "build-spec": "lerna exec --scope=@analyz/grouped -- rollup -c ../../../rollup.config.mjs"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
@@ -22,8 +22,8 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
-    "@spare/logger": "^0.14.2",
-    "@spare/xr": "^0.14.2",
+    "@spare/logger": "^0.14.3",
+    "@spare/xr": "^0.14.3",
     "lerna": "^5.0.0",
     "rollup": "^2.75.0",
     "rollup-plugin-fileinfo": "^0.3.2"

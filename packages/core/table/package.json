@@ -2,7 +2,7 @@
   "name": "@analyz/table",
   "version": "0.0.19",
   "description": "Table class that contains head and rows",
-  "main": "dist/index.cjs",
+  "main": "./dist/index.cjs",
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.cjs"
