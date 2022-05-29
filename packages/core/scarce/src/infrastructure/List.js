@@ -7,12 +7,3 @@ export class List extends Array {
   get max() { return Math.max.apply(null, this) }
   get min() { return Math.min.apply(null, this) }
 }
-
-export class Counter {
-  sum = 0
-  count = 0
-  constructor() {}
-  static build() {return new Counter()}
-  record(value) { this.sum += value, this.count++ }
-  get average() { return this.sum / this.count }
-}
