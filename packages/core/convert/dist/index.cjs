@@ -183,10 +183,10 @@ class Sparse {
 
 }
 
-const sparseToCrostab = (sparse, element) => {
-  const crostab$1 = crostab.DynamicCrostab.build(element);
+const sparseToCrostab = (sparse, fill) => {
+  const crostab$1 = crostab.DynamicCrostab.build(fill);
 
-  for (let [x, y, v] of indexed(sparse)) crostab$1.update(x, y, v);
+  for (let [x, y, v] of sparse) crostab$1.update(x, y, v);
 
   return crostab.Crostab.from(crostab$1);
 };

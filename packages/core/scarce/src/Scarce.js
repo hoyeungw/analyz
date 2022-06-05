@@ -1,21 +1,18 @@
+import { oneself }            from '@ject/oneself'
 import { mapVal }             from '@vect/object-mapper'
 import { indexed, indexedTo } from '@vect/vector-mapper'
-import { oneself }            from '@ject/oneself'
 import { List }               from './infrastructure/List'
 
 export class Scarce {
-  data = {}
+  data
   #init = null
   #base = null
-  constructor(fill = List.build) {
+  constructor(fill = List.build, data) {
     fill instanceof Function ? (this.#init = fill) : (this.#base = fill)
+    this.data = data ?? {}
   }
-  static build(fill) { return new Scarce(fill) }
-  static from(data, fill) {
-    const scarce = new Scarce(fill)
-    scarce.data = data
-    return scarce
-  }
+  static build(fill, data) { return new Scarce(fill, data) }
+  static from(data) { return new Scarce(null, data) }
 
   [Symbol.iterator]() { return this.indexed() }
   clear() { for (let k in this.data) delete this.data[k] }

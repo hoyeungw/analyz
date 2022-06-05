@@ -73,24 +73,21 @@ function* indexed(sparse, by, to) {
 // public field is not allowed to be assigned to Sparse instance
 
 class Sparse {
-  data = {};
+  data;
   #init = null;
   #base = null;
 
-  constructor(el) {
+  constructor(el, data) {
     el instanceof Function ? this.#init = el : this.#base = el;
+    this.data = data ?? {};
   }
 
-  static build(el) {
-    return new Sparse(el);
+  static build(el, data) {
+    return new Sparse(el, data);
   }
 
   static from(nested) {
-    const sparse = new Sparse();
-
-    for (let [x, y, v] of indexed(nested)) sparse.update(x, y, v);
-
-    return sparse;
+    return new Sparse(null, nested);
   }
 
   static gather(iter) {

@@ -1,9 +1,9 @@
 import { Crostab, DynamicCrostab, indexed as crostabIndexed } from '@analyz/crostab'
-import { indexed as sparseIndexed, Sparse }                   from '@analyz/sparse'
+import { Sparse }                                             from '@analyz/sparse'
 
-export const sparseToCrostab = (sparse, element) => {
-  const crostab = DynamicCrostab.build(element)
-  for (let [ x, y, v ] of sparseIndexed(sparse)) crostab.update(x, y, v)
+export const sparseToCrostab = (sparse, fill) => {
+  const crostab = DynamicCrostab.build(fill)
+  for (let [ x, y, v ] of sparse) crostab.update(x, y, v)
   return Crostab.from(crostab)
 }
 

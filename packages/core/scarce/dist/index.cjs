@@ -2,9 +2,9 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var oneself = require('@ject/oneself');
 var objectMapper = require('@vect/object-mapper');
 var vectorMapper = require('@vect/vector-mapper');
-var oneself = require('@ject/oneself');
 var enumPivotMode = require('@analys/enum-pivot-mode');
 var nullish = require('@typen/nullish');
 
@@ -40,22 +40,21 @@ class List extends Array {
 }
 
 class Scarce {
-  data = {};
+  data;
   #init = null;
   #base = null;
 
-  constructor(fill = List.build) {
+  constructor(fill = List.build, data) {
     fill instanceof Function ? this.#init = fill : this.#base = fill;
+    this.data = data ?? {};
   }
 
-  static build(fill) {
-    return new Scarce(fill);
+  static build(fill, data) {
+    return new Scarce(fill, data);
   }
 
-  static from(data, fill) {
-    const scarce = new Scarce(fill);
-    scarce.data = data;
-    return scarce;
+  static from(data) {
+    return new Scarce(null, data);
   }
 
   [Symbol.iterator]() {

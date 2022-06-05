@@ -1,6 +1,6 @@
+import { oneself } from '@ject/oneself';
 import { mapVal } from '@vect/object-mapper';
 import { indexed, indexedTo } from '@vect/vector-mapper';
-import { oneself } from '@ject/oneself';
 import { ACCUM, AVERAGE, COUNT, INCRE, MAX, MIN, FIRST, LAST } from '@analys/enum-pivot-mode';
 import { nullish } from '@typen/nullish';
 
@@ -36,22 +36,21 @@ class List extends Array {
 }
 
 class Scarce {
-  data = {};
+  data;
   #init = null;
   #base = null;
 
-  constructor(fill = List.build) {
+  constructor(fill = List.build, data) {
     fill instanceof Function ? this.#init = fill : this.#base = fill;
+    this.data = data ?? {};
   }
 
-  static build(fill) {
-    return new Scarce(fill);
+  static build(fill, data) {
+    return new Scarce(fill, data);
   }
 
-  static from(data, fill) {
-    const scarce = new Scarce(fill);
-    scarce.data = data;
-    return scarce;
+  static from(data) {
+    return new Scarce(null, data);
   }
 
   [Symbol.iterator]() {

@@ -6,18 +6,15 @@ import { indexed, indexedTo } from './infrastructure/indexed'
 // public field is not allowed to be assigned to Sparse instance
 
 export class Sparse {
-  data = {}
+  data
   #init = null
   #base = null
-  constructor(el) {
+  constructor(el, data) {
     el instanceof Function ? (this.#init = el) : (this.#base = el)
+    this.data = data ?? {}
   }
-  static build(el) { return new Sparse(el) }
-  static from(nested) {
-    const sparse = new Sparse()
-    for (let [ x, y, v ] of indexed(nested)) sparse.update(x, y, v)
-    return sparse
-  }
+  static build(el, data) { return new Sparse(el, data) }
+  static from(nested) { return new Sparse(null, nested) }
   static gather(iter) {
     const sparse = new Sparse()
     for (let [ x, y, v ] of iter) sparse.update(x, y, v)
