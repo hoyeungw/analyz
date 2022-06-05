@@ -22,10 +22,10 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
-    "@spare/logger": "^0.14.3",
-    "@spare/xr": "^0.14.3",
+    "@spare/logger": "^0.14.7",
+    "@spare/xr": "^0.14.7",
     "lerna": "^5.0.0",
-    "rollup": "^2.75.0",
-    "rollup-plugin-fileinfo": "^0.3.2"
+    "rollup": "^2.75.5",
+    "rollup-plugin-fileinfo": "^0.3.3"
   }
 }

@@ -20,7 +20,7 @@
   "dependencies": {
     "@analyz/mappable": "^0.0.20",
     "@analyz/table": "^0.0.20",
-    "@aryth/comparer": "^0.6.0",
+    "@aryth/comparer": "^0.6.1",
     "@vect/columns-select": "^0.7.11",
     "@vect/matrix-index": "^0.7.11",
     "@vect/vector-algebra": "^0.7.11",

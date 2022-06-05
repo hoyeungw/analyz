@@ -20,7 +20,7 @@
     "@ject/oneself": "^0.0.17",
     "@typen/nullish": "^0.1.19",
     "@vect/nested": "^0.7.11",
-    "@vect/object-init": "^0.0.19",
+    "@vect/object-init": "^0.7.11",
     "@vect/object-mapper": "^0.7.11",
     "@vect/vector-mapper": "^0.7.11"
   },
