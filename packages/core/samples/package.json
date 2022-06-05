@@ -1,6 +1,6 @@
 {
   "name": "@analyz/samples",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "A samples",
   "main": "./dist/index.cjs",
   "exports": {
