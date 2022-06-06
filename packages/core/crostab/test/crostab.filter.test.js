@@ -6,7 +6,7 @@ crostab |> decoCrostab |> console.log
 
 crostab.sideward.filterKeys(x => x[0].startsWith('Tertiary'))
 
-crostab.headward.filterKeys(x => [ 'CHN', 'RUS', 'FRA', 'GBR' ].includes(x))
+crostab.headward.filterKeys(x => ['CHN', 'RUS', 'FRA', 'GBR'].includes(x))
 
 crostab |> decoCrostab |> console.log
 

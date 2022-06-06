@@ -4,14 +4,14 @@ import { Flatward } from '../src/infrastructure/Flatward'
 
 
 const crostab = Flatward.from({
-  side: [ 'A', 'B', 'C', 'D', 'E' ],
-  head: [ 'a', 'b', 'c', 'd' ],
+  side: ['A', 'B', 'C', 'D', 'E'],
+  head: ['a', 'b', 'c', 'd'],
   rows: [
-    [ 0, 1, 2, 3 ],
-    [ 0, 1, 2, 3 ],
-    [ 0, 1, 2, 3 ],
-    [ 0, 1, 2, 3 ],
-    [ 0, 1, 2, 3 ],
+    [0, 1, 2, 3],
+    [0, 1, 2, 3],
+    [0, 1, 2, 3],
+    [0, 1, 2, 3],
+    [0, 1, 2, 3],
   ]
 })
 

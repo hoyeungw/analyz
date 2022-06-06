@@ -1,6 +1,6 @@
-export { DynamicCrostab }                           from './src/DynamicCrostab'
+export { Crostat, Crostat as DynamicCrostab }       from './src/extension/Crostat'
+export { Stat }                                     from './src/extension/Stat'
 export { Crostab }                                  from './src/Crostab'
-// export { Sideward, Headward }                       from './src/infrastructure/ward.extended'
 export { Sideward, Headward }                       from './src/infrastructure/ward.mixins'
 export { Flatward }                                 from './src/infrastructure/Flatward'
 export { indexed, indexedBy, indexedOf, indexedTo } from './src/infrastructure/indexed'

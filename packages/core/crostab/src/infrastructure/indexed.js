@@ -2,7 +2,7 @@ export function* indexedOf(crostab) {
   const { side, head, rows } = crostab
   const h = side?.length, w = head?.length
   for (let i = 0; i < h; i++) for (let j = 0; j < w; j++)
-    yield [ side[i], head[j], rows[i][j] ]
+    yield [side[i], head[j], rows[i][j]]
 }
 
 export function* indexedBy(crostab, by) {
@@ -10,7 +10,7 @@ export function* indexedBy(crostab, by) {
   const h = side?.length, w = head?.length
   for (let i = 0; i < h; i++) for (let j = 0; j < w; j++)
     if (by(side[i], head[j], rows[i][j]))
-      yield [ side[i], head[j], rows[i][j] ]
+      yield [side[i], head[j], rows[i][j]]
 }
 
 export function* indexedTo(crostab, to) {

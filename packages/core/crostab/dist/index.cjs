@@ -12,6 +12,9 @@ var mappable = require('@analyz/mappable');
 var selectable = require('@analyz/selectable');
 var updatable = require('@analyz/updatable');
 var mixin = require('@ject/mixin');
+var enumPivotMode = require('@analys/enum-pivot-mode');
+var scarce = require('@analyz/scarce');
+var nullish = require('@typen/nullish');
 
 function* indexedOf(crostab) {
   const {
@@ -255,28 +258,24 @@ class Crostab {
 
 }
 
-class DynamicCrostab extends Crostab {
+class Crostat extends Crostab {
   /** @type {function} */
   init = null;
   /** @type {*}        */
 
   base = null;
 
-  constructor(element) {
+  constructor(fill) {
     super();
-    element instanceof Function ? this.init = element : this.base = element;
+    fill instanceof Function ? this.init = fill : this.base = fill;
   }
 
   static build(element) {
-    return new DynamicCrostab(element);
+    return new Crostat(element);
   }
 
   static gather(iter) {
-    const crostab = new DynamicCrostab();
-
-    for (let [x, y, v] of iter) crostab.update(x, y, v);
-
-    return crostab;
+    return new Crostat().collect(iter);
   }
 
   get zero() {
@@ -310,14 +309,6 @@ class DynamicCrostab extends Crostab {
     return this.rows[this.xi(x)][this.yi(y)] = v;
   }
 
-  append(x, y, v) {
-    return this.rows[this.xi(x)][this.yi(y)].push(v);
-  }
-
-  assign(x, y, k, v) {
-    return this.rows[this.xi(x)][this.yi(y)][k] = v;
-  }
-
   cell(x, y) {
     return this.rows[this.xi(x)][this.yi(y)];
   }
@@ -326,12 +317,172 @@ class DynamicCrostab extends Crostab {
     return ~(x = this.side.indexOf(x)) && ~(y = this.head.indexOf(y)) ? this.rows[x][y] : void 0;
   }
 
-  toObject(po) {
+  object(po) {
     return {
       side: this.side,
       head: this.head,
       rows: po ? matrixMapper.mapper(this.rows, po) : this.rows
     };
+  }
+
+}
+
+class IntoList extends Crostat {
+  constructor(fill = scarce.List.build) {
+    super(fill);
+  }
+
+  static build(fill) {
+    return new IntoList(fill);
+  }
+
+  static gather(iter) {
+    return IntoList.build().collect(iter);
+  }
+
+  update(x, y, v) {
+    this.cell(x, y).push(v);
+  }
+
+}
+class IntoMax extends Crostat {
+  constructor(fill = Number.NEGATIVE_INFINITY) {
+    super(fill);
+  }
+
+  static build(fill) {
+    return new IntoMax(fill);
+  }
+
+  static gather(iter) {
+    return IntoMax.build().collect(iter);
+  }
+
+  update(x, y, v) {
+    if (v > this.rows[x = this.xi(x)][y = this.yi(y)]) this.rows[x][y] = v;
+  }
+
+}
+class IntoMin extends Crostat {
+  constructor(fill = Number.POSITIVE_INFINITY) {
+    super(fill);
+  }
+
+  static build(fill) {
+    return new IntoMin(fill);
+  }
+
+  static gather(iter) {
+    return IntoMin.build().collect(iter);
+  }
+
+  update(x, y, v) {
+    if (v < this.rows[x = this.xi(x)][y = this.yi(y)]) this.rows[x][y] = v;
+  }
+
+}
+class IntoAverage extends Crostat {
+  constructor(fill = scarce.Vast.build) {
+    super(fill);
+  }
+
+  static build(fill) {
+    return new IntoAverage(fill);
+  }
+
+  static gather(iter) {
+    return IntoAverage.build().collect(iter);
+  }
+
+  update(x, y, v) {
+    this.cell(x, y).record(v);
+  }
+
+}
+class IntoSum extends Crostat {
+  constructor(fill = 0) {
+    super(fill);
+  }
+
+  static build(fill) {
+    return new IntoSum(fill);
+  }
+
+  static gather(iter) {
+    return IntoSum.build().collect(iter);
+  }
+
+  update(x, y, v) {
+    this.rows[this.xi(x)][this.yi(y)] += v;
+  }
+
+}
+class IntoCount extends Crostat {
+  constructor(fill = 0) {
+    super(fill);
+  }
+
+  static build(fill) {
+    return new IntoCount(fill);
+  }
+
+  static gather(iter) {
+    return IntoCount.build().collect(iter);
+  }
+
+  update(x, y, _) {
+    this.rows[this.xi(x)][this.yi(y)]++;
+  }
+
+}
+class IntoFirst extends Crostat {
+  constructor() {
+    super(null);
+  }
+
+  static build() {
+    return new IntoFirst();
+  }
+
+  static gather(iter) {
+    return IntoFirst.build().collect(iter);
+  }
+
+  update(x, y, v) {
+    if (nullish.nullish(this.rows[x = this.xi(x)][y = this.yi(y)])) this.rows[x][y] = v;
+  }
+
+}
+class IntoLast extends Crostat {
+  constructor() {
+    super(null);
+  }
+
+  static build() {
+    return new IntoLast();
+  }
+
+  static gather(iter) {
+    return IntoLast.build().collect(iter);
+  }
+
+  update(x, y, v) {
+    if (nullish.valid(v)) this.rows[this.xi(x)][this.yi(y)] = v;
+  }
+
+}
+
+class Stat {
+  static of(mode) {
+    if (mode === enumPivotMode.ACCUM) return new IntoList();
+    if (mode === enumPivotMode.AVERAGE) return new IntoAverage();
+    if (mode === enumPivotMode.COUNT) return new IntoCount();
+    if (mode === enumPivotMode.INCRE) return new IntoSum();
+    if (mode === enumPivotMode.MAX) return new IntoMax();
+    if (mode === enumPivotMode.MIN) return new IntoMin();
+    if (mode === enumPivotMode.FIRST) return new IntoFirst();
+    if (mode === enumPivotMode.LAST) return new IntoLast();
+    return new IntoList();
   }
 
 }
@@ -393,10 +544,12 @@ class Flatward {
 }
 
 exports.Crostab = Crostab;
-exports.DynamicCrostab = DynamicCrostab;
+exports.Crostat = Crostat;
+exports.DynamicCrostab = Crostat;
 exports.Flatward = Flatward;
 exports.Headward = Headward;
 exports.Sideward = Sideward;
+exports.Stat = Stat;
 exports.indexed = indexed;
 exports.indexedBy = indexedBy;
 exports.indexedOf = indexedOf;

@@ -1,15 +1,12 @@
-import { ProxyFab }    from '@analyz/indexable'
-import { YMappable }   from '@analyz/mappable'
-import { YSelectable } from '@analyz/selectable'
-import { YUpdatable }  from '@analyz/updatable'
-import { XMappable }   from '@analyz/mappable'
-import { XSelectable } from '@analyz/selectable'
-import { XUpdatable }  from '@analyz/updatable'
+import { ProxyFab }                 from '@analyz/indexable'
+import { XMappable, YMappable }     from '@analyz/mappable'
+import { XSelectable, YSelectable } from '@analyz/selectable'
+import { XUpdatable, YUpdatable }   from '@analyz/updatable'
 
 export class Sideward {
   side
   rows
-  constructor({side, rows}) {
+  constructor({ side, rows }) {
     this.side = side, this.rows = rows
   }
 
@@ -45,7 +42,7 @@ export class Sideward {
 export class Headward {
   head
   rows
-  constructor({head, rows}) { this.head = head, this.rows = rows }
+  constructor({ head, rows }) { this.head = head, this.rows = rows }
 
   get at() { return this._hdi ?? (this._hdi = ProxyFab.headwardIndexer(this)) }
 
