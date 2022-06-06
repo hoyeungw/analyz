@@ -1,4 +1,4 @@
-import { Headward }                                       from '@analyz/crostab'
+import { Headward, Stat }                                 from '@analyz/crostab'
 import { Matrix }                                         from '@analyz/matrix'
 import { shallow }                                        from '@vect/matrix-init'
 import { mapper as mapperMatrix, mutate as mutateMatrix } from '@vect/matrix-mapper'
@@ -41,4 +41,7 @@ export class Table {
   mutateKeys(fn) { return mutateVector(this.head, fn), this }
 
   slice() { return Table.build(this.head.slice(), shallow(this.rows), this.title) }
+  crostab(x, y, v, mode, by) {
+    return Stat.of(mode).collect(this.headward.tripletIndexed([x, y, v], by))
+  }
 }
