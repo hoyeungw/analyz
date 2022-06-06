@@ -1,12 +1,15 @@
 {
   "name": "@analyz/crostab",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Table class that contains head and rows",
   "main": "./dist/index.cjs",
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.cjs"
   },
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -15,20 +18,20 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/indexable": "^0.0.21",
-    "@analyz/mappable": "^0.0.21",
-    "@analyz/matrix": "^0.0.21",
-    "@analyz/selectable": "^0.0.21",
-    "@analyz/updatable": "^0.0.21",
+    "@analyz/indexable": "^0.0.22",
+    "@analyz/mappable": "^0.0.22",
+    "@analyz/matrix": "^0.0.22",
+    "@analyz/selectable": "^0.0.22",
+    "@analyz/updatable": "^0.0.22",
     "@ject/mixin": "^0.0.17",
-    "@vect/matrix-algebra": "^0.7.11",
-    "@vect/matrix-init": "^0.7.11",
-    "@vect/matrix-mapper": "^0.7.11",
-    "@vect/vector-init": "^0.7.11",
-    "@vect/vector-mapper": "^0.7.11"
+    "@vect/matrix-algebra": "^0.7.13",
+    "@vect/matrix-init": "^0.7.13",
+    "@vect/matrix-mapper": "^0.7.13",
+    "@vect/vector-init": "^0.7.13",
+    "@vect/vector-mapper": "^0.7.13"
   },
   "devDependencies": {
-    "@vect/vector-init": "^0.7.11"
+    "@vect/vector-init": "^0.7.13"
   },
   "repository": {
     "type": "git",

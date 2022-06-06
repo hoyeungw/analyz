@@ -1,12 +1,15 @@
 {
   "name": "@analyz/table",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Table class that contains head and rows",
   "main": "./dist/index.cjs",
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.cjs"
   },
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -15,10 +18,10 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/crostab": "^0.0.21",
-    "@analyz/mappable": "^0.0.21",
-    "@analyz/selectable": "^0.0.21",
-    "@analyz/updatable": "^0.0.21"
+    "@analyz/crostab": "^0.0.22",
+    "@analyz/mappable": "^0.0.22",
+    "@analyz/selectable": "^0.0.22",
+    "@analyz/updatable": "^0.0.22"
   },
   "repository": {
     "type": "git",

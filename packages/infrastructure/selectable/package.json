@@ -1,12 +1,15 @@
 {
   "name": "@analyz/selectable",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Selectable class as infrastructure for table and crostab",
   "main": "./dist/index.cjs",
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.cjs"
   },
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -15,16 +18,16 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/mappable": "^0.0.21",
-    "@vect/columns-mapper": "^0.7.11",
-    "@vect/columns-select": "^0.7.11",
-    "@vect/matrix-algebra": "^0.7.11",
-    "@vect/matrix-mapper": "^0.7.11",
-    "@vect/vector-index": "^0.7.11",
-    "@vect/vector-mapper": "^0.7.11",
-    "@vect/vector-select": "^0.7.11",
-    "@vect/vector-update": "^0.7.11",
-    "@vect/vector-zipper": "^0.7.11"
+    "@analyz/mappable": "^0.0.22",
+    "@vect/columns-mapper": "^0.7.13",
+    "@vect/columns-select": "^0.7.13",
+    "@vect/matrix-algebra": "^0.7.13",
+    "@vect/matrix-mapper": "^0.7.13",
+    "@vect/vector-index": "^0.7.13",
+    "@vect/vector-mapper": "^0.7.13",
+    "@vect/vector-select": "^0.7.13",
+    "@vect/vector-update": "^0.7.13",
+    "@vect/vector-zipper": "^0.7.13"
   },
   "repository": {
     "type": "git",
