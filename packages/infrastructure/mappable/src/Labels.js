@@ -8,7 +8,7 @@ export class Labels extends Array {
   indexAt(key) {
     let at, from, as
     return Array.isArray(key)
-      ? ([ from, as ] = key) && ~(at = this.indexOf(from)) ? { at, as } : null
+      ? ([from, as] = key) && ~(at = this.indexOf(from)) ? { at, as } : null
       : (from = key, as = key) && ~(at = this.indexOf(from)) ? { at, as } : null
   }
   indexesAt(keys) {

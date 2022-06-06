@@ -7,7 +7,7 @@ import { indexesOf }                                                      from '
 export class XMappable {
   side
   rows
-  constructor({side, rows}) { this.side = side, this.rows = rows }
+  constructor({ side, rows }) { this.side = side, this.rows = rows }
 
   mutateKeys(fn) { return mutateVector(this.side, fn), this }
   mutateAt(x, fn) {

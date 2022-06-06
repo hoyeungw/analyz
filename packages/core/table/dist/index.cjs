@@ -455,6 +455,10 @@ class Table {
     return Table.build(this.head.slice(), shallow(this.rows), this.title);
   }
 
+  crostab(x, y, v, mode, by) {
+    return crostab.Stat.of(mode).collect(this.headward.tripletIndexed([x, y, v], by));
+  }
+
 }
 
 class Flatward {

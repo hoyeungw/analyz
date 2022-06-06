@@ -3,16 +3,16 @@ import { says }         from '@spare/xr'
 import { Sparse }       from '../src/Sparse'
 
 const points = [
-  [ 'A', 'b', 1 ],
-  [ 'B', 'b', 1 ],
-  [ 'C', 'b', 1 ],
-  [ 'D', 'b', 1 ],
-  [ 'E', 'b', 1 ],
-  [ 'B', 'a', 1 ],
-  [ 'B', 'b', 1 ],
-  [ 'B', 'c', 1 ],
-  [ 'B', 'd', 1 ],
-  [ 'B', 'e', 1 ]
+  ['A', 'b', 1],
+  ['B', 'b', 1],
+  ['C', 'b', 1],
+  ['D', 'b', 1],
+  ['E', 'b', 1],
+  ['B', 'a', 1],
+  ['B', 'b', 1],
+  ['B', 'c', 1],
+  ['B', 'd', 1],
+  ['B', 'e', 1]
 ]
 
 const sparse = Sparse.gather(points)

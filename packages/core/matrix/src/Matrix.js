@@ -13,7 +13,7 @@ export class Matrix extends Array {
 
   get height() { return this.length }
   get width() { return this[0]?.length }
-  get size() { return [ this.height, this.width ] }
+  get size() { return [this.height, this.width] }
 
   collect(iter, lo = 0) {
     for (let row of iter) this[lo++] = row

@@ -2,7 +2,7 @@ export function* indexedOf(sparse) {
   let row
   for (let x in sparse) {
     for (let y in (row = sparse[x])) {
-      yield [ x, y, row[y] ]
+      yield [x, y, row[y]]
     }
   }
 }
@@ -12,7 +12,7 @@ export function* indexedBy(sparse, by) {
   for (let x in sparse) {
     for (let y in (row = sparse[x])) {
       const v = row[y]
-      if (by(x, y, v)) yield [ x, y, v ]
+      if (by(x, y, v)) yield [x, y, v]
     }
   }
 }

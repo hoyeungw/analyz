@@ -1,2 +1,0 @@
-import { ProxyFab } from '../index'
-

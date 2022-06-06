@@ -124,12 +124,12 @@ class Vast {
 }
 
 class IntoList extends Scarce {
-  constructor(el = List.build) {
-    super(el);
+  constructor(fill = List.build) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoList(el);
+  static build(fill) {
+    return new IntoList(fill);
   }
 
   static gather(iter) {
@@ -142,12 +142,12 @@ class IntoList extends Scarce {
 
 }
 class IntoMax extends Scarce {
-  constructor(el = Number.NEGATIVE_INFINITY) {
-    super(el);
+  constructor(fill = Number.NEGATIVE_INFINITY) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoMax(el);
+  static build(fill) {
+    return new IntoMax(fill);
   }
 
   static gather(iter) {
@@ -160,12 +160,12 @@ class IntoMax extends Scarce {
 
 }
 class IntoMin extends Scarce {
-  constructor(el = Number.POSITIVE_INFINITY) {
-    super(el);
+  constructor(fill = Number.POSITIVE_INFINITY) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoMin(el);
+  static build(fill) {
+    return new IntoMin(fill);
   }
 
   static gather(iter) {
@@ -178,12 +178,12 @@ class IntoMin extends Scarce {
 
 }
 class IntoAverage extends Scarce {
-  constructor(el = Vast.build) {
-    super(el);
+  constructor(fill = Vast.build) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoAverage(el);
+  static build(fill) {
+    return new IntoAverage(fill);
   }
 
   static gather(iter) {
@@ -196,12 +196,12 @@ class IntoAverage extends Scarce {
 
 }
 class IntoSum extends Scarce {
-  constructor(el = 0) {
-    super(el);
+  constructor(fill = 0) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoSum(el);
+  static build(fill) {
+    return new IntoSum(fill);
   }
 
   static gather(iter) {
@@ -214,12 +214,12 @@ class IntoSum extends Scarce {
 
 }
 class IntoCount extends Scarce {
-  constructor(el = 0) {
-    super(el);
+  constructor(fill = 0) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoCount(el);
+  static build(fill) {
+    return new IntoCount(fill);
   }
 
   static gather(iter) {

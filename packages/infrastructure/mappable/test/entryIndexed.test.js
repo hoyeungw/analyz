@@ -7,7 +7,7 @@ import { YMappable }       from '../dist/index'
 const table = TableCollection.BigMaAdjustedIndexes
 table |> decoTable |> console.log
 
-const iter = YMappable.prototype.entryIndexed.call(table, [ 'country', 'priceLocal' ])
+const iter = YMappable.prototype.entryIndexed.call(table, ['country', 'priceLocal'])
 for (let kv of iter) {
   kv |> console.log
 }

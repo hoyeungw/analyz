@@ -1,7 +1,7 @@
 export class XUpdatable {
   /** @type {Array} */ side
   /** @type {Array} */ rows
-  constructor({side, rows}) { this.side = side, this.rows = rows }
+  constructor({ side, rows }) { this.side = side, this.rows = rows }
   set(x, row) {
     if (~(x = this.side.indexOf(x))) { this.rows[x] = row }
     return this
@@ -12,8 +12,8 @@ export class XUpdatable {
   }
   prepend(x, row) { return this.side.unshift(x), this.rows.unshift(row), this }
   append(x, row) { return this.side.push(x), this.rows.push(row), this }
-  shift() { return [ this.side.unshift(), this.rows.shift() ] }
-  pop() { return [ this.side.pop(), this.rows.pop() ] }
+  shift() { return [this.side.unshift(), this.rows.shift()] }
+  pop() { return [this.side.pop(), this.rows.pop()] }
   grow(from, to, as, at) {
     if (~(from = this.side.indexOf(from)) && ~(at = this.side.indexOf(at))) {
       this.side.splice(at + 1, 0, as)

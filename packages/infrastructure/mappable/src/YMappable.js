@@ -1,5 +1,11 @@
 import {
-  entryIndexed, entryIndexedTo, indexed, indexedTo, mutate as mutateMatrix, tripletIndexed, tripletIndexedTo
+  entryIndexed,
+  entryIndexedTo,
+  indexed,
+  indexedTo,
+  mutate as mutateMatrix,
+  tripletIndexed,
+  tripletIndexedTo
 }                                 from '@vect/matrix-mapper'
 import { mutate as mutateVector } from '@vect/vector-mapper'
 import { indexesOf }              from './Labels'
@@ -7,7 +13,7 @@ import { indexesOf }              from './Labels'
 export class YMappable {
   head
   rows
-  constructor({head, rows}) { this.head = head, this.rows = rows }
+  constructor({ head, rows }) { this.head = head, this.rows = rows }
 
   mutateKeys(fn) { return mutateVector(this.head, fn), this }
   mutateValues(fn) { return mutateMatrix(this.rows, fn), this }

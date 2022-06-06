@@ -1,10 +1,10 @@
 export {
-  entries,entriesTo,
-  points,pointsTo,
-  triplets,tripletsTo,
+  entries, entriesTo,
+  points, pointsTo,
+  triplets, tripletsTo,
 } from '@vect/matrix-mapper'
 export {
-  columns,columnsTo
+  columns, columnsTo
 } from '@vect/columns-mapper'
 export {
   indexed as rows, indexedTo as rowsTo

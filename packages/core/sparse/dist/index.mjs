@@ -73,13 +73,13 @@ class Sparse {
   #init = null;
   #base = null;
 
-  constructor(el, data) {
-    el instanceof Function ? this.#init = el : this.#base = el;
+  constructor(fill, data) {
+    fill instanceof Function ? this.#init = fill : this.#base = fill;
     this.data = data ?? {};
   }
 
-  static build(el, data) {
-    return new Sparse(el, data);
+  static build(fill, data) {
+    return new Sparse(fill, data);
   }
 
   static from(nested) {
@@ -158,14 +158,14 @@ class Sparse {
     return vec;
   }
 
-  crostab(to, nu) {
+  crostab(to, fill) {
     const {
       side,
       head
     } = this,
           ht = side.length,
           wd = head.length;
-    const rows = nu instanceof Function ? init(ht, wd, nu) : iso(ht, wd, nu);
+    const rows = fill instanceof Function ? init(ht, wd, fill) : iso(ht, wd, fill);
     const crostab = Crostab.build(side, head, rows);
 
     for (let [x, y, v] of this) {
@@ -186,12 +186,12 @@ function transpose(sparse) {
 }
 
 class IntoList extends Sparse {
-  constructor(el = List.build) {
-    super(el);
+  constructor(fill = List.build) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoList(el);
+  static build(fill) {
+    return new IntoList(fill);
   }
 
   static gather(iter) {
@@ -204,12 +204,12 @@ class IntoList extends Sparse {
 
 }
 class IntoMax extends Sparse {
-  constructor(el = Number.NEGATIVE_INFINITY) {
-    super(el);
+  constructor(fill = Number.NEGATIVE_INFINITY) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoMax(el);
+  static build(fill) {
+    return new IntoMax(fill);
   }
 
   static gather(iter) {
@@ -223,12 +223,12 @@ class IntoMax extends Sparse {
 
 }
 class IntoMin extends Sparse {
-  constructor(el = Number.POSITIVE_INFINITY) {
-    super(el);
+  constructor(fill = Number.POSITIVE_INFINITY) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoMin(el);
+  static build(fill) {
+    return new IntoMin(fill);
   }
 
   static gather(iter) {
@@ -242,12 +242,12 @@ class IntoMin extends Sparse {
 
 }
 class IntoAverage extends Sparse {
-  constructor(el = Vast.build) {
-    super(el);
+  constructor(fill = Vast.build) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoAverage(el);
+  static build(fill) {
+    return new IntoAverage(fill);
   }
 
   static gather(iter) {
@@ -260,12 +260,12 @@ class IntoAverage extends Sparse {
 
 }
 class IntoSum extends Sparse {
-  constructor(el = 0) {
-    super(el);
+  constructor(fill = 0) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoSum(el);
+  static build(fill) {
+    return new IntoSum(fill);
   }
 
   static gather(iter) {
@@ -278,12 +278,12 @@ class IntoSum extends Sparse {
 
 }
 class IntoCount extends Sparse {
-  constructor(el = 0) {
-    super(el);
+  constructor(fill = 0) {
+    super(fill);
   }
 
-  static build(el) {
-    return new IntoCount(el);
+  static build(fill) {
+    return new IntoCount(fill);
   }
 
   static gather(iter) {

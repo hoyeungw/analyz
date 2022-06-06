@@ -22,7 +22,7 @@ export class Algebra {
     if (!recto?.head?.length || !recto?.rows?.length) return verso
     if (!verso?.head?.length || !verso?.rows?.length) return null
     const indsL = keys.map(x => verso.head.indexOf(x))|> fitRoll,
-      indsR = keys.map(x => recto.head.indexOf(x))|> fitRoll
+          indsR = keys.map(x => recto.head.indexOf(x))|> fitRoll
     const headL = rollTop(verso.head.slice(), indsL), rowsL = verso.rows.map(row => rollTop(row?.slice(), indsL))
     const headR = rollTop(recto.head.slice(), indsR), rowsR = recto.rows.map(row => rollTop(row?.slice(), indsR))
     return Table.build(
@@ -38,9 +38,9 @@ export class Algebra {
     const selected = Table.build(), remained = Table.build()
     const { head, rows } = table
     const inds = keys.map(key => head.indexOf(key)).sort(NUM_ASC);
-    ([ selected.head, remained.head ] = separateVector(head, inds));
-    ([ selected.rows, remained.rows ] = separateMatrix(rows, inds))
-    return [ selected, remained ]
+    ([selected.head, remained.head] = separateVector(head, inds));
+    ([selected.rows, remained.rows] = separateMatrix(rows, inds))
+    return [selected, remained]
   }
 
   /**

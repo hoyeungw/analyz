@@ -3,9 +3,14 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var objectSelect = require('@vect/object-select');
+var table = require('@analyz/table');
+var objectIndex = require('@vect/object-index');
+var vectorMapper = require('@vect/vector-mapper');
+var crostab = require('@analyz/crostab');
+var matrixMapper = require('@vect/matrix-mapper');
 
 class Samples extends Array {
-  title;
+  title = null;
 
   constructor(hi) {
     super(hi);
@@ -15,9 +20,21 @@ class Samples extends Array {
     return new Samples(hi);
   }
 
-  copyFrom(another) {
-    for (let i = 0, h = another.length; i < h; i++) {
-      this[i] = another;
+  static of(...samples) {
+    return new Samples(samples === null || samples === void 0 ? void 0 : samples.length).acquire(samples);
+  }
+
+  static from(samples) {
+    return new Samples(samples === null || samples === void 0 ? void 0 : samples.length).acquire(samples);
+  }
+
+  get head() {
+    return this.length ? objectIndex.keys(this[0]) : [];
+  }
+
+  acquire(samples) {
+    for (let i = 0, h = samples.length; i < h; i++) {
+      this[i] = samples[i];
     }
 
     return this;
@@ -31,24 +48,20 @@ class Samples extends Array {
     return this;
   }
 
-  get head() {
-    return this.length ? Object.keys(this[0]) : [];
-  }
-
   select(keys) {
     return this.copy(this.map(objectSelect.select.bind(keys)));
   }
 
   copy(samples) {
-    return Samples.build((samples = samples ?? this).length).copyFrom(samples);
+    return Samples.from(samples ?? this);
   }
 
-  table() {
-    return {
-      head: this.head,
-      rows: this.map(Object.values),
-      title: this.title
-    };
+  table(fields) {
+    return table.Table.build(fields ?? this.head, vectorMapper.mapper(this, objectSelect.values.bind(fields)), this.title);
+  }
+
+  crostab(x, y, v, mode, by) {
+    return crostab.Stat.of(mode).collect(matrixMapper.tripletIndexed(this, [x, y, v], by));
   }
 
 }

@@ -11,7 +11,7 @@ export const nested = {
 }
 
 const sparse = Sparse.from(nested)
-for (let [ x, y, v ] of sparse) {
+for (let [x, y, v] of sparse) {
   `[x] (${x}) [y] (${y}) [v] (${v})` |> says['enumerator']
 }
 sparseToCrostab(sparse) |> decoCrostab |> console.log

@@ -4,10 +4,10 @@ import { says }                                from '@spare/xr'
 
 const table = TableCollection.TopBoxOffice
 
-table.headward.select([ 'name', 'year', 'director', 'budget', 'boxoffice' ])
+table.headward.select(['name', 'year', 'director', 'budget', 'boxoffice'])
 table |> decoTable |> says['original']
 
-const [ key, column ] = table.headward.pop()
+const [key, column] = table.headward.pop()
 
 function getMethods(instance) {
   const props = []

@@ -22,7 +22,7 @@
     "@analyz/crostab": "^0.0.22",
     "@analyz/scarce": "^0.0.22",
     "@typen/nullish": "^0.1.19",
-    "@vect/nested": "^0.7.13"
+    "@vect/nested": "^0.7.14"
   },
   "repository": {
     "type": "git",

@@ -72,13 +72,13 @@ class Sparse {
   #init = null;
   #base = null;
 
-  constructor(el, data) {
-    el instanceof Function ? this.#init = el : this.#base = el;
+  constructor(fill, data) {
+    fill instanceof Function ? this.#init = fill : this.#base = fill;
     this.data = data ?? {};
   }
 
-  static build(el, data) {
-    return new Sparse(el, data);
+  static build(fill, data) {
+    return new Sparse(fill, data);
   }
 
   static from(nested) {
@@ -157,14 +157,14 @@ class Sparse {
     return vec;
   }
 
-  crostab(to, nu) {
+  crostab(to, fill) {
     const {
       side,
       head
     } = this,
           ht = side.length,
           wd = head.length;
-    const rows = nu instanceof Function ? init(ht, wd, nu) : iso(ht, wd, nu);
+    const rows = fill instanceof Function ? init(ht, wd, fill) : iso(ht, wd, fill);
     const crostab = Crostab.build(side, head, rows);
 
     for (let [x, y, v] of this) {

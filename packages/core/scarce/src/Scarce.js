@@ -22,7 +22,7 @@ export class Scarce {
 
   update(k, v) { this.get(k).push(v) }
   collect(iter) {
-    for (let [ k, v ] of iter) this.update(k, v)
+    for (let [k, v] of iter) this.update(k, v)
     return this
   }
   * indexed(by, to) { yield* indexed(this.data, by, to) }

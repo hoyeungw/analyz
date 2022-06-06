@@ -3,13 +3,13 @@ import { XUpdatable }          from '../src/XUpdatable'
 import { YUpdatable }          from '../src/YUpdatable'
 
 const crostab = {
-  side: [ 'A', 'B', 'C', 'D' ],
-  head: [ 'a', 'b', 'c' ],
+  side: ['A', 'B', 'C', 'D'],
+  head: ['a', 'b', 'c'],
   rows: [
-    [ 0, 1, 2 ],
-    [ 0, 1, 2 ],
-    [ 0, 1, 2 ],
-    [ 0, 1, 2 ]
+    [0, 1, 2],
+    [0, 1, 2],
+    [0, 1, 2],
+    [0, 1, 2]
   ]
 }
 

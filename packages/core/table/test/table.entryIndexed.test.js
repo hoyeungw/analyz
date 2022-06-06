@@ -5,6 +5,6 @@ import { Table }           from '../src/Table'
 export const table = TableCollection.FrontierEconomies |> Table.from
 table |> decoTable |> console.log
 
-for (let kv of table.headward.entryIndexed([ 'country', 'cagr' ])) {
+for (let kv of table.headward.entryIndexed(['country', 'cagr'])) {
   kv |> deco |> console.log
 }

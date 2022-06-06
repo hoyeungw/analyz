@@ -1,4 +1,4 @@
-import { Headward } from '@analyz/crostab';
+import { Headward, Stat } from '@analyz/crostab';
 
 function mutate$1(vec, fn, l) {
   l = l || (vec === null || vec === void 0 ? void 0 : vec.length);
@@ -449,6 +449,10 @@ class Table {
 
   slice() {
     return Table.build(this.head.slice(), shallow(this.rows), this.title);
+  }
+
+  crostab(x, y, v, mode, by) {
+    return Stat.of(mode).collect(this.headward.tripletIndexed([x, y, v], by));
   }
 
 }

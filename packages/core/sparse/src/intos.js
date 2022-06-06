@@ -1,11 +1,11 @@
-import { Vast, List } from '@analyz/scarce'
-import { nullish }       from '@typen/nullish'
-import { Sparse }        from './Sparse'
+import { List, Vast } from '@analyz/scarce'
+import { nullish }    from '@typen/nullish'
+import { Sparse }     from './Sparse'
 
 
 export class IntoList extends Sparse {
-  constructor(el = List.build) { super(el) }
-  static build(el) { return new IntoList(el) }
+  constructor(fill = List.build) { super(fill) }
+  static build(fill) { return new IntoList(fill) }
   static gather(iter) { return IntoList.build().collect(iter) }
   update(x, y, v) {
     this.cellOrInit(x, y).push(v)
@@ -13,8 +13,8 @@ export class IntoList extends Sparse {
 }
 
 export class IntoMax extends Sparse {
-  constructor(el = Number.NEGATIVE_INFINITY) { super(el) }
-  static build(el) { return new IntoMax(el) }
+  constructor(fill = Number.NEGATIVE_INFINITY) { super(fill) }
+  static build(fill) { return new IntoMax(fill) }
   static gather(iter) { return IntoMax.build().collect(iter) }
   update(x, y, v) {
     const row = this.rowOn(x, y)
@@ -23,8 +23,8 @@ export class IntoMax extends Sparse {
 }
 
 export class IntoMin extends Sparse {
-  constructor(el = Number.POSITIVE_INFINITY) { super(el) }
-  static build(el) { return new IntoMin(el) }
+  constructor(fill = Number.POSITIVE_INFINITY) { super(fill) }
+  static build(fill) { return new IntoMin(fill) }
   static gather(iter) { return IntoMin.build().collect(iter) }
   update(x, y, v) {
     const row = this.rowOn(x, y)
@@ -33,8 +33,8 @@ export class IntoMin extends Sparse {
 }
 
 export class IntoAverage extends Sparse {
-  constructor(el = Vast.build) { super(el) }
-  static build(el) { return new IntoAverage(el) }
+  constructor(fill = Vast.build) { super(fill) }
+  static build(fill) { return new IntoAverage(fill) }
   static gather(iter) { return IntoAverage.build().collect(iter) }
   update(x, y, v) {
     this.rowOn(x, y)[y].record(v)
@@ -42,8 +42,8 @@ export class IntoAverage extends Sparse {
 }
 
 export class IntoSum extends Sparse {
-  constructor(el = 0) { super(el) }
-  static build(el) { return new IntoSum(el) }
+  constructor(fill = 0) { super(fill) }
+  static build(fill) { return new IntoSum(fill) }
   static gather(iter) { return IntoSum.build().collect(iter) }
   update(x, y, v) {
     this.rowOn(x, y)[y] += v
@@ -51,8 +51,8 @@ export class IntoSum extends Sparse {
 }
 
 export class IntoCount extends Sparse {
-  constructor(el = 0) { super(el) }
-  static build(el) { return new IntoCount(el) }
+  constructor(fill = 0) { super(fill) }
+  static build(fill) { return new IntoCount(fill) }
   static gather(iter) { return IntoCount.build().collect(iter) }
   update(x, y, _) {
     this.rowOn(x, y)[y]++

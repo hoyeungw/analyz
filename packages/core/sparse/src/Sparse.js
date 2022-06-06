@@ -9,15 +9,15 @@ export class Sparse {
   data
   #init = null
   #base = null
-  constructor(el, data) {
-    el instanceof Function ? (this.#init = el) : (this.#base = el)
+  constructor(fill, data) {
+    fill instanceof Function ? (this.#init = fill) : (this.#base = fill)
     this.data = data ?? {}
   }
-  static build(el, data) { return new Sparse(el, data) }
+  static build(fill, data) { return new Sparse(fill, data) }
   static from(nested) { return new Sparse(null, nested) }
   static gather(iter) {
     const sparse = new Sparse()
-    for (let [ x, y, v ] of iter) sparse.update(x, y, v)
+    for (let [x, y, v] of iter) sparse.update(x, y, v)
     return sparse
   }
 
@@ -40,7 +40,7 @@ export class Sparse {
   }
   update(x, y, v) { (this.data[x] ?? (this.data[x] = {}))[y] = v }
   collect(iter) {
-    for (let [ x, y, v ] of iter) this.update(x, y, v)
+    for (let [x, y, v] of iter) this.update(x, y, v)
     return this
   }
   * indexed(by, to) { yield* indexed(this.data, by, to) }
@@ -51,11 +51,11 @@ export class Sparse {
     for (let x in this.data) for (let y in this.data[x]) if (!~vec.indexOf(y)) vec.push(y)
     return vec
   }
-  crostab(to, nu) {
+  crostab(to, fill) {
     const { side, head } = this, ht = side.length, wd = head.length
-    const rows = nu instanceof Function ? init(ht, wd, nu) : iso(ht, wd, nu)
+    const rows = fill instanceof Function ? init(ht, wd, fill) : iso(ht, wd, fill)
     const crostab = Crostab.build(side, head, rows)
-    for (let [ x, y, v ] of this) { crostab.update(x, y, to ? to(v) : v) }
+    for (let [x, y, v] of this) { crostab.update(x, y, to ? to(v) : v) }
     return crostab
   }
 }

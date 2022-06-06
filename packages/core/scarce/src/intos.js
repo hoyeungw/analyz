@@ -1,12 +1,12 @@
 import { nullish } from '@typen/nullish'
 import { Scarce }  from './Scarce'
-import { Vast } from './infrastructure/Vast'
+import { Vast }    from './infrastructure/Vast'
 import { List }    from './infrastructure/List'
 
 
 export class IntoList extends Scarce {
-  constructor(el = List.build) { super(el) }
-  static build(el) { return new IntoList(el) }
+  constructor(fill = List.build) { super(fill) }
+  static build(fill) { return new IntoList(fill) }
   static gather(iter) { return IntoList.build().collect(iter) }
   update(k, v) {
     this.cellOrInit(x, k).push(v)
@@ -14,8 +14,8 @@ export class IntoList extends Scarce {
 }
 
 export class IntoMax extends Scarce {
-  constructor(el = Number.NEGATIVE_INFINITY) { super(el) }
-  static build(el) { return new IntoMax(el) }
+  constructor(fill = Number.NEGATIVE_INFINITY) { super(fill) }
+  static build(fill) { return new IntoMax(fill) }
   static gather(iter) { return IntoMax.build().collect(iter) }
   update(k, v) {
     if (v > this.get(k)) this.data[k] = v
@@ -23,8 +23,8 @@ export class IntoMax extends Scarce {
 }
 
 export class IntoMin extends Scarce {
-  constructor(el = Number.POSITIVE_INFINITY) { super(el) }
-  static build(el) { return new IntoMin(el) }
+  constructor(fill = Number.POSITIVE_INFINITY) { super(fill) }
+  static build(fill) { return new IntoMin(fill) }
   static gather(iter) { return IntoMin.build().collect(iter) }
   update(k, v) {
     if (v < this.get(k)) this.data[k] = v
@@ -32,8 +32,8 @@ export class IntoMin extends Scarce {
 }
 
 export class IntoAverage extends Scarce {
-  constructor(el = Vast.build) { super(el) }
-  static build(el) { return new IntoAverage(el) }
+  constructor(fill = Vast.build) { super(fill) }
+  static build(fill) { return new IntoAverage(fill) }
   static gather(iter) { return IntoAverage.build().collect(iter) }
   update(k, v) {
     this.get(k).record(v)
@@ -41,8 +41,8 @@ export class IntoAverage extends Scarce {
 }
 
 export class IntoSum extends Scarce {
-  constructor(el = 0) { super(el) }
-  static build(el) { return new IntoSum(el) }
+  constructor(fill = 0) { super(fill) }
+  static build(fill) { return new IntoSum(fill) }
   static gather(iter) { return IntoSum.build().collect(iter) }
   update(k, v) {
     this.get(k), this.data[k] += v
@@ -50,8 +50,8 @@ export class IntoSum extends Scarce {
 }
 
 export class IntoCount extends Scarce {
-  constructor(el = 0) { super(el) }
-  static build(el) { return new IntoCount(el) }
+  constructor(fill = 0) { super(fill) }
+  static build(fill) { return new IntoCount(fill) }
   static gather(iter) { return IntoCount.build().collect(iter) }
   update(k, _) {
     this.get(k), this.data[k]++

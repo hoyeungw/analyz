@@ -1,8 +1,8 @@
-import { Foba } from '@foba/table'
+import { Foba }            from '@foba/table'
 import { decoTable, says } from '@spare/logger'
-import { tableAcquire } from '../src/merge'
-import { Table } from '@analyz/table'
-import { IMMUTABLE } from '@analyz/enum-mutabilities'
+import { tableAcquire }    from '../src/merge'
+import { Table }           from '@analyz/table'
+import { IMMUTABLE }       from '@analyz/enum-mutabilities'
 
 const ROSTER = 'BistroDutyRoster'
 
