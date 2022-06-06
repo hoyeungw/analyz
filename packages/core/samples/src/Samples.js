@@ -24,6 +24,9 @@ export class Samples extends Array {
   }
 
   select(keys) { return this.copy(this.map(select.bind(keys))) }
-  copy(samples) { return Samples.build((samples = samples ?? this).length).copyFrom(samples) }
-  table() { return {head: this.head, rows: this.map(Object.values), title: this.title} }
+  copy(samples) { return Samples.from(samples ?? this) }
+  table(fields) { return Table.build(fields ?? this.head, mapper(this, values.bind(fields)), this.title) }
+  crostab(x, y, v, mode, by) {
+    return Stat.of(mode).collect(tripletIndexed(this, [x, y, v], by))
+  }
 }
