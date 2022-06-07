@@ -1,7 +1,7 @@
 import { Crostab } from '@analyz/crostab';
 import { nullish } from '@typen/nullish';
 import { ACCUM, AVERAGE, COUNT, INCRE, MAX, MIN, FIRST, LAST } from '@analys/enum-pivot-mode';
-import { List, Vast } from '@analyz/scarce';
+import { List, Vast } from '@analyz/list';
 
 function iso(h, w, v) {
   const mx = Array(h);

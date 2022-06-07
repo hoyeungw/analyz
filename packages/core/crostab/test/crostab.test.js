@@ -28,3 +28,5 @@ crostab.sideward.at['@A1'] = [0, 0, 0, 0]
 crostab |> decoCrostab |> logger
 
 crostab.sideward.at['@A1'] |> logger
+
+crostab.cell('@A1', '@a2') |> console.log

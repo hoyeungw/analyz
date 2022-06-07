@@ -1,7 +1,7 @@
-import { Samples }               from '../src/Samples'
-import { decoTable, decoVector } from '@spare/logger'
-import { says }                  from '@spare/xr'
-import { INCRE }                 from '@analys/enum-pivot-mode'
+import { Samples }                            from '../src/Samples'
+import { decoCrostab, decoTable, decoVector } from '@spare/logger'
+import { says }                               from '@spare/xr'
+import { INCRE }                              from '@analys/enum-pivot-mode'
 
 const samples = Samples.of(
   { city: 'BJ', biz: 'beer', vol: 300 },
@@ -22,4 +22,4 @@ samples.table() |> decoTable |> says['table']
 
 samples.table(['foo', 'biz']) |> decoTable |> says['table'].br('selected')
 
-samples.crostab(['city', 'biz', 'vol'], INCRE) |> console.log
+samples.crostab(['city', 'biz', 'vol'], INCRE) |> decoCrostab |> console.log

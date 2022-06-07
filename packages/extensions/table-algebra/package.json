@@ -1,6 +1,6 @@
 {
   "name": "@analyz/table-algebra",
-  "version": "0.0.24",
+  "version": "0.0.23",
   "description": "A cross-table analytics tool",
   "main": "./dist/index.cjs",
   "exports": {
@@ -18,8 +18,8 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/mappable": "^0.0.24",
-    "@analyz/table": "^0.0.24",
+    "@analyz/mappable": "^0.0.23",
+    "@analyz/table": "^0.0.23",
     "@aryth/comparer": "^0.6.1",
     "@vect/columns-select": "^0.7.14",
     "@vect/matrix-index": "^0.7.14",

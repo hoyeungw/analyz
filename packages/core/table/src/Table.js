@@ -27,7 +27,7 @@ export class Table {
   get width() { return this.head.length }
   [Symbol.iterator]() { return indexedOf(this) }
   coin(y) { return this.head.indexOf(y) }
-  column(y) { return Matrix.prototype.column.call(this.coin[y]) }
+  column(y) { return Matrix.prototype.column.call(this.coin(y)) }
 
   map(fn) { return Table.build(this.head.slice(), mapperMatrix(this.rows, fn), this.title) }
   filter(y, fn) { return y = this.head.indexOf(y), Table.build(this.head.slice(), this.rows.filter(row => fn(row[y])), this.title) }

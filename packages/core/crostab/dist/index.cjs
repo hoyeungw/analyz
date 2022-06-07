@@ -13,7 +13,7 @@ var selectable = require('@analyz/selectable');
 var updatable = require('@analyz/updatable');
 var mixin = require('@ject/mixin');
 var enumPivotMode = require('@analys/enum-pivot-mode');
-var scarce = require('@analyz/scarce');
+var list = require('@analyz/list');
 var nullish = require('@typen/nullish');
 
 function* indexedOf(crostab) {
@@ -205,12 +205,13 @@ class Crostab {
   }
 
   column(y) {
-    return matrix.Matrix.prototype.column.call(this.coin[y]);
+    return matrix.Matrix.prototype.column.call(this.coin(y));
   }
 
   cell(x, y) {
-    const row = this.rows[this.roin(x)];
-    return row[this.coin[y]];
+    if (!~(x = this.roin(x))) return null;
+    const row = this.rows[x];
+    return row[this.coin(y)];
   }
 
   coord(r, c) {
@@ -328,7 +329,7 @@ class Crostat extends Crostab {
 }
 
 class IntoList extends Crostat {
-  constructor(fill = scarce.List.build) {
+  constructor(fill = list.List.build) {
     super(fill);
   }
 
@@ -382,7 +383,7 @@ class IntoMin extends Crostat {
 
 }
 class IntoAverage extends Crostat {
-  constructor(fill = scarce.Vast.build) {
+  constructor(fill = list.Vast.build) {
     super(fill);
   }
 

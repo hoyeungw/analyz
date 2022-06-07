@@ -421,7 +421,7 @@ class Table {
   }
 
   column(y) {
-    return Matrix.prototype.column.call(this.coin[y]);
+    return Matrix.prototype.column.call(this.coin(y));
   }
 
   map(fn) {

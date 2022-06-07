@@ -1,4 +1,4 @@
-import { List, Vast } from '@analyz/scarce'
+import { List, Vast } from '@analyz/list'
 import { nullish }    from '@typen/nullish'
 import { Sparse }     from '../Sparse'
 

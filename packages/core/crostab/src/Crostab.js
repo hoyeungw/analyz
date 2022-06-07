@@ -31,10 +31,11 @@ export class Crostab {
   roin(x) { return this.side.indexOf(x) }
   coin(y) { return this.head.indexOf(y) }
   row(x) { return this.rows[this.roin(x)] }
-  column(y) { return Matrix.prototype.column.call(this.coin[y]) }
+  column(y) { return Matrix.prototype.column.call(this.coin(y)) }
   cell(x, y) {
-    const row = this.rows[this.roin(x)]
-    return row[this.coin[y]]
+    if (!~(x = this.roin(x))) return null
+    const row = this.rows[x]
+    return row[this.coin(y)]
   }
 
   coord(r, c) { return { x: this.roin(r), y: this.coin(c) } }

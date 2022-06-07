@@ -5,7 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var crostab = require('@analyz/crostab');
 var nullish = require('@typen/nullish');
 var enumPivotMode = require('@analys/enum-pivot-mode');
-var scarce = require('@analyz/scarce');
+var list = require('@analyz/list');
 
 function iso(h, w, v) {
   const mx = Array(h);
@@ -190,7 +190,7 @@ function transpose(sparse) {
 }
 
 class IntoList extends Sparse {
-  constructor(fill = scarce.List.build) {
+  constructor(fill = list.List.build) {
     super(fill);
   }
 
@@ -246,7 +246,7 @@ class IntoMin extends Sparse {
 
 }
 class IntoAverage extends Sparse {
-  constructor(fill = scarce.Vast.build) {
+  constructor(fill = list.Vast.build) {
     super(fill);
   }
 

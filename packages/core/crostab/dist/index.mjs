@@ -9,7 +9,7 @@ import { XSelectable, YSelectable } from '@analyz/selectable';
 import { XUpdatable, YUpdatable } from '@analyz/updatable';
 import { mixin } from '@ject/mixin';
 import { ACCUM, AVERAGE, COUNT, INCRE, MAX, MIN, FIRST, LAST } from '@analys/enum-pivot-mode';
-import { List, Vast } from '@analyz/scarce';
+import { List, Vast } from '@analyz/list';
 import { nullish, valid } from '@typen/nullish';
 
 function* indexedOf(crostab) {
@@ -201,12 +201,13 @@ class Crostab {
   }
 
   column(y) {
-    return Matrix.prototype.column.call(this.coin[y]);
+    return Matrix.prototype.column.call(this.coin(y));
   }
 
   cell(x, y) {
-    const row = this.rows[this.roin(x)];
-    return row[this.coin[y]];
+    if (!~(x = this.roin(x))) return null;
+    const row = this.rows[x];
+    return row[this.coin(y)];
   }
 
   coord(r, c) {
