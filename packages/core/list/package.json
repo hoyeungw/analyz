@@ -1,6 +1,6 @@
 {
   "name": "@analyz/list",
-  "version": "0.0.25",
+  "version": "0.0.24",
   "description": "A list",
   "main": "./dist/index.cjs",
   "exports": {

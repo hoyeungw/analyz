@@ -1,6 +1,6 @@
 {
   "name": "@analyz/selectable",
-  "version": "0.0.25",
+  "version": "0.0.24",
   "description": "Selectable class as infrastructure for table and crostab",
   "main": "./dist/index.cjs",
   "exports": {
@@ -18,7 +18,7 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/mappable": "^0.0.25",
+    "@analyz/mappable": "^0.0.24",
     "@vect/columns-mapper": "^0.7.14",
     "@vect/columns-select": "^0.7.14",
     "@vect/matrix-algebra": "^0.7.14",
