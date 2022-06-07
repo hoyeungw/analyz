@@ -181,7 +181,7 @@ class Sparse {
 }
 
 const sparseToCrostab = (sparse, fill) => {
-  const crostab$1 = crostab.DynamicCrostab.build(fill);
+  const crostab$1 = crostab.Crostat.build(fill);
 
   for (let [x, y, v] of sparse) crostab$1.update(x, y, v);
 

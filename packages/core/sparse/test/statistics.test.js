@@ -1,6 +1,6 @@
 import { ACCUM, AVERAGE, COUNT } from '@analys/enum-pivot-mode'
-import { decoCrostab }           from '@spare/logger'
-import { Stat }                  from '../src/Stat'
+import { decoCrostab } from '@spare/logger'
+import { Stat }        from '../src/extension/Stat'
 
 const samples = [
   ['Beer', 'QD', 200],

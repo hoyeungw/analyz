@@ -1,5 +1,4 @@
 export { Sparse }                                                                from './src/Sparse'
 export { transpose }                                                             from './src/infrastructure/algebra'
-export { indexed, indexedTo, indexedBy, indexedOf }                              from './src/infrastructure/indexed'
-export { Stat }                                                                  from './src/Stat'
-export { IntoList, IntoAverage, IntoSum, IntoMax, IntoMin, IntoFirst, IntoLast } from './src/intos'
+export { Stat }                                                                  from './src/extension/Stat'
+export { IntoList, IntoAverage, IntoSum , IntoMax, IntoMin, IntoFirst, IntoLast } from './src/extension/intos'

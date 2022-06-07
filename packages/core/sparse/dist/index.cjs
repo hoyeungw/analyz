@@ -182,11 +182,11 @@ class Sparse {
 }
 
 function transpose(sparse) {
-  const s = new Sparse();
+  const target = new Sparse();
 
-  for (let [xi, yi, v] of indexed(sparse)) s.update(yi, xi, v);
+  for (let [xi, yi, v] of sparse.indexed()) target.update(yi, xi, v);
 
-  return s;
+  return target;
 }
 
 class IntoList extends Sparse {
@@ -363,8 +363,4 @@ exports.IntoMin = IntoMin;
 exports.IntoSum = IntoSum;
 exports.Sparse = Sparse;
 exports.Stat = Stat;
-exports.indexed = indexed;
-exports.indexedBy = indexedBy;
-exports.indexedOf = indexedOf;
-exports.indexedTo = indexedTo;
 exports.transpose = transpose;

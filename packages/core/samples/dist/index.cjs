@@ -49,7 +49,7 @@ class Samples extends Array {
   }
 
   select(keys) {
-    return this.copy(this.map(objectSelect.select.bind(keys)));
+    return Samples.from(this.map(objectSelect.select.bind(keys)));
   }
 
   copy(samples) {
@@ -60,8 +60,12 @@ class Samples extends Array {
     return table.Table.build(fields ?? this.head, vectorMapper.mapper(this, objectSelect.values.bind(fields)), this.title);
   }
 
-  crostab(x, y, v, mode, by) {
-    return crostab.Stat.of(mode).collect(matrixMapper.tripletIndexed(this, [x, y, v], by));
+  crostab(xyv, mode, by) {
+    // AC |> console.log
+    // CrostabStat |> console.log
+    const stat = crostab.Stat.of(mode); // stat |> console.log
+
+    return stat.collect(matrixMapper.tripletIndexed(this, xyv, by));
   }
 
 }

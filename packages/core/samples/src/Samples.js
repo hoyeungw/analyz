@@ -1,9 +1,9 @@
-import { select, values } from '@vect/object-select'
-import { Table }          from '@analyz/table'
-import { keys }           from '@vect/object-index'
-import { mapper }         from '@vect/vector-mapper'
-import { Stat }           from '@analyz/crostab'
-import { tripletIndexed } from '@vect/matrix-mapper'
+import { select, values }      from '@vect/object-select'
+import { Table }               from '@analyz/table'
+import { keys }                from '@vect/object-index'
+import { mapper }              from '@vect/vector-mapper'
+import { Stat as CrostabStat } from '@analyz/crostab'
+import { tripletIndexed }      from '@vect/matrix-mapper'
 
 export class Samples extends Array {
   title = null
@@ -23,10 +23,14 @@ export class Samples extends Array {
     return this
   }
 
-  select(keys) { return this.copy(this.map(select.bind(keys))) }
+  select(keys) { return Samples.from(this.map(select.bind(keys))) }
   copy(samples) { return Samples.from(samples ?? this) }
   table(fields) { return Table.build(fields ?? this.head, mapper(this, values.bind(fields)), this.title) }
-  crostab(x, y, v, mode, by) {
-    return Stat.of(mode).collect(tripletIndexed(this, [x, y, v], by))
+  crostab(xyv, mode, by) {
+    // AC |> console.log
+    // CrostabStat |> console.log
+    const stat = CrostabStat.of(mode)
+    // stat |> console.log
+    return stat.collect(tripletIndexed(this, xyv, by))
   }
 }

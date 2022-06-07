@@ -1,4 +1,4 @@
-import { Crostab, DynamicCrostab, indexed as indexed$1 } from '@analyz/crostab';
+import { Crostab, Crostat, indexed as indexed$1 } from '@analyz/crostab';
 
 function iso(h, w, v) {
   const mx = Array(h);
@@ -177,7 +177,7 @@ class Sparse {
 }
 
 const sparseToCrostab = (sparse, fill) => {
-  const crostab = DynamicCrostab.build(fill);
+  const crostab = Crostat.build(fill);
 
   for (let [x, y, v] of sparse) crostab.update(x, y, v);
 

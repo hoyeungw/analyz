@@ -45,7 +45,7 @@ class Samples extends Array {
   }
 
   select(keys) {
-    return this.copy(this.map(select.bind(keys)));
+    return Samples.from(this.map(select.bind(keys)));
   }
 
   copy(samples) {
@@ -56,8 +56,12 @@ class Samples extends Array {
     return Table.build(fields ?? this.head, mapper(this, values.bind(fields)), this.title);
   }
 
-  crostab(x, y, v, mode, by) {
-    return Stat.of(mode).collect(tripletIndexed(this, [x, y, v], by));
+  crostab(xyv, mode, by) {
+    // AC |> console.log
+    // CrostabStat |> console.log
+    const stat = Stat.of(mode); // stat |> console.log
+
+    return stat.collect(tripletIndexed(this, xyv, by));
   }
 
 }

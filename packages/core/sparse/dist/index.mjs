@@ -178,11 +178,11 @@ class Sparse {
 }
 
 function transpose(sparse) {
-  const s = new Sparse();
+  const target = new Sparse();
 
-  for (let [xi, yi, v] of indexed(sparse)) s.update(yi, xi, v);
+  for (let [xi, yi, v] of sparse.indexed()) target.update(yi, xi, v);
 
-  return s;
+  return target;
 }
 
 class IntoList extends Sparse {
@@ -350,4 +350,4 @@ class Stat {
 
 }
 
-export { IntoAverage, IntoFirst, IntoLast, IntoList, IntoMax, IntoMin, IntoSum, Sparse, Stat, indexed, indexedBy, indexedOf, indexedTo, transpose };
+export { IntoAverage, IntoFirst, IntoLast, IntoList, IntoMax, IntoMin, IntoSum, Sparse, Stat, transpose };
