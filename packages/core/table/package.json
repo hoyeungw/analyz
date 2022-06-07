@@ -1,6 +1,6 @@
 {
   "name": "@analyz/table",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "Table class that contains head and rows",
   "main": "./dist/index.cjs",
   "exports": {
@@ -18,10 +18,10 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/crostab": "^0.0.25",
-    "@analyz/mappable": "^0.0.25",
-    "@analyz/selectable": "^0.0.25",
-    "@analyz/updatable": "^0.0.25"
+    "@analyz/crostab": "^0.0.26",
+    "@analyz/mappable": "^0.0.26",
+    "@analyz/selectable": "^0.0.26",
+    "@analyz/updatable": "^0.0.26"
   },
   "repository": {
     "type": "git",
