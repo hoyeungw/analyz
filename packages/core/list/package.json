@@ -1,0 +1,36 @@
+{
+  "name": "@analyz/list",
+  "version": "0.0.23",
+  "description": "A list",
+  "main": "./dist/index.cjs",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "pub": "npm publish",
+    "test": "node -r @babel/register test/test.index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoyeungw/analyz.git"
+  },
+  "keywords": [
+    "analyz",
+    "function",
+    "list"
+  ],
+  "author": "Hoyeung Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoyeungw/analyz"
+  },
+  "homepage": "https://github.com/hoyeungw/analyz#readme",
+  "gitHead": "90ac400cfc8af4b39ab3bbb61c42f22d5fde791b"
+}
