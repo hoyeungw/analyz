@@ -21,7 +21,8 @@
     "@analyz/crostab": "^0.0.26",
     "@analyz/mappable": "^0.0.26",
     "@analyz/selectable": "^0.0.26",
-    "@analyz/updatable": "^0.0.26"
+    "@analyz/updatable": "^0.0.26",
+    "@vect/vector-init": "^0.7.14"
   },
   "repository": {
     "type": "git",

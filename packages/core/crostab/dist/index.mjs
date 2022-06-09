@@ -11,6 +11,7 @@ import { mixin } from '@ject/mixin';
 import { ACCUM, AVERAGE, COUNT, INCRE, MAX, MIN, FIRST, LAST } from '@analys/enum-pivot-mode';
 import { List, Vast } from '@analyz/list';
 import { nullish, valid } from '@typen/nullish';
+import { gather } from '@vect/vector-init';
 
 function* indexedOf(crostab) {
   const {
@@ -205,9 +206,7 @@ class Crostab {
   }
 
   cell(x, y) {
-    if (!~(x = this.roin(x))) return null;
-    const row = this.rows[x];
-    return row[this.coin(y)];
+    return ~(x = this.roin(x)) ? this.rows[x][this.coin(y)] : null;
   }
 
   coord(r, c) {
@@ -503,6 +502,16 @@ class Flatward {
 
   static build(side, head, rows, title) {
     return new Flatward(side, head, rows, title);
+  }
+
+  matrix() {
+    const rows = [];
+
+    for (let row of this.rowsIndexed()) {
+      rows.push(gather(row));
+    }
+
+    return rows;
   }
 
   *rowsIndexed() {

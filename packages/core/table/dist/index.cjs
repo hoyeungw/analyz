@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var crostab = require('@analyz/crostab');
+var vectorInit = require('@vect/vector-init');
 
 function mutate$1(vec, fn, l) {
   l = l || (vec === null || vec === void 0 ? void 0 : vec.length);
@@ -478,15 +479,19 @@ class Flatward {
     return new Flatward(o.head, o.rows);
   }
 
+  matrix() {
+    var _this$rowsIndexed;
+
+    return _this$rowsIndexed = this.rowsIndexed(), vectorInit.gather(_this$rowsIndexed);
+  }
+
   *rowsIndexed() {
     yield this.head;
 
-    for (let i = 0, h = this.side.length; i < h; i++) yield this.rows[i];
+    for (let i = 0, h = this.rows.length; i < h; i++) yield this.rows[i];
   }
 
   *columnsIndexed() {
-    yield this.sideIndexed();
-
     for (let j = 0, w = this.head.length; j < w; j++) yield this.columnIndexed(j);
   }
 

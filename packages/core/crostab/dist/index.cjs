@@ -15,6 +15,7 @@ var mixin = require('@ject/mixin');
 var enumPivotMode = require('@analys/enum-pivot-mode');
 var list = require('@analyz/list');
 var nullish = require('@typen/nullish');
+var vectorInit = require('@vect/vector-init');
 
 function* indexedOf(crostab) {
   const {
@@ -209,9 +210,7 @@ class Crostab {
   }
 
   cell(x, y) {
-    if (!~(x = this.roin(x))) return null;
-    const row = this.rows[x];
-    return row[this.coin(y)];
+    return ~(x = this.roin(x)) ? this.rows[x][this.coin(y)] : null;
   }
 
   coord(r, c) {
@@ -507,6 +506,16 @@ class Flatward {
 
   static build(side, head, rows, title) {
     return new Flatward(side, head, rows, title);
+  }
+
+  matrix() {
+    const rows = [];
+
+    for (let row of this.rowsIndexed()) {
+      rows.push(vectorInit.gather(row));
+    }
+
+    return rows;
   }
 
   *rowsIndexed() {

@@ -1,3 +1,5 @@
+import { gather } from '@vect/vector-init'
+
 export class Flatward {
   side
   head
@@ -11,7 +13,11 @@ export class Flatward {
   }
   static from(o = {}) { return new Flatward(o.side, o.head, o.rows, o.title) }
   static build(side, head, rows, title) { return new Flatward(side, head, rows, title) }
-
+  matrix() {
+    const rows = []
+    for (let row of this.rowsIndexed()) { rows.push(gather(row))}
+    return rows
+  }
   * rowsIndexed() {
     yield this.headIndexed()
     for (let i = 0, h = this.side.length; i < h; i++) yield this.rowIndexed(i)

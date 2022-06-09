@@ -32,11 +32,7 @@ export class Crostab {
   coin(y) { return this.head.indexOf(y) }
   row(x) { return this.rows[this.roin(x)] }
   column(y) { return Matrix.prototype.column.call(this.coin(y)) }
-  cell(x, y) {
-    if (!~(x = this.roin(x))) return null
-    const row = this.rows[x]
-    return row[this.coin(y)]
-  }
+  cell(x, y) { return ~(x = this.roin(x)) ? this.rows[x][this.coin(y)] : null }
 
   coord(r, c) { return { x: this.roin(r), y: this.coin(c) } }
   map(fn) { return Crostab.build(this.side.slice(), this.head.slice(), mapperMatrix(this.rows, fn), this.title) }
