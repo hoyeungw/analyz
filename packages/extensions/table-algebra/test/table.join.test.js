@@ -1,4 +1,4 @@
-import { INTERSECT, LEFT, RIGHT, UNION } from '@analys/enum-join-modes'
+import { INTERSECT, LEFT, RIGHT, UNION } from '@analyz/enum-join-modes'
 import { Table }                         from '@analyz/table'
 import { decoTable, says }               from '@spare/logger'
 import { Algebra }                       from '../src/Algebra'

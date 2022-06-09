@@ -26,9 +26,9 @@
     "@spare/logger": "^0.14.9",
     "@spare/translator": "^0.14.9",
     "@spare/xr": "^0.14.9",
-    "@valjoux/strategies": "^0.3.16",
-    "lerna": "^5.0.0",
-    "rollup": "^2.75.5",
+    "@valjoux/strategies": "^0.3.17",
+    "lerna": "^5.1.0",
+    "rollup": "^2.75.6",
     "rollup-plugin-fileinfo": "^0.3.4"
   }
 }
