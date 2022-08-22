@@ -20,16 +20,16 @@
   "dependencies": {
     "@analyz/mappable": "^0.1.0",
     "@analyz/table": "^0.1.0",
-    "@aryth/comparer": "^0.6.1",
-    "@vect/columns-select": "^0.7.14",
-    "@vect/matrix-index": "^0.7.14",
-    "@vect/vector-algebra": "^0.7.14",
-    "@vect/vector-index": "^0.7.14",
-    "@vect/vector-init": "^0.7.14",
-    "@vect/vector-mapper": "^0.7.14",
-    "@vect/vector-select": "^0.7.14",
-    "@vect/vector-update": "^0.7.14",
-    "@vect/vector-zipper": "^0.7.14"
+    "@aryth/comparer": "^0.6.8",
+    "@vect/columns-select": "^0.7.15",
+    "@vect/matrix-index": "^0.7.16",
+    "@vect/vector-algebra": "^0.7.16",
+    "@vect/vector-index": "^0.7.16",
+    "@vect/vector-init": "^0.7.16",
+    "@vect/vector-mapper": "^0.7.16",
+    "@vect/vector-select": "^0.7.15",
+    "@vect/vector-update": "^0.7.15",
+    "@vect/vector-zipper": "^0.7.16"
   },
   "repository": {
     "type": "git",

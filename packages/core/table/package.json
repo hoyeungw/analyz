@@ -22,7 +22,7 @@
     "@analyz/mappable": "^0.1.0",
     "@analyz/selectable": "^0.1.0",
     "@analyz/updatable": "^0.1.0",
-    "@vect/vector-init": "^0.7.14"
+    "@vect/vector-init": "^0.7.16"
   },
   "repository": {
     "type": "git",

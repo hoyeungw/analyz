@@ -23,7 +23,7 @@
     "@analyz/list": "^0.1.0",
     "@analyz/scarce": "^0.1.0",
     "@typen/nullish": "^0.1.19",
-    "@vect/nested": "^0.7.14"
+    "@vect/nested": "^0.7.16"
   },
   "repository": {
     "type": "git",

@@ -23,8 +23,8 @@
   },
   "devDependencies": {
     "@analyz/convert": "^0.1.0",
-    "@spare/enum-chars": "^0.14.9",
-    "@spare/phrasing": "^0.14.9",
+    "@spare/enum-chars": "^0.14.29",
+    "@spare/phrasing": "^0.14.29",
     "iconv-lite": "^0.6.3"
   },
   "repository": {
