@@ -1,6 +1,6 @@
 {
   "name": "@analyz/mappable",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mappable class as infrastructure for table and crostab",
   "main": "./dist/index.cjs",
   "exports": {
