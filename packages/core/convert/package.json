@@ -24,7 +24,7 @@
     "@vect/columns-select": "^0.8.6"
   },
   "repository": {
-    "type": "git",
+   "type": "git",
     "url": "git+https://github.com/hoyeungw/analyz.git"
   },
   "keywords": [

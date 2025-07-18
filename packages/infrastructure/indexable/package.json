@@ -2,7 +2,7 @@
   "name": "@analyz/indexable",
   "version": "0.1.1",
   "description": "Indexable class as infrastructure for table and crostab",
-   "type": "module",
+  "type": "module",
   "exports": "./index.js",
   "files": [
     "index.js"
@@ -24,7 +24,7 @@
     "@vect/vector-mapper": "^0.8.6"
   },
   "repository": {
-    "type": "git",
+   "type": "git",
     "url": "git+https://github.com/hoyeungw/analyz.git"
   },
   "keywords": [

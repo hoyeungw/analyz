@@ -2,7 +2,7 @@ import { CrostabCollection } from '@foba/crostab'
 import { decoCrostab }       from '@spare/logger'
 
 const crostab = CrostabCollection.CountryGDPByYear
-crostab |> decoCrostab |> console.log
+console.log(decoCrostab(crostab))
 
 crostab.sideward.select([2019, 2014, 2000])
 crostab.headward.selectAs([
@@ -13,4 +13,4 @@ crostab.headward.selectAs([
   ['RUS', 'Russia']
 ])
 
-crostab |> decoCrostab |> console.log
+console.log(decoCrostab(crostab))

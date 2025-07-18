@@ -2,7 +2,7 @@
   "name": "@analyz/excel",
   "version": "0.1.1",
   "description": "Convert table to excel based on npm package 'xlsx'",
-   "type": "module",
+  "type": "module",
   "exports": "./index.js",
   "files": [
     "index.js"
@@ -25,7 +25,7 @@
     "xlsx": "^0.18.5"
   },
   "repository": {
-    "type": "git",
+   "type": "git",
     "url": "git+https://github.com/hoyeungw/analyz.git"
   },
   "keywords": [
