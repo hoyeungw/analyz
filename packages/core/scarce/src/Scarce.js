@@ -1,7 +1,7 @@
 import { oneself }            from '@ject/oneself'
 import { mapVal }             from '@vect/object-mapper'
 import { indexed, indexedTo } from '@vect/vector-mapper'
-import { List }               from './infrastructure/List'
+import { List }               from './infrastructure/List.js'
 
 export class Scarce {
   data

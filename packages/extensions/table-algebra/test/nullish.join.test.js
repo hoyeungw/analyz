@@ -1,7 +1,7 @@
 import { UNION }           from '@analyz/enum-join-modes'
 import { Table }           from '@analyz/table'
 import { decoTable, says } from '@spare/logger'
-import { tableJoin }       from '../src/tableJoin'
+import { tableJoin }       from '../src/tableJoin.js'
 
 
 function test() {

@@ -1,6 +1,6 @@
 import { says }     from '@spare/xr'
 import { gather }   from '@vect/vector-init'
-import { Flatward } from '../src/infrastructure/Flatward'
+import { Flatward } from '../src/infrastructure/Flatward.js'
 
 
 const crostab = Flatward.from({

@@ -3,8 +3,8 @@ import { decoCrostab, decoVector, says }                                     fro
 import { strategies }                                                        from '@valjoux/strategies'
 import { readFileSync }                                                      from 'fs'
 import { NaiveCsv }                                                          from 'naivecsv'
-import { indexed }                                                           from '../../src/indexed'
-import { parseCsvEdge, parseCsvFut, parseCsvIter, parseCsvMap, parseCsvReg } from '../candidates'
+import { indexed }                                                           from '../../src/indexed.js'
+import { parseCsvEdge, parseCsvFut, parseCsvIter, parseCsvMap, parseCsvReg } from '../candidates.js'
 
 const SRC = './packages/interop/csv/test/asset'
 const { lapse, result } = strategies({

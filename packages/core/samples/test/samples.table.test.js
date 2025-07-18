@@ -1,4 +1,4 @@
-import { Samples }                            from '../src/Samples'
+import { Samples }                            from '../src/Samples.js'
 import { decoCrostab, decoTable, decoVector } from '@spare/logger'
 import { says }                               from '@spare/xr'
 import { INCRE }                              from '@analys/enum-pivot-mode'

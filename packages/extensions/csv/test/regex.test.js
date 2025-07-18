@@ -1,5 +1,5 @@
 import { deco, says } from '@spare/logger'
-import { RegUtil }    from '../src/RegUtil'
+import { RegUtil }    from '../src/RegUtil.js'
 
 const regexNative = RegUtil.DEFAULT
 regexNative.source  |> deco  |> says['RegUtil.csv'].br('native')

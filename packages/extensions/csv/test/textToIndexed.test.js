@@ -1,6 +1,6 @@
 import { decoFlat, logger } from '@spare/logger'
 import { promises } from 'fs'
-import { indexed }  from '../src/indexed'
+import { indexed }  from '../src/indexed.js'
 
 const SRC = './packages/interop/csv/test/asset'
 

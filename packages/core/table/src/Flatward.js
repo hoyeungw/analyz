@@ -10,7 +10,7 @@ export class Flatward {
   static build(head, rows) { return new Flatward(head, rows) }
   static from(o = {}) { return new Flatward(o.head, o.rows) }
 
-  matrix() { return this.rowsIndexed() |> gather }
+  matrix() { return gather(this.rowsIndexed()) }
 
   * rowsIndexed() {
     yield this.head

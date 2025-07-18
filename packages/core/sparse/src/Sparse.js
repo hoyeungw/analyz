@@ -1,6 +1,6 @@
 import { Crostab }            from '@analyz/crostab'
 import { init, iso }          from '@vect/matrix-init'
-import { indexed, indexedTo } from './infrastructure/indexed'
+import { indexed, indexedTo } from './infrastructure/indexed.js'
 
 // only private field is allowed to be assigned to Sparse instance
 // public field is not allowed to be assigned to Sparse instance

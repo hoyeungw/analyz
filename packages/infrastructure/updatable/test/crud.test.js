@@ -1,7 +1,7 @@
 import { TableCollection } from '@foba/table'
 import { deco, decoTable } from '@spare/logger'
 import { says }            from '@spare/xr'
-import { YUpdatable }      from '../dist/index'
+import { YUpdatable }      from '../src/index.js'
 
 const table = TableCollection.TopBoxOffice
 

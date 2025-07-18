@@ -1,5 +1,5 @@
 import { decoCrostab, logger } from '@spare/logger'
-import { Crostab }             from '../src/Crostab'
+import { Crostab }             from '../src/Crostab.js'
 
 
 const crostab = Crostab.from({

@@ -1,5 +1,5 @@
 import { decoTable, logger } from '@spare/logger'
-import { Table }             from '../src/Table'
+import { Table }             from '../src/Table.js'
 
 
 const table = Table.from({

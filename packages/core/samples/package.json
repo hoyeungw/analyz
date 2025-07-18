@@ -2,14 +2,14 @@
   "name": "@analyz/samples",
   "version": "0.1.1",
   "description": "A samples",
-  "main": "./dist/index.cjs",
-  "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.cjs"
-  },
+   "type": "module",
+  "exports": "./index.js",
   "files": [
-    "dist"
+    "index.js"
   ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -18,14 +18,12 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/crostab": "^0.1.1",
-    "@analyz/table": "^0.1.1",
-    "@vect/matrix-init": "^0.7.16",
-    "@vect/matrix-mapper": "^0.7.15",
-    "@vect/object-index": "^0.7.16",
-    "@vect/object-mapper": "^0.7.16",
-    "@vect/object-select": "^0.7.15",
-    "@vect/vector-mapper": "^0.7.16"
+    "@analyz/crostab": "workspace:^",
+    "@analyz/table": "workspace:^",
+    "@vect/matrix-mapper": "^0.8.6",
+    "@vect/object-index": "^0.8.6",
+    "@vect/object-select": "^0.8.6",
+    "@vect/vector-mapper": "^0.8.6"
   },
   "repository": {
     "type": "git",

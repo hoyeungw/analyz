@@ -5,7 +5,7 @@ import { makeEmbedded }       from '@foba/util'
 import { Stat as SparseStat } from '@analyz/sparse'
 import { INCRE }              from '@analys/enum-pivot-mode'
 import { Samples }            from '@analyz/samples'
-import { samplesToTable }     from '../../src/tables-vs-samples'
+import { samplesToTable }     from '../../src/tables-vs-samples.js'
 import { tripletIndexed }     from '@vect/matrix-mapper'
 
 const samples = Samples.of(

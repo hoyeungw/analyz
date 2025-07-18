@@ -1,6 +1,6 @@
 import { Sparse }                           from '@analyz/sparse'
 import { deco, decoCrostab, logger }        from '@spare/logger'
-import { crostabToSparse, sparseToCrostab } from '../src/sparse-vs-crostab'
+import { crostabToSparse, sparseToCrostab } from '../src/sparse-vs-crostab.js'
 
 const coords = [
   ['A', 'b', 1],
@@ -19,9 +19,9 @@ const sparse = Sparse.gather(coords)
 
 const crostab = sparseToCrostab(sparse, '')
 
-crostab |> deco |> console.log
-crostab |> decoCrostab |> logger
+console.log(deco(crostab))
+logger(decoCrostab(crostab))
 
 const sparse2 = crostabToSparse(crostab, (x, y, v) => v)
 
-sparse2 |> deco |> console.log
+console.log(deco(sparse2))

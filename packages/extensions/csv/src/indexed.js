@@ -1,4 +1,4 @@
-import { RegUtil } from './RegUtil'
+import { RegUtil } from './RegUtil.js'
 
 /**
  *

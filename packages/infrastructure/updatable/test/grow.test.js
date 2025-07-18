@@ -1,6 +1,6 @@
 import { decoCrostab, logger } from '@spare/logger'
-import { XUpdatable }          from '../src/XUpdatable'
-import { YUpdatable }          from '../src/YUpdatable'
+import { XUpdatable }          from '../src/XUpdatable.js'
+import { YUpdatable }          from '../src/YUpdatable.js'
 
 const crostab = {
   side: ['A', 'B', 'C', 'D'],

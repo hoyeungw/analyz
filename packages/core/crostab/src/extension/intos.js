@@ -1,6 +1,6 @@
 import { List, Vast }     from '@analyz/list'
 import { nullish, valid } from '@typen/nullish'
-import { Crostat }        from './Crostat'
+import { Crostat }        from './Crostat.js'
 
 export class IntoList extends Crostat {
   constructor(fill = List.build) { super(fill) }

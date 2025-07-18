@@ -2,7 +2,7 @@ import { UNION }     from '@analyz/enum-join-modes'
 import { Table }     from '@analyz/table'
 import { decoTable } from '@spare/logger'
 import { says }      from '@spare/xr'
-import { merge }     from '../src/tableMerge'
+import { merge }     from '../src/tableMerge.js'
 
 const REGULAR = Table.from({
   head: ['glyph', 'reg.l', 'reg.r'],

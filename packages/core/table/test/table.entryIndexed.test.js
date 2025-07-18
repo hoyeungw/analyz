@@ -1,6 +1,6 @@
 import { TableCollection }                          from '@foba/table'
 import { deco, decoEntries, decoTable, decoVector } from '@spare/logger'
-import { Table }                                    from '../src/Table'
+import { Table }                                    from '../src/Table.js'
 
 export const table = TableCollection.FrontierEconomies |> Table.from
 table |> decoTable |> console.log

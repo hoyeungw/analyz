@@ -1,6 +1,6 @@
 import { Foba }            from '@foba/table'
 import { decoTable, says } from '@spare/logger'
-import { tableAcquire }    from '../src/merge'
+import { tableAcquire }    from '../src/merge.js'
 import { Table }           from '@analyz/table'
 import { IMMUTABLE }       from '@analyz/enum-mutabilities'
 

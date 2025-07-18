@@ -1,4 +1,4 @@
-import { RegUtil } from '../../src/RegUtil'
+import { RegUtil } from '../../src/RegUtil.js'
 
 export const parseCsvReg = (text, de = ',', qt = '"') => {
   const reg = RegUtil.csv(de, qt), dualQuote = RegUtil.quoteRep(qt), rows = []

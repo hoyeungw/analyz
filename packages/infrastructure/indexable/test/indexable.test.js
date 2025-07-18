@@ -1,5 +1,5 @@
 import { decoCrostab, logger } from '@spare/logger'
-import { ProxyFab }            from '../index'
+import { ProxyFab }            from '../index.js'
 
 const crostab = {
   side: ['A', 'B', 'C', 'D'],

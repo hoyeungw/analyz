@@ -1,5 +1,5 @@
-import { ProxyFab }                                                                                     from './ProxyFab'
-import { columns, columnsTo, entries, entriesTo, points, pointsTo, rows, rowsTo, triplets, tripletsTo } from './indexed'
+import { ProxyFab }                                                                                     from './ProxyFab.js'
+import { columns, columnsTo, entries, entriesTo, points, pointsTo, rows, rowsTo, triplets, tripletsTo } from './indexed.js'
 
 
 export class Matrix extends Array {

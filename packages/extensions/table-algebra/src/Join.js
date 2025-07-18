@@ -1,7 +1,7 @@
 import { width }                         from '@vect/matrix-index'
 import { difference, merge, merges }     from '@vect/vector-algebra'
 import { indexes, iso }                  from '@vect/vector-init'
-import { INTERSECT, LEFT, RIGHT, UNION } from './constants'
+import { INTERSECT, LEFT, RIGHT, UNION } from './constants.js'
 
 function isMatch(vecL, vecR, hi) {
   for (let i = 0; i < hi; i++) if (vecL[i] !== vecR[i]) return false

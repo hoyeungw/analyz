@@ -1,7 +1,7 @@
 import { nullish } from '@typen/nullish'
-import { Scarce }  from './Scarce'
-import { Vast }    from './infrastructure/Vast'
-import { List }    from './infrastructure/List'
+import { Scarce }  from './Scarce.js'
+import { Vast }    from './infrastructure/Vast.js'
+import { List }    from './infrastructure/List.js'
 
 
 export class IntoList extends Scarce {

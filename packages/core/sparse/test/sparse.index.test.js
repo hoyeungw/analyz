@@ -1,6 +1,6 @@
 import { deco, logger } from '@spare/logger'
 import { says }         from '@spare/xr'
-import { Sparse }       from '../src/Sparse'
+import { Sparse }       from '../src/Sparse.js'
 
 const points = [
   ['A', 'b', 1],

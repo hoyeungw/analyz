@@ -1,6 +1,6 @@
 import { Table }           from '@analyz/table'
 import { decoTable, says } from '@spare/logger'
-import { Algebra }         from '../src/Algebra'
+import { Algebra }         from '../src/Algebra.js'
 
 const table = Table.from({
   head: ['date', 'symbol', 'ast', 'liab', 'eqt'],

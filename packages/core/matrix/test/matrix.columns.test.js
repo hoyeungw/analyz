@@ -1,5 +1,5 @@
 import { deco, decoMatrix, logger } from '@spare/logger'
-import { Matrix }                   from '../src/Matrix'
+import { Matrix }                   from '../src/Matrix.js'
 
 const rows = [
   [1, 2, 3],

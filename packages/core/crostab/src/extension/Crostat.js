@@ -1,5 +1,5 @@
 import { mapper as matrixMapper } from '@vect/matrix-mapper'
-import { Crostab }                from '../Crostab'
+import { Crostab }                from '../Crostab.js'
 
 export class Crostat extends Crostab {
   /** @type {function} */ init = null

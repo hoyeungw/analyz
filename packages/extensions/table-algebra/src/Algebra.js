@@ -5,7 +5,7 @@ import { acquire, merge }             from '@vect/vector-algebra'
 import { fitRoll, rollTop }           from '@vect/vector-index'
 import { separate as separateVector } from '@vect/vector-select'
 import { mutazip, zipper }            from '@vect/vector-zipper'
-import { Join }                       from './Join'
+import { Join }                       from './Join.js'
 
 /** @typedef {{head:*[],rows:*[][]}} TableLike */
 
@@ -21,8 +21,8 @@ export class Algebra {
   static join(mode, keys, fill, verso, recto) {
     if (!recto?.head?.length || !recto?.rows?.length) return verso
     if (!verso?.head?.length || !verso?.rows?.length) return null
-    const indsL = keys.map(x => verso.head.indexOf(x))|> fitRoll,
-          indsR = keys.map(x => recto.head.indexOf(x))|> fitRoll
+    const indsL = fitRoll(keys.map(x => verso.head.indexOf(x))),
+          indsR = fitRoll(keys.map(x => recto.head.indexOf(x)))
     const headL = rollTop(verso.head.slice(), indsL), rowsL = verso.rows.map(row => rollTop(row?.slice(), indsL))
     const headR = rollTop(recto.head.slice(), indsR), rowsR = recto.rows.map(row => rollTop(row?.slice(), indsR))
     return Table.build(

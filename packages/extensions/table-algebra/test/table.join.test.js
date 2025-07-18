@@ -1,7 +1,7 @@
 import { INTERSECT, LEFT, RIGHT, UNION } from '@analyz/enum-join-modes'
 import { Table }                         from '@analyz/table'
 import { decoTable, says }               from '@spare/logger'
-import { Algebra }                       from '../src/Algebra'
+import { Algebra }                       from '../src/Algebra.js'
 
 const MODES = { INTERSECT, LEFT, RIGHT, UNION }
 const test = () => {

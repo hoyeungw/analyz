@@ -1,11 +1,15 @@
-import { readFile, utils, utils as XL, writeFile } from 'xlsx'
-import { indexed, mapKeyVal }                      from '@vect/object-mapper'
-import { csvToCrostab, csvToTable }                from '@analyz/csv'
-import { Worksheet }                               from './Worksheet'
+import xlsx, { utils as XL }        from 'xlsx'
+import { indexed, mapKeyVal }       from '@vect/object-mapper'
+import { csvToCrostab, csvToTable } from '@analyz/csv'
+import { Worksheet }                from './Worksheet.js'
 
 export class Workbook {
-  static read(filename, options) { return readFile(filename, options) }
-  static write(filename, workbook, options) { writeFile(workbook, filename, options) }
+  static read(filename, options) {
+    return xlsx.readFile(filename, options)
+  }
+  static write(filename, workbook, options) {
+    xlsx.writeFile(workbook, filename, options)
+  }
 
   static fromCrostab(crostab, sheetName) {
     const workbook = XL.book_new()
@@ -35,7 +39,7 @@ export class Crostabs {
   }
   static fromWorkbook(workbook) {
     const worksheets = workbook.Sheets
-    return mapKeyVal(worksheets, (name, sheet) => utils.sheet_to_csv(sheet) |> csvToCrostab)
+    return mapKeyVal(worksheets, (name, sheet) => csvToCrostab(XL.sheet_to_csv(sheet)))
   }
 }
 
@@ -45,6 +49,6 @@ export class Tables {
   }
   static fromWorkbook(workbook) {
     const worksheets = workbook.Sheets
-    return mapKeyVal(worksheets, (name, sheet) => utils.sheet_to_csv(sheet) |> csvToTable)
+    return mapKeyVal(worksheets, (name, sheet) => csvToTable(XL.sheet_to_csv(sheet)))
   }
 }

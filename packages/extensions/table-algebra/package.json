@@ -2,14 +2,14 @@
   "name": "@analyz/table-algebra",
   "version": "0.1.1",
   "description": "A cross-table analytics tool",
-  "main": "./dist/index.cjs",
-  "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.cjs"
-  },
+   "type": "module",
+  "exports": "./index.js",
   "files": [
-    "dist"
+    "index.js"
   ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -18,18 +18,15 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@analyz/mappable": "^0.1.1",
-    "@analyz/table": "^0.1.1",
-    "@aryth/comparer": "^0.6.8",
-    "@vect/columns-select": "^0.7.15",
-    "@vect/matrix-index": "^0.7.16",
-    "@vect/vector-algebra": "^0.7.16",
-    "@vect/vector-index": "^0.7.16",
-    "@vect/vector-init": "^0.7.16",
-    "@vect/vector-mapper": "^0.7.16",
-    "@vect/vector-select": "^0.7.15",
-    "@vect/vector-update": "^0.7.15",
-    "@vect/vector-zipper": "^0.7.16"
+    "@analyz/table": "workspace:^",
+    "@aryth/comparer": "^0.7.8",
+    "@vect/columns-select": "^0.8.6",
+    "@vect/matrix-index": "^0.8.6",
+    "@vect/vector-algebra": "^0.8.6",
+    "@vect/vector-index": "^0.8.6",
+    "@vect/vector-init": "^0.8.6",
+    "@vect/vector-select": "^0.8.6",
+    "@vect/vector-zipper": "^0.8.6"
   },
   "repository": {
     "type": "git",

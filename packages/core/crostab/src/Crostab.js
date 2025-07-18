@@ -3,7 +3,7 @@ import { transpose }                                      from '@vect/matrix-alg
 import { shallow }                                        from '@vect/matrix-init'
 import { mapper as mapperMatrix, mutate as mutateMatrix } from '@vect/matrix-mapper'
 import { mutate as mutateVector }                         from '@vect/vector-mapper'
-import { indexedOf }                                      from './infrastructure/indexed'
+import { indexedOf }                                      from './infrastructure/indexed.js'
 import { Headward, Sideward }                             from './infrastructure/ward.mixins'
 
 

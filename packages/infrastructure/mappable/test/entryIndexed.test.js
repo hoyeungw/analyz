@@ -1,8 +1,8 @@
 import { TableCollection } from '@foba/table'
 import { decoTable }       from '@spare/logger'
-import { YMappable }       from '../dist/index'
+import { YMappable }       from '../dist/index.js'
 // import { entryIndexed }    from '@vect/matrix-mapper'
-// import { YMappable }       from '../src/YMappable'
+// import { YMappable }       from '../src/YMappable.js'
 
 const table = TableCollection.BigMaAdjustedIndexes
 table |> decoTable |> console.log

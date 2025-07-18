@@ -2,14 +2,14 @@
   "name": "@analyz/list",
   "version": "0.1.1",
   "description": "A list",
-  "main": "./dist/index.cjs",
-  "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.cjs"
-  },
+   "type": "module",
+  "exports": "./index.js",
   "files": [
-    "dist"
+    "index.js"
   ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "publishConfig": {
     "access": "public"
   },

@@ -1,4 +1,4 @@
-import { Sparse } from '../Sparse'
+import { Sparse } from '../Sparse.js'
 
 export function transpose(sparse) {
   const target = new Sparse()

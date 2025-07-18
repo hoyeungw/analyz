@@ -2,7 +2,7 @@ import { indexed, indexedTo }                                             from '
 import { transpose }                                                      from '@vect/matrix-algebra'
 import { entryIndexed, entryIndexedTo, tripletIndexed, tripletIndexedTo } from '@vect/matrix-mapper'
 import { mutate as mutateVector }                                         from '@vect/vector-mapper'
-import { indexesOf }                                                      from './Labels'
+import { indexesOf }                                                      from './Labels.js'
 
 export class XMappable {
   side

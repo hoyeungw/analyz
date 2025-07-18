@@ -1,6 +1,6 @@
 import { decoCrostab }                               from '@spare/logger'
 import { ACCUM, AVERAGE, COUNT, FIRST, INCRE, LAST } from '@analys/enum-pivot-mode'
-import { Stat }                                      from '../src/extension/Stat'
+import { Stat }                                      from '../src/extension/Stat.js'
 import { says }                                      from '@spare/xr'
 
 const coords = [

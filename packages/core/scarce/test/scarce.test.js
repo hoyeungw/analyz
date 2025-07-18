@@ -1,5 +1,5 @@
 import { deco, logger } from '@spare/logger'
-import { Scarce }       from '../src/Scarce'
+import { Scarce }       from '../src/Scarce.js'
 
 const kvs = [
   ['a', 1],

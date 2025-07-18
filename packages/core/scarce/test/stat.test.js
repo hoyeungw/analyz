@@ -1,5 +1,5 @@
 import { AVERAGE, COUNT, INCRE } from '@analys/enum-pivot-mode'
-import { Stat }                  from '../src/Stat'
+import { Stat }                  from '../src/Stat.js'
 import { deco, logger }          from '@spare/logger'
 
 const kvs = [

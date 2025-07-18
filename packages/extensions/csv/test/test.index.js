@@ -1,7 +1,7 @@
 import { decoSamples, decoTable, DecoTable, decoVector, logger } from '@spare/logger'
 import { promises }                                              from 'fs'
 import ora          from 'ora'
-import { NaiveCsv } from './candidates/NaiveCsv'
+import { NaiveCsv } from './candidates/NaiveCsv.js'
 
 const spn = ora()
 const SRC = 'packages/naivecsv/test/assets/csv/simple.csv'
@@ -13,7 +13,7 @@ promises.readFile(SRC, 'utf-8').then(
     NaiveCsv.toTable(it)
       |> DecoTable({ read: x => x?.slice(0, 24), fullAngle: true })
       |> logger;
-    ({ head: [], rows: [[]] }) |> decoTable |> logger
+    logger(decoTable(({ head: [], rows: [[]] })))
   }
 )
 

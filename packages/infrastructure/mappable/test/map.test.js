@@ -1,6 +1,6 @@
 import { decoCrostab, logger } from '@spare/logger'
-import { XMappable }           from '../src/XMappable'
-import { YMappable }           from '../src/YMappable'
+import { XMappable }           from '../src/XMappable.js'
+import { YMappable }           from '../src/YMappable.js'
 
 
 const crostab = {

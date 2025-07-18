@@ -1,6 +1,6 @@
 import { decoCrostab } from '@spare/logger'
 import { says }        from '@spare/xr'
-import { Crostab }     from '../src/Crostab'
+import { Crostab }     from '../src/Crostab.js'
 
 const crostab = Crostab.build(
   ['@V1', '@X1', '@Z1', '@F1', '@L1', '@P1', '@T1'],

@@ -1,7 +1,7 @@
 import { CrostabCollection } from '@foba/crostab'
 import { TableCollection }   from '@foba/table'
 import { delogger }          from '@spare/logger'
-import { Workbook }          from '../index'
+import { Workbook }          from '../index.js'
 
 const testTables = async () => {
   const tableCollection = Object.assign({},

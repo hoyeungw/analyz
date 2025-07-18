@@ -1,7 +1,7 @@
 import { TableCollection } from '@foba/table'
 import { delogger }        from '@spare/logger'
 import xlsx                from 'xlsx'
-import { tableToWorkbook } from '../index'
+import { tableToWorkbook } from '../index.js'
 
 const test = async () => {
   const table = TableCollection.USTechFirms

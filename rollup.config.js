@@ -5,26 +5,29 @@ import { resolve }    from 'node:path'
 import { fileInfo }   from 'rollup-plugin-fileinfo'
 
 const BASE = resolve(process.cwd(), 'packages')
-const PROJECTS = await subFolders(BASE)
+const CATEGORIES = await subFolders(BASE)
 const tasks = {}
 
 console.info('Executing', BASE)
-console.info('Projects', PROJECTS)
 
-for await (const project of PROJECTS) {
-  const path = resolve(BASE, project)
-  const { dependencies } = JSON.parse(await readFile(resolve(path, 'package.json'), 'utf8'))
-  tasks[project] = {
-    input: resolve(path, 'src', 'index.js'),
-    output: {
-      file: resolve(path, 'index.js'),
-      format: 'esm',
-    },
-    external: Object.keys(dependencies ?? {}),
-    plugins: [
-      json(),
-      fileInfo(),
-    ],
+for await (const category of CATEGORIES) {
+  const projects = await subFolders(resolve(BASE, category))
+  for await (const name of projects) {
+    const path = resolve(BASE, category, name)
+    // tasks[name] = null
+    const { dependencies } = JSON.parse(await readFile(resolve(path, 'package.json'), 'utf8'))
+    tasks[name] = {
+      input: resolve(path, 'src', 'index.js'),
+      output: {
+        file: resolve(path, 'index.js'),
+        format: 'esm',
+      },
+      external: Object.keys(dependencies ?? {}),
+      plugins: [
+        json(),
+        fileInfo(),
+      ],
+    }
   }
 }
 

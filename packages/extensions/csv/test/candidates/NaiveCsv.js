@@ -1,9 +1,9 @@
 import { tableToSamples } from '@analyz/convert'
 import { transpose }      from '@vect/matrix-algebra'
 import { decode }         from 'iconv-lite'
-import { parseCsvMap }    from './parseCsvMap'
-import { parseCsvReg }    from './parseCsvReg'
-import { popBlank }       from './popBlank'
+import { parseCsvMap }    from './parseCsvMap.js'
+import { parseCsvReg }    from './parseCsvReg.js'
+import { popBlank }       from './popBlank.js'
 
 export class NaiveCsv {
   /**
@@ -30,10 +30,10 @@ export class NaiveCsv {
       ? parseCsvReg(csvText, de, qt)
       : parseCsvMap(csvText, de, lf)
     if (tp) mx = pb
-      ? mx|> popBlank |> transpose
-      : mx|> transpose
+      ? transpose(popBlank(mx))
+      : transpose(mx)
     return pb
-      ? mx|> popBlank
+      ? popBlank(mx)
       : mx
   }
 

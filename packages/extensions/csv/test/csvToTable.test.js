@@ -2,7 +2,7 @@ import { says }                               from '@spare/logger'
 import { decoCrostab, decoString, decoTable } from '@spare/logger'
 import { camelToSnake }                       from '@spare/phrasing'
 import { promises }                           from 'fs'
-import { csvToCrostab, csvToTable }           from '../index'
+import { csvToCrostab, csvToTable }           from '../index.js'
 
 const SRC = './packages/extensions/csv/test/asset'
 

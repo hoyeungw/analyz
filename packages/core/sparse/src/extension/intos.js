@@ -1,6 +1,6 @@
 import { List, Vast } from '@analyz/list'
 import { nullish }    from '@typen/nullish'
-import { Sparse }     from '../Sparse'
+import { Sparse }     from '../Sparse.js'
 
 
 export class IntoList extends Sparse {

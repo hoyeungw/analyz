@@ -1,5 +1,5 @@
 import { ACCUM, AVERAGE, COUNT, FIRST, INCRE, LAST, MAX, MIN }                              from '@analys/enum-pivot-mode'
-import { IntoAverage, IntoCount, IntoFirst, IntoLast, IntoList, IntoMax, IntoMin, IntoSum } from './intos'
+import { IntoAverage, IntoCount, IntoFirst, IntoLast, IntoList, IntoMax, IntoMin, IntoSum } from './intos.js'
 
 export class Stat {
   static of(mode) {
