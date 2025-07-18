@@ -1,35 +1,32 @@
 {
-  "name": "root",
+  "name": "analys",
   "private": true,
-  "workspaces": [
-    "packages/*/*"
-  ],
+  "version": "0.0.0",
+  "description": "cross-table analytics",
+  "keywords": [],
+  "author": "Xaylam",
+  "license": "MIT",
+  "type": "module",
   "scripts": {
-    "upint": "yarn upgrade-interactive",
-    "pub": "lerna publish --force-publish",
-    "build": "lerna exec --parallel --stream -- rollup -c ../../../rollup.config.mjs",
-    "watch": "lerna exec --parallel -- rollup -c ../../../rollup.config.mjs -w",
-    "build-spec": "lerna exec --scope=@analyz/grouped -- rollup -c ../../../rollup.config.mjs"
+    "upint": "pnpm up -i -r --latest",
+    "check": "pnpm outdated",
+    "chadd": "pnpm changeset add",
+    "ver": "pnpm changeset version",
+    "pub": "pnpm changeset publish",
+    "build": "rollup -c rollup.config.js",
+    "watch": "rollup -c rollup.config.js -w"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.10",
-    "@babel/plugin-proposal-pipeline-operator": "^7.18.9",
-    "@babel/preset-env": "^7.18.10",
-    "@babel/register": "^7.18.9",
-    "@babel/runtime": "^7.18.9",
+    "@acq/path": "^0.4.0",
     "@foba/crostab": "^0.5.7",
     "@foba/table": "^0.5.7",
     "@foba/util": "^0.5.7",
-    "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
     "@spare/logger": "^0.14.29",
     "@spare/translator": "^0.14.29",
     "@spare/xr": "^0.14.29",
     "@valjoux/strategies": "^0.3.19",
-    "lerna": "^5.4.3",
     "rollup": "^2.78.1",
     "rollup-plugin-fileinfo": "^0.3.4"
-  },
-  "packageManager": "yarn@3.2.1"
+  }
 }
