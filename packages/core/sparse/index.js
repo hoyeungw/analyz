@@ -108,6 +108,23 @@ function transpose(sparse) {
   return target
 }
 
+function updateCell(x, y, v) {
+  const row = this[x] ?? (this[x] = {});
+  row[y] = v;
+}
+
+function appendCell(x, y, v) {
+  const row = this[x] ?? (this[x] = {});
+  const cell = row[y] ?? (row[y] = []);
+  cell.push(v);
+}
+
+function assignCell(x, y, k, v) {
+  const row = this[x] ?? (this[x] = {});
+  const cell = row[y] ?? (row[y] = {});
+  cell[k] = v;
+}
+
 class IntoList extends Sparse {
   constructor(fill = List.build) { super(fill); }
   static build(fill) { return new IntoList(fill) }
@@ -199,4 +216,4 @@ class Stat {
   }
 }
 
-export { IntoAverage, IntoFirst, IntoLast, IntoList, IntoMax, IntoMin, IntoSum, Sparse, Stat, transpose };
+export { IntoAverage, IntoFirst, IntoLast, IntoList, IntoMax, IntoMin, IntoSum, Sparse, Stat, appendCell, assignCell, indexed, indexedBy, indexedOf, indexedTo, transpose, updateCell };

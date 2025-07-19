@@ -1,6 +1,6 @@
 {
   "name": "@analyz/scarce",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A scarce",
   "type": "module",
   "exports": "./index.js",
@@ -25,7 +25,7 @@
     "@vect/vector-mapper": "^0.8.6"
   },
   "repository": {
-   "type": "git",
+    "type": "git",
     "url": "git+https://github.com/hoyeungw/analyz.git"
   },
   "keywords": [

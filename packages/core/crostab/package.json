@@ -1,6 +1,6 @@
 {
   "name": "@analyz/crostab",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Table class that contains head and rows",
   "type": "module",
   "exports": "./index.js",
@@ -37,7 +37,7 @@
     "@vect/vector-init": "^0.8.6"
   },
   "repository": {
-   "type": "git",
+    "type": "git",
     "url": "git+https://github.com/hoyeungw/analyz.git"
   },
   "keywords": [

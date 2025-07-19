@@ -1,4 +1,6 @@
 export { Sparse }                                                                from './Sparse.js'
 export { transpose }                                                             from './infrastructure/algebra.js'
+export { indexedOf, indexedBy, indexedTo, indexed }                              from './infrastructure/indexed.js'
+export { updateCell, appendCell, assignCell }                                    from './infrastructure/update.js'
 export { Stat }                                                                  from './extension/Stat.js'
-export { IntoList, IntoAverage, IntoSum , IntoMax, IntoMin, IntoFirst, IntoLast } from './extension/intos.js'
+export { IntoList, IntoAverage, IntoSum, IntoMax, IntoMin, IntoFirst, IntoLast } from './extension/intos.js'

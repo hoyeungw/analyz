@@ -1,6 +1,6 @@
 {
   "name": "@analyz/csv",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Convert between table/crostab and csv",
   "type": "module",
   "exports": "./index.js",
@@ -28,7 +28,7 @@
     "iconv-lite": "^0.6.3"
   },
   "repository": {
-   "type": "git",
+    "type": "git",
     "url": "git+https://github.com/hoyeungw/analyz.git"
   },
   "keywords": [
